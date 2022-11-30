@@ -4,8 +4,6 @@
  */
 package model.repositories;
 
-import java.util.List;
-import java.util.Optional;
 import model.entities.User;
 
 /**
@@ -14,9 +12,4 @@ import model.entities.User;
  */
 public interface UserRepository extends BaseRepository<User, Long>{
     
-    List<User> search(String term);
-    
-    Optional<User> findByUsernameAndPassword(String username, String password);
-    
-    Optional<User> findByUsername(String username);
 }

@@ -20,8 +20,9 @@ public interface BaseRepository<CLASS, ID> {
      * Create new object being passed as a parameter 
      *
      * @param obj
+     * @return
      */
-    void create(CLASS obj);
+    Optional<CLASS> create(CLASS obj);
     
     /**
      * Returns all the entities
@@ -44,7 +45,7 @@ public interface BaseRepository<CLASS, ID> {
      * @param id
      * @return 
      */
-    Optional<CLASS> update(ID id);
+    Optional<CLASS> update(CLASS id);
     
     /**
      * Delete object by ID
@@ -52,5 +53,5 @@ public interface BaseRepository<CLASS, ID> {
      * @param id
      * @return 
      */
-    Optional<CLASS> deleteById(ID id);
+    Optional<CLASS> deleteById(CLASS id);
 }
