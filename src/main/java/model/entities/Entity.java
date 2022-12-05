@@ -4,6 +4,7 @@
  */
 package model.entities;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -13,7 +14,8 @@ import java.util.Objects;
 public abstract class Entity {
     private Long id;
     
-    private String name;
+    private LocalDate start;
+    private LocalDate modify;
 
     public Long getId() {
         return id;
@@ -23,19 +25,28 @@ public abstract class Entity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public LocalDate getStart() {
+        return start;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStart(LocalDate start) {
+        this.start = start;
+    }
+
+    public LocalDate getModify() {
+        return modify;
+    }
+
+    public void setModify(LocalDate modify) {
+        this.modify = modify;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.name);
+        hash = 67 * hash + Objects.hashCode(this.id);
+        hash = 67 * hash + Objects.hashCode(this.start);
+        hash = 67 * hash + Objects.hashCode(this.modify);
         return hash;
     }
 
@@ -51,10 +62,13 @@ public abstract class Entity {
             return false;
         }
         final Entity other = (Entity) obj;
-        if (!Objects.equals(this.name, other.name)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        return Objects.equals(this.id, other.id);
+        if (!Objects.equals(this.start, other.start)) {
+            return false;
+        }
+        return Objects.equals(this.modify, other.modify);
     }
 
     @Override
@@ -62,8 +76,11 @@ public abstract class Entity {
         StringBuilder sb = new StringBuilder();
         sb.append("Entity{");
         sb.append("id=").append(id);
-        sb.append(", name=").append(name);
+        sb.append(", origem=").append(start);
+        sb.append(", destino=").append(modify);
         sb.append('}');
         return sb.toString();
     }
+
+   
 }

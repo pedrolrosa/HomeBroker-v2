@@ -42,16 +42,16 @@ public interface BaseRepository<CLASS, ID> {
     /**
      * Update object by ID
      *
-     * @param id
+     * @param obj
      * @return 
      */
-    Optional<CLASS> update(CLASS id);
+    Optional<CLASS> update(CLASS obj);
     
     /**
      * Delete object by ID
      *
-     * @param id
+     * @param obj
      * @return 
      */
-    Optional<CLASS> deleteById(CLASS id);
+    Optional<CLASS> delete(CLASS obj);
 }

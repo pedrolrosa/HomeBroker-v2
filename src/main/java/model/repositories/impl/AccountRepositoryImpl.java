@@ -4,6 +4,7 @@
  */
 package model.repositories.impl;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,31 +16,27 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import model.database.ConnectionFactory;
-import model.entities.User;
-import model.enums.TypeUser;
-import model.repositories.UserRepository;
+import model.entities.Account;
+import model.repositories.AccountRepository;
 
 /**
  *
  * @author pedro
  */
-public class UserRepositoryImpl implements UserRepository{
+public class AccountRepositoryImpl implements AccountRepository{
     
     @Override
-    public Optional<User> create(User element){
-        String sql = "insert into users "
-                + "(name,cpf,addres,phone,login,password,type)" + " values (?,?,?,?,?,HASH('SHA256', ?),?)";
+    public Optional<Account> create(Account element){
+        String sql = "insert into accounts "
+                + "(owner, amount, limit, start, modify)" + " values (?,?,?,?,null)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
             
-            stmt.setString(1, element.getName());
-            stmt.setString(2, element.getCpf());
-            stmt.setString(3, element.getAddress());
-            stmt.setString(4, element.getPhone());
-            stmt.setString(5, element.getLogin());
-            stmt.setString(6, element.getPassword());
-            stmt.setString(7, element.getType().toString());
+            stmt.setLong(1, element.getOwner());
+            stmt.setBigDecimal(2, element.getAmount());
+            stmt.setDouble(3, element.getLimit());
+            stmt.setDate(4, java.sql.Date.valueOf(element.getStart()));
             
             stmt.execute();
             
@@ -52,10 +49,10 @@ public class UserRepositoryImpl implements UserRepository{
     }
     
     @Override
-    public List<User> read(){
-        String sql = "select * from users";
+    public List<Account> read(){
+        String sql = "select * from accounts";
 
-        List<User> users = new ArrayList<>();
+        List<Account> accounts = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
@@ -63,58 +60,45 @@ public class UserRepositoryImpl implements UserRepository{
 
             while (rs.next()) {
                 Long id = rs.getLong("id");
-                String name = rs.getString("nome");
-                String cpf = rs.getString("cpf");
-                String address = rs.getString("address");
-                String phone = rs.getString("phone");
-                String login = rs.getString("login");
-                String password = rs.getString("password");
-                String type = rs.getString("type");
+                Long owner = rs.getLong("owner");
+                BigDecimal amount = rs.getBigDecimal("amount");
+                Double limit = rs.getDouble("limit");
                 Date start = rs.getDate("start");
                 Date modify = rs.getDate("modify");
 
-                User user = new User();
-                user.setId(id);
-                user.setName(name);
-                user.setCpf(cpf);
-                user.setAddress(address);
-                user.setPhone(phone);
-                user.setLogin(login);
-                user.setPassword(password);
-                user.setType(TypeUser.valueOf(type));
-                user.setStart(LocalDate.ofInstant(start.toInstant(), ZoneId.systemDefault()));
-                user.setModify(LocalDate.ofInstant(modify.toInstant(), ZoneId.systemDefault()));
-                users.add(user);
+                Account account = new Account();
+                account.setId(id);
+                account.setOwner(owner);
+                account.setAmount(amount);
+                account.setLimit(limit);
+                account.setStart(LocalDate.ofInstant(start.toInstant(), ZoneId.systemDefault()));
+                account.setModify(LocalDate.ofInstant(modify.toInstant(), ZoneId.systemDefault()));
+                
+                accounts.add(account);
             }
         } catch (SQLException e) {
              throw new RuntimeException(e);
         }
 
-        return users;
+        return accounts;
     }
     
     @Override
-    public Optional<User> read(Long id){
+    public Optional<Account> read(Long id){
         
         return null;
         
     }
     
     @Override
-    public Optional<User> read(String name){
+    public Optional<Account> update(Account element){
         
-        return null;
-    }
-    
-    @Override
-    public Optional<User> update(User element){
-        
-        String sql = "update users set name = ? where id = ?";
+        String sql = "update accounts set limit = ? where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setString(1, element.getName());
+            stmt.setDouble(1, element.getLimit());
             stmt.setLong(2, element.getId());
             
             stmt.execute();
@@ -128,9 +112,9 @@ public class UserRepositoryImpl implements UserRepository{
     }
     
     @Override
-    public Optional<User> delete(User element){
+    public Optional<Account> delete(Account element){
         
-        String sql = "delete from users where id = ?";
+        String sql = "delete from accounts where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -145,5 +129,23 @@ public class UserRepositoryImpl implements UserRepository{
         }
         return Optional.ofNullable(element);
         
+    }
+    
+    @Override
+    public Optional<Account> deposit(Account current, BigDecimal value){
+        
+        return null;
+    }
+    
+    @Override 
+    public Optional<Account> withdraw(Account current, BigDecimal value){
+        
+        return null;
+    }
+    
+    @Override
+    public Optional<Account> transfer(Account current, Long idDestiny, BigDecimal value){
+        
+        return null;
     }
 }

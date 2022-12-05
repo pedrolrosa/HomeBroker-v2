@@ -12,6 +12,7 @@ import model.enums.TypeUser;
  * @author pedro
  */
 public class User extends Entity{
+    private String name;
     private String cpf;
     private String address;
     private String phone;
@@ -20,6 +21,14 @@ public class User extends Entity{
     private String password;
     
     private TypeUser type;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getCpf() {
         return cpf;
@@ -71,13 +80,14 @@ public class User extends Entity{
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 29 * hash + Objects.hashCode(this.cpf);
-        hash = 29 * hash + Objects.hashCode(this.address);
-        hash = 29 * hash + Objects.hashCode(this.phone);
-        hash = 29 * hash + Objects.hashCode(this.login);
-        hash = 29 * hash + Objects.hashCode(this.password);
-        hash = 29 * hash + Objects.hashCode(this.type);
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.name);
+        hash = 67 * hash + Objects.hashCode(this.cpf);
+        hash = 67 * hash + Objects.hashCode(this.address);
+        hash = 67 * hash + Objects.hashCode(this.phone);
+        hash = 67 * hash + Objects.hashCode(this.login);
+        hash = 67 * hash + Objects.hashCode(this.password);
+        hash = 67 * hash + Objects.hashCode(this.type);
         return hash;
     }
 
@@ -93,6 +103,9 @@ public class User extends Entity{
             return false;
         }
         final User other = (User) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
         if (!Objects.equals(this.cpf, other.cpf)) {
             return false;
         }
@@ -115,7 +128,8 @@ public class User extends Entity{
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("User{");
-        sb.append("cpf=").append(cpf);
+        sb.append("name=").append(name);
+        sb.append(", cpf=").append(cpf);
         sb.append(", address=").append(address);
         sb.append(", phone=").append(phone);
         sb.append(", login=").append(login);
@@ -124,4 +138,6 @@ public class User extends Entity{
         sb.append('}');
         return sb.toString();
     }
+
+    
 }

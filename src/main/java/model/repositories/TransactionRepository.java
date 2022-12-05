@@ -4,14 +4,15 @@
  */
 package model.repositories;
 
-import java.util.Optional;
-import model.entities.User;
+import java.util.Date;
+import java.util.List;
+import model.entities.Transaction;
 
 /**
  *
  * @author pedro
  */
-public interface UserRepository extends BaseRepository<User, Long>{
+public interface TransactionRepository extends BaseRepository<Transaction, Long>{
     
-    Optional<User> read(String name);
+    List<Transaction> read(Date start, Date end);
 }

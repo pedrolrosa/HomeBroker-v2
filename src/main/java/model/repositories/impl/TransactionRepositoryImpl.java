@@ -4,6 +4,7 @@
  */
 package model.repositories.impl;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,31 +16,30 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import model.database.ConnectionFactory;
-import model.entities.User;
-import model.enums.TypeUser;
-import model.repositories.UserRepository;
+import model.entities.Transaction;
+import model.enums.TypeTransaction;
+import model.repositories.TransactionRepository;
 
 /**
  *
  * @author pedro
  */
-public class UserRepositoryImpl implements UserRepository{
+public class TransactionRepositoryImpl implements TransactionRepository{
     
     @Override
-    public Optional<User> create(User element){
-        String sql = "insert into users "
-                + "(name,cpf,addres,phone,login,password,type)" + " values (?,?,?,?,?,HASH('SHA256', ?),?)";
+    public Optional<Transaction> create(Transaction element){
+        String sql = "insert into transactions "
+                + "(owner, destiny, type, description, value, start, modify)" + " values (?,?,?,?,?,?,?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
             
-            stmt.setString(1, element.getName());
-            stmt.setString(2, element.getCpf());
-            stmt.setString(3, element.getAddress());
-            stmt.setString(4, element.getPhone());
-            stmt.setString(5, element.getLogin());
-            stmt.setString(6, element.getPassword());
-            stmt.setString(7, element.getType().toString());
+            stmt.setLong(1, element.getOwner());
+            stmt.setLong(2, element.getDestiny());
+            stmt.setString(3, element.getType().toString());
+            stmt.setString(4, element.getDescription());
+            stmt.setBigDecimal(5, element.getValue());
+            stmt.setDate(4, java.sql.Date.valueOf(element.getStart()));
             
             stmt.execute();
             
@@ -52,10 +52,10 @@ public class UserRepositoryImpl implements UserRepository{
     }
     
     @Override
-    public List<User> read(){
-        String sql = "select * from users";
+    public List<Transaction> read(){
+        String sql = "select * from transactions";
 
-        List<User> users = new ArrayList<>();
+        List<Transaction> users = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
@@ -63,28 +63,25 @@ public class UserRepositoryImpl implements UserRepository{
 
             while (rs.next()) {
                 Long id = rs.getLong("id");
-                String name = rs.getString("nome");
-                String cpf = rs.getString("cpf");
-                String address = rs.getString("address");
-                String phone = rs.getString("phone");
-                String login = rs.getString("login");
-                String password = rs.getString("password");
+                Long owner = rs.getLong("owner");
+                Long destiny = rs.getLong("destiny");
                 String type = rs.getString("type");
+                String description = rs.getString("description");
+                BigDecimal value = rs.getBigDecimal("value");
                 Date start = rs.getDate("start");
                 Date modify = rs.getDate("modify");
 
-                User user = new User();
-                user.setId(id);
-                user.setName(name);
-                user.setCpf(cpf);
-                user.setAddress(address);
-                user.setPhone(phone);
-                user.setLogin(login);
-                user.setPassword(password);
-                user.setType(TypeUser.valueOf(type));
-                user.setStart(LocalDate.ofInstant(start.toInstant(), ZoneId.systemDefault()));
-                user.setModify(LocalDate.ofInstant(modify.toInstant(), ZoneId.systemDefault()));
-                users.add(user);
+                Transaction transaction = new Transaction();
+                transaction.setId(id);
+                transaction.setOwner(owner);
+                transaction.setDestiny(destiny);
+                transaction.setType(TypeTransaction.valueOf(type));
+                transaction.setDescription(description);
+                transaction.setValue(value);
+                transaction.setStart(LocalDate.ofInstant(start.toInstant(), ZoneId.systemDefault()));
+                transaction.setModify(LocalDate.ofInstant(modify.toInstant(), ZoneId.systemDefault()));
+                
+                users.add(transaction);
             }
         } catch (SQLException e) {
              throw new RuntimeException(e);
@@ -94,27 +91,27 @@ public class UserRepositoryImpl implements UserRepository{
     }
     
     @Override
-    public Optional<User> read(Long id){
+    public Optional<Transaction> read(Long id){
         
         return null;
         
     }
     
     @Override
-    public Optional<User> read(String name){
+    public List<Transaction> read(Date start, Date end){
         
         return null;
     }
     
     @Override
-    public Optional<User> update(User element){
+    public Optional<Transaction> update(Transaction element){
         
-        String sql = "update users set name = ? where id = ?";
+        String sql = "update transactions set description = ? where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setString(1, element.getName());
+            stmt.setString(1, element.getDescription());
             stmt.setLong(2, element.getId());
             
             stmt.execute();
@@ -128,9 +125,9 @@ public class UserRepositoryImpl implements UserRepository{
     }
     
     @Override
-    public Optional<User> delete(User element){
+    public Optional<Transaction> delete(Transaction element){
         
-        String sql = "delete from users where id = ?";
+        String sql = "delete from transactions where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
