@@ -1,6 +1,6 @@
 package control;
 
-import view.App;
+import view.LoginScreen;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,7 +14,7 @@ import view.App;
 public class Homebroker {
 
     public static void main(String[] args) {
-        App app = new App();
-        app.setVisible(true);
+        LoginScreen loginScreen = new LoginScreen();
+        loginScreen.setVisible(true);
     }
 }

@@ -13,5 +13,7 @@ import model.entities.User;
  */
 public interface UserRepository{
     
+    User authenticate(String login, String password);
+    
     Optional<User> searchName(String name);
 }

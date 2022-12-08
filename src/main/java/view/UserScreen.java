@@ -4,17 +4,25 @@
  */
 package view;
 
+import control.UserController;
+
 /**
  *
  * @author pedro
  */
-public class Account extends javax.swing.JFrame {
+public class UserScreen extends javax.swing.JFrame {
+    
+    private UserController userControl = new UserController();
 
     /**
      * Creates new form Account
      */
-    public Account() {
+    public UserScreen() {
         initComponents();
+    }
+    
+    public void setUserControl(UserController userControl){
+        this.userControl = userControl;
     }
 
     /**
@@ -27,20 +35,14 @@ public class Account extends javax.swing.JFrame {
     private void initComponents() {
 
         infoAccountPanel = new javax.swing.JPanel();
-        nameLabel = new javax.swing.JLabel();
-        cpfLabel = new javax.swing.JLabel();
-        addressLabel = new javax.swing.JLabel();
-        phoneLabel = new javax.swing.JLabel();
-        typeInLabel = new javax.swing.JScrollPane();
-        typeUserPanel = new javax.swing.JTextPane();
         nameInLabel = new javax.swing.JTextField();
         cpfInLabel = new javax.swing.JTextField();
         addressInLabel = new javax.swing.JTextField();
         phoneInLabel = new javax.swing.JTextField();
-        startLabel = new javax.swing.JLabel();
-        endLabel = new javax.swing.JLabel();
         startInLabel = new javax.swing.JTextField();
-        endInLabel = new javax.swing.JTextField();
+        modifyInLabel = new javax.swing.JTextField();
+        refreshButton = new javax.swing.JButton();
+        typeInLabel = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,13 +54,31 @@ public class Account extends javax.swing.JFrame {
 
         phoneLabel.setText("Phone:");
 
-        typeUserPanel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        typeUserPanel.setToolTipText("");
-        typeInLabel.setViewportView(typeUserPanel);
+        nameInLabel.setEditable(false);
+
+        cpfInLabel.setEditable(false);
+
+        addressInLabel.setEditable(false);
+
+        phoneInLabel.setEditable(false);
 
         startLabel.setText("Start");
 
-        endLabel.setText("End");
+        modifyLabel.setText("Modify");
+
+        startInLabel.setEditable(false);
+
+        modifyInLabel.setEditable(false);
+
+        refreshButton.setText("Refresh");
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshButtonActionPerformed(evt);
+            }
+        });
+
+        typeInLabel.setEditable(false);
+        typeInLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout infoAccountPanelLayout = new javax.swing.GroupLayout(infoAccountPanel);
         infoAccountPanel.setLayout(infoAccountPanelLayout);
@@ -67,37 +87,42 @@ public class Account extends javax.swing.JFrame {
             .addGroup(infoAccountPanelLayout.createSequentialGroup()
                 .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(addressLabel)
-                            .addComponent(phoneLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(phoneInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addressInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                            .addGap(34, 34, 34)
-                            .addComponent(nameLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(nameInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoAccountPanelLayout.createSequentialGroup()
-                            .addComponent(cpfLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cpfInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(64, 64, 64)
-                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                            .addComponent(startLabel)
-                            .addGap(40, 40, 40))
-                        .addComponent(startInLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(endLabel)
-                        .addComponent(endInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
-                .addComponent(typeInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                            .addGroup(infoAccountPanelLayout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(addressLabel)
+                                    .addComponent(phoneLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(phoneInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(addressInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(infoAccountPanelLayout.createSequentialGroup()
+                                    .addGap(34, 34, 34)
+                                    .addComponent(nameLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(nameInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoAccountPanelLayout.createSequentialGroup()
+                                    .addComponent(cpfLabel)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cpfInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(64, 64, 64)
+                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(infoAccountPanelLayout.createSequentialGroup()
+                                    .addComponent(startLabel)
+                                    .addGap(40, 40, 40))
+                                .addComponent(startInLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(modifyLabel)
+                                .addComponent(modifyInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(50, 50, 50)
+                        .addComponent(typeInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(infoAccountPanelLayout.createSequentialGroup()
+                        .addGap(261, 261, 261)
+                        .addComponent(refreshButton)))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         infoAccountPanelLayout.setVerticalGroup(
             infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,15 +148,17 @@ public class Account extends javax.swing.JFrame {
                     .addGroup(infoAccountPanelLayout.createSequentialGroup()
                         .addComponent(startLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(infoAccountPanelLayout.createSequentialGroup()
                                 .addComponent(startInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                                .addComponent(endLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(modifyLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(endInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(modifyInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(typeInLabel))))
-                .addGap(28, 28, 28))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(refreshButton)
+                .addGap(25, 25, 25))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -144,11 +171,24 @@ public class Account extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(infoAccountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 301, Short.MAX_VALUE))
+                .addGap(0, 159, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        
+        nameInLabel.setText(userControl.logued.getName());
+        cpfInLabel.setText(userControl.logued.getCpf());
+        addressInLabel.setText(userControl.logued.getAddress());
+        phoneInLabel.setText(userControl.logued.getPhone());
+        
+        startInLabel.setText(userControl.logued.getStart().toString());
+        modifyInLabel.setText(userControl.logued.getModify().toString());
+        
+        typeInLabel.setText(userControl.logued.getType().name());
+    }//GEN-LAST:event_refreshButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,39 +207,40 @@ public class Account extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Account.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Account.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Account.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Account.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UserScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Account().setVisible(true);
+                new UserScreen().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField addressInLabel;
-    private javax.swing.JLabel addressLabel;
+    private final javax.swing.JLabel addressLabel = new javax.swing.JLabel();
     private javax.swing.JTextField cpfInLabel;
-    private javax.swing.JLabel cpfLabel;
-    private javax.swing.JTextField endInLabel;
-    private javax.swing.JLabel endLabel;
+    private final javax.swing.JLabel cpfLabel = new javax.swing.JLabel();
     private javax.swing.JPanel infoAccountPanel;
+    private javax.swing.JTextField modifyInLabel;
+    private final javax.swing.JLabel modifyLabel = new javax.swing.JLabel();
     private javax.swing.JTextField nameInLabel;
-    private javax.swing.JLabel nameLabel;
+    private final javax.swing.JLabel nameLabel = new javax.swing.JLabel();
     private javax.swing.JTextField phoneInLabel;
-    private javax.swing.JLabel phoneLabel;
+    private final javax.swing.JLabel phoneLabel = new javax.swing.JLabel();
+    private javax.swing.JButton refreshButton;
     private javax.swing.JTextField startInLabel;
-    private javax.swing.JLabel startLabel;
-    private javax.swing.JScrollPane typeInLabel;
-    private javax.swing.JTextPane typeUserPanel;
+    private final javax.swing.JLabel startLabel = new javax.swing.JLabel();
+    private javax.swing.JTextField typeInLabel;
     // End of variables declaration//GEN-END:variables
 }

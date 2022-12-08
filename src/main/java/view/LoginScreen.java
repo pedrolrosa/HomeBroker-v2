@@ -4,19 +4,24 @@
  */
 package view;
 
+import control.UserController;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author pedro
  */
-public class App extends javax.swing.JFrame {
-
+public class LoginScreen extends javax.swing.JFrame {
+    
+    private UserController userControl = new UserController();
+    
     /**
      * Creates new form App
      */
-    public App() {
+    public LoginScreen() {
         initComponents();
+        
+        
     }
 
     /**
@@ -94,7 +99,7 @@ public class App extends javax.swing.JFrame {
                 .addComponent(formPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(25, 62, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(exitButton)
                 .addGap(202, 202, 202)
                 .addComponent(loginButton)
@@ -103,9 +108,9 @@ public class App extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(68, 68, 68)
+                .addGap(77, 77, 77)
                 .addComponent(formPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(loginButton)
                     .addComponent(exitButton))
@@ -117,12 +122,21 @@ public class App extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         
-        if(userField.getText().isEmpty() || String.valueOf(passwordField.getPassword()).equals("")){
+        String user = userField.getText();
+        String password = String.valueOf(passwordField.getPassword());
+        
+        if(user.isEmpty() || password.equals("")){
             JOptionPane.showInternalMessageDialog(null, "Field empty");
         } else {
+            if(userControl.login(user, password)){
+                UserScreen userScreen = new UserScreen();
+                userScreen.setUserControl(userControl);
+                userScreen.setVisible(true);
+            }
             
             userField.setText("");
             passwordField.setText("");
+            this.dispose();
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
@@ -147,8 +161,9 @@ public class App extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(App.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
         
         //</editor-fold>
@@ -156,7 +171,7 @@ public class App extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new App().setVisible(true);
+                new LoginScreen().setVisible(true);
             }
         });
     }
