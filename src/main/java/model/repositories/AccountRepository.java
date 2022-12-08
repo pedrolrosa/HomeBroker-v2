@@ -4,18 +4,17 @@
  */
 package model.repositories;
 import java.math.BigDecimal;
-import model.entities.Account;
 import java.util.Optional;
 
 /**
  *
  * @author pedro
  */
-public interface AccountRepository extends BaseRepository<Account, Long>{
+public interface AccountRepository{
     
-    Optional<Account> deposit(Account current, BigDecimal value);
+    Optional<BigDecimal> deposit(Long id, BigDecimal value);
     
-    Optional<Account> withdraw(Account current, BigDecimal value);
+    Optional<BigDecimal> withdraw(Long id, BigDecimal value);
     
-    Optional<Account> transfer(Account origin, Long destiny, BigDecimal value);
+    Optional<BigDecimal> transfer(Long id, Long destiny, BigDecimal value);
 }

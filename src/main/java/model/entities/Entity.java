@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author pedro
  */
-public abstract class Entity {
+abstract class Entity {
     private Long id;
     
     private LocalDate start;

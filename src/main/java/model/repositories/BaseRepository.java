@@ -11,47 +11,50 @@ import java.util.Optional;
  *
  * @param <CLASS> Param for class entities
  * @param <ID> Param for IDs
- * 
+ *
  * @author pedro
  */
 public interface BaseRepository<CLASS, ID> {
-    
+
     /**
-     * Create new object being passed as a parameter 
+     * Create new object being passed as a parameter
      *
      * @param obj
      * @return
      */
     Optional<CLASS> create(CLASS obj);
-    
+
     /**
      * Returns all the entities
      *
      * @return
      */
     List<CLASS> read();
-    
-    /**
-     * Returns entity for ID
-     *
-     * @param id
-     * @return
-     */
-    Optional<CLASS> read(ID id);
-    
+
     /**
      * Update object by ID
      *
      * @param obj
-     * @return 
+     * @return
      */
     Optional<CLASS> update(CLASS obj);
-    
+
     /**
      * Delete object by ID
      *
      * @param obj
-     * @return 
+     * @return
      */
     Optional<CLASS> delete(CLASS obj);
+
+    public interface Target<CLASS, ID> {
+
+        /**
+         * Delete object by ID
+         *
+         * @param id
+         * @return
+         */
+        CLASS target(ID id);
+    }
 }

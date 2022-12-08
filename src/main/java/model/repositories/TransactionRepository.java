@@ -12,7 +12,7 @@ import model.entities.Transaction;
  *
  * @author pedro
  */
-public interface TransactionRepository extends BaseRepository<Transaction, Long>{
+public interface TransactionRepository{
     
-    List<Transaction> read(Date start, Date end);
+    List<Transaction> serchPeriod(Date start, Date end);
 }

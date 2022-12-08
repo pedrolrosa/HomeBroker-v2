@@ -11,7 +11,7 @@ import model.entities.User;
  *
  * @author pedro
  */
-public interface UserRepository extends BaseRepository<User, Long>{
+public interface UserRepository{
     
-    Optional<User> read(String name);
+    Optional<User> searchName(String name);
 }

@@ -5,7 +5,6 @@
 package model.entities;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -18,6 +17,10 @@ public class Account extends Entity{
     private BigDecimal amount;
     private Double limit;
 
+    public Account() {
+        this.amount = BigDecimal.ZERO;
+    }
+
     public Long getOwner() {
         return owner;
     }
@@ -29,9 +32,17 @@ public class Account extends Entity{
     public BigDecimal getAmount() {
         return amount;
     }
-
-    public void setAmount(BigDecimal amount) {
+    
+    public void setAmount(BigDecimal amount){
         this.amount = amount;
+    }
+    
+    public void addAmount(Double value){
+        this.amount = this.amount.add(new BigDecimal(value));
+    }
+    
+    public void subAmount(Double value){
+        this.amount = this.amount.subtract(new BigDecimal(value));
     }
 
     public Double getLimit() {
