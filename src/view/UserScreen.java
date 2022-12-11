@@ -5,6 +5,8 @@
 package view;
 
 import control.UserController;
+import model.enums.TypeUser;
+import view.user.UserCreate;
 
 /**
  *
@@ -23,6 +25,12 @@ public class UserScreen extends javax.swing.JFrame {
     
     public void setUserControl(UserController userControl){
         this.userControl = userControl;
+        
+        if(userControl.logued.getType().equals(TypeUser.COMMOM)){
+            userMenuButton.setEnabled(false);
+            accountMenuButton.setEnabled(false);
+            assetMenuButton.setEnabled(false);
+        }
     }
 
     /**
@@ -44,6 +52,12 @@ public class UserScreen extends javax.swing.JFrame {
         startInLabel = new javax.swing.JTextField();
         modifyInLabel = new javax.swing.JTextField();
         vascoToken = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        userMenuButton = new javax.swing.JButton();
+        accountMenuButton = new javax.swing.JButton();
+        assetMenuButton = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,84 +102,135 @@ public class UserScreen extends javax.swing.JFrame {
             .addGroup(infoAccountPanelLayout.createSequentialGroup()
                 .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(addressLabel)
-                                    .addComponent(phoneLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(phoneInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(addressInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                                    .addGap(34, 34, 34)
-                                    .addComponent(nameLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(nameInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoAccountPanelLayout.createSequentialGroup()
-                                    .addComponent(cpfLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cpfInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(64, 64, 64)
+                        .addGap(24, 24, 24)
                         .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                                .addComponent(startLabel)
-                                .addGap(90, 90, 90))
-                            .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                                .addComponent(modifyLabel)
-                                .addGap(76, 76, 76))
-                            .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                                .addComponent(startInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(46, 46, 46))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, infoAccountPanelLayout.createSequentialGroup()
-                                .addComponent(modifyInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addComponent(typeInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(addressLabel)
+                            .addComponent(phoneLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(phoneInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addressInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(infoAccountPanelLayout.createSequentialGroup()
+                            .addGap(34, 34, 34)
+                            .addComponent(nameLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nameInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoAccountPanelLayout.createSequentialGroup()
+                            .addComponent(cpfLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cpfInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(64, 64, 64)
+                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                        .addGap(261, 261, 261)
-                        .addComponent(refreshButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(refreshButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(infoAccountPanelLayout.createSequentialGroup()
+                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(startLabel)
+                            .addGroup(infoAccountPanelLayout.createSequentialGroup()
+                                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(modifyLabel)
+                                    .addComponent(startInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(modifyInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(typeInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(25, 25, 25))))
         );
         infoAccountPanelLayout.setVerticalGroup(
             infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
                 .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(nameLabel)
-                            .addComponent(nameInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cpfInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cpfLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(addressInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(addressLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(phoneLabel)
-                            .addComponent(phoneInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(modifyInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                        .addComponent(startLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(16, 16, 16)
                         .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(infoAccountPanelLayout.createSequentialGroup()
+                                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nameLabel)
+                                    .addComponent(nameInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cpfInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cpfLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(addressInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(addressLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(phoneLabel)
+                                    .addComponent(phoneInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(modifyInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(infoAccountPanelLayout.createSequentialGroup()
+                                .addComponent(startLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(startInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(modifyLabel))
-                            .addComponent(typeInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                                .addComponent(modifyLabel))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoAccountPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(typeInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(refreshButton)
-                .addGap(25, 25, 25))
+                .addGap(17, 17, 17))
         );
 
         vascoToken.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         vascoToken.setText("all rigths reserved to vascoToken");
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
+        jButton1.setText("Acess Account");
+
+        userMenuButton.setText("User Menu");
+        userMenuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userMenuButtonActionPerformed(evt);
+            }
+        });
+
+        accountMenuButton.setText("Account Menu");
+
+        assetMenuButton.setText("Asset Menu");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(accountMenuButton)
+                        .addGap(128, 128, 128)
+                        .addComponent(jButton1))
+                    .addComponent(userMenuButton)
+                    .addComponent(assetMenuButton))
+                .addContainerGap(235, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(userMenuButton)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(accountMenuButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(assetMenuButton)
+                .addContainerGap())
+        );
+
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,16 +238,28 @@ public class UserScreen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(infoAccountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(218, 218, 218)
-                .addComponent(vascoToken)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(backButton)
+                        .addGap(176, 176, 176)
+                        .addComponent(vascoToken))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(infoAccountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
-                .addComponent(vascoToken))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(vascoToken)
+                    .addComponent(backButton))
+                .addGap(11, 11, 11))
         );
 
         pack();
@@ -202,6 +279,19 @@ public class UserScreen extends javax.swing.JFrame {
         
         typeInLabel.setText(userControl.logued.getType().name());
     }//GEN-LAST:event_refreshButtonActionPerformed
+
+    private void userMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuButtonActionPerformed
+        
+        UserCreate userCreate = new UserCreate();
+        userCreate.setUserControl(userControl);
+        userCreate.setVisible(true);
+    }//GEN-LAST:event_userMenuButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        LoginScreen loginScreen = new LoginScreen();
+        loginScreen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,11 +330,16 @@ public class UserScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton accountMenuButton;
     private javax.swing.JTextField addressInLabel;
     private final javax.swing.JLabel addressLabel = new javax.swing.JLabel();
+    private javax.swing.JButton assetMenuButton;
+    private javax.swing.JButton backButton;
     private javax.swing.JTextField cpfInLabel;
     private final javax.swing.JLabel cpfLabel = new javax.swing.JLabel();
     private javax.swing.JPanel infoAccountPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField modifyInLabel;
     private final javax.swing.JLabel modifyLabel = new javax.swing.JLabel();
     private javax.swing.JTextField nameInLabel;
@@ -255,6 +350,7 @@ public class UserScreen extends javax.swing.JFrame {
     private javax.swing.JTextField startInLabel;
     private final javax.swing.JLabel startLabel = new javax.swing.JLabel();
     private javax.swing.JTextField typeInLabel;
+    private javax.swing.JButton userMenuButton;
     private javax.swing.JLabel vascoToken;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,12 +9,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import model.database.ConnectionFactory;
@@ -31,7 +28,7 @@ public class UserImpl implements BaseRepository<User, Long>{
     @Override
     public Optional<User> create(User element){
         String sql = "insert into users "
-                + "(name,cpf,addres,phone,login,password,type, start)" + " values (?,?,?,?,?,?,?,?)";
+                + "(name,cpf,address,phone,login,password,type, start)" + " values (?,?,?,?,?,?,?,?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
