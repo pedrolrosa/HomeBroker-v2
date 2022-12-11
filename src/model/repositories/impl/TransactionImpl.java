@@ -9,10 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import model.database.ConnectionFactory;
@@ -39,7 +39,7 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
             stmt.setString(3, element.getType().toString());
             stmt.setString(4, element.getDescription());
             stmt.setBigDecimal(5, element.getValue());
-            stmt.setDate(4, java.sql.Date.valueOf(element.getStart()));
+            stmt.setTimestamp(6, Timestamp.valueOf(element.getStart()));
             
             stmt.execute();
             
@@ -68,8 +68,10 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
                 String type = rs.getString("type");
                 String description = rs.getString("description");
                 BigDecimal value = rs.getBigDecimal("value");
-                Date start = rs.getDate("start");
-                Date modify = rs.getDate("modify");
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
+                LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
+                LocalDateTime modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
 
                 Transaction transaction = new Transaction();
                 transaction.setId(id);
@@ -78,8 +80,8 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
                 transaction.setType(TypeTransaction.valueOf(type));
                 transaction.setDescription(description);
                 transaction.setValue(value);
-                transaction.setStart(LocalDate.ofInstant(start.toInstant(), ZoneId.systemDefault()));
-                transaction.setModify(LocalDate.ofInstant(modify.toInstant(), ZoneId.systemDefault()));
+                transaction.setStart(start);
+                transaction.setModify(modify);
                 
                 users.add(transaction);
             }

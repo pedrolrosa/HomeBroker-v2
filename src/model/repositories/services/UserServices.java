@@ -8,12 +8,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import model.database.ConnectionFactory;
-import model.entities.Account;
 import model.entities.User;
 import model.enums.TypeUser;
 import model.repositories.BaseRepository;
@@ -24,14 +22,48 @@ import model.repositories.impl.BaseImpl;
  *
  * @author pedro
  */
-public class UserServices extends BaseImpl implements UserRepository, BaseRepository.Target<Account, Long> {
+public class UserServices extends BaseImpl implements UserRepository, BaseRepository.Target<User, Long> {
 
     @Override
-    public Account target(Long id) {
-        try ( Connection connection = new ConnectionFactory().getConnection();  PreparedStatement stmt = createPreparedStatement("accounts", connection, id);  ResultSet rs = stmt.executeQuery()) {
+    public User target(Long code) {
+        try ( Connection connection = new ConnectionFactory().getConnection();  
+                PreparedStatement stmt = createPreparedStatement("users", connection, code);  
+                ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
+                
+                Long id = rs.getLong("id");
+                String name = rs.getString("name");
+                String cpf = rs.getString("cpf");
+                String address = rs.getString("address");
+                String phone = rs.getString("phone");
+                String login = rs.getString("login");
+                String password = rs.getString("password");
+                String type = rs.getString("type");
+                Long account = rs.getLong("account");
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
+                LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
+                LocalDateTime modify = null;
+                if(rs.getTimestamp("modify") != null){
+                    modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
+                }
+                
 
+                User user = new User();
+                user.setId(id);
+                user.setName(name);
+                user.setCpf(cpf);
+                user.setAddress(address);
+                user.setPhone(phone);
+                user.setLogin(login);
+                user.setPassword(password);
+                user.setType(TypeUser.valueOf(type));
+                user.setAccount(account);
+                user.setStart(start);
+                user.setModify(modify);
+                
+                return user;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -43,39 +75,26 @@ public class UserServices extends BaseImpl implements UserRepository, BaseReposi
     @Override
     public User authenticate(String login, String password) {
 
-        String sql = "select * from users where login = " + login + " and password = " + password;
+        String sql = "select id from users where login = ? and password = ?;";
 
-        try ( Connection connection = new ConnectionFactory().getConnection();  PreparedStatement stmt = connection.prepareStatement(sql);  ResultSet rs = stmt.executeQuery()) {
-
-            while (rs.next()) {
-                Long id = rs.getLong("id");
-                String name = rs.getString("nome");
-                String cpf = rs.getString("cpf");
-                String address = rs.getString("address");
-                String phone = rs.getString("phone");
-                String type = rs.getString("type");
-                Date start = rs.getDate("start");
-                Date modify = rs.getDate("modify");
-
-                User user = new User();
-                user.setId(id);
-                user.setName(name);
-                user.setCpf(cpf);
-                user.setAddress(address);
-                user.setPhone(phone);
-                user.setLogin(login);
-                user.setPassword(password);
-                user.setType(TypeUser.valueOf(type));
-                user.setStart(LocalDate.ofInstant(start.toInstant(), ZoneId.systemDefault()));
-                user.setModify(LocalDate.ofInstant(modify.toInstant(), ZoneId.systemDefault()));
-                
-                return user;
+        try ( Connection connection = new ConnectionFactory().getConnection();  
+                PreparedStatement stmt = connection.prepareStatement(sql);  
+                ) {
+            
+            stmt.setString(1, login);
+            stmt.setString(2, password);
+            
+            try(ResultSet rs = stmt.executeQuery()){
+                rs.next();
+                return target(rs.getLong("id"));
+            } catch(SQLException e) {
+                throw new RuntimeException(e);
             }
+            
+            
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
-
-        return null;
     }
 
     @Override

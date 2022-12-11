@@ -7,10 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import model.repositories.BaseRepository;
@@ -18,6 +15,8 @@ import model.entities.Assets;
 
 import model.database.ConnectionFactory;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -64,8 +63,10 @@ public class AssetsImpl implements BaseRepository<Assets, Long>{
                 String ticker = rs.getString("ticker");
                 int amount = rs.getInt("amount");
                 BigDecimal initialPrice = rs.getBigDecimal("initialPrice");
-                Date start = rs.getDate("start");
-                Date modify = rs.getDate("modify");
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
+                LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
+                LocalDateTime modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
 
                 Assets asset = new Assets();
                 asset.setId(id);
@@ -74,8 +75,8 @@ public class AssetsImpl implements BaseRepository<Assets, Long>{
                 asset.setAmount(amount);
                 asset.setInitialPrice(initialPrice);
                 
-                asset.setStart(LocalDate.ofInstant(start.toInstant(), ZoneId.systemDefault()));
-                asset.setModify(LocalDate.ofInstant(modify.toInstant(), ZoneId.systemDefault()));
+                asset.setStart(start);
+                asset.setModify(modify);
                 
                 assets.add(asset); 
             }

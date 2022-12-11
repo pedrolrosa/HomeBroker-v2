@@ -9,8 +9,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +38,7 @@ public class AccountImpl extends BaseImpl implements BaseRepository<Account, Lon
             stmt.setLong(1, element.getOwner());
             stmt.setBigDecimal(2, element.getAmount());
             stmt.setDouble(3, element.getMax());
-            stmt.setDate(4, java.sql.Date.valueOf(element.getStart()));
+            stmt.setTimestamp(4, Timestamp.valueOf(element.getStart()));
 
             stmt.execute();
 
@@ -59,17 +62,19 @@ public class AccountImpl extends BaseImpl implements BaseRepository<Account, Lon
                 Long id = rs.getLong("id");
                 Long owner = rs.getLong("owner");
                 BigDecimal amount = rs.getBigDecimal("amount");
-                Double limit = rs.getDouble("limit");
-                Date start = rs.getDate("start");
-                Date modify = rs.getDate("modify");
+                Double limit = rs.getDouble("max");
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
+                LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
+                LocalDateTime modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
 
                 Account account = new Account();
                 account.setId(id);
                 account.setOwner(owner);
                 account.setAmount(amount);
                 account.setMax(limit);
-                account.setStart(LocalDate.ofInstant(start.toInstant(), ZoneId.systemDefault()));
-                account.setModify(LocalDate.ofInstant(modify.toInstant(), ZoneId.systemDefault()));
+                account.setStart(start);
+                account.setModify(modify);
 
                 accounts.add(account);
             }

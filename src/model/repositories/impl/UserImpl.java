@@ -8,8 +8,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -40,7 +43,7 @@ public class UserImpl implements BaseRepository<User, Long>{
             stmt.setString(5, element.getLogin());
             stmt.setString(6, element.getPassword());
             stmt.setString(7, element.getType().toString());
-            stmt.setDate(8, java.sql.Date.valueOf(element.getStart()));
+            stmt.setTimestamp(8, Timestamp.valueOf(element.getStart()));
             
             stmt.execute();
             
@@ -72,8 +75,10 @@ public class UserImpl implements BaseRepository<User, Long>{
                 String password = rs.getString("password");
                 String type = rs.getString("type");
                 Long account = rs.getLong("account");
-                Date start = rs.getDate("start");
-                Date modify = rs.getDate("modify");
+                
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
+                LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
+                LocalDateTime modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
 
                 User user = new User();
                 user.setId(id);
@@ -85,8 +90,8 @@ public class UserImpl implements BaseRepository<User, Long>{
                 user.setPassword(password);
                 user.setType(TypeUser.valueOf(type));
                 user.setAccount(account);
-                user.setStart(LocalDate.ofInstant(start.toInstant(), ZoneId.systemDefault()));
-                user.setModify(LocalDate.ofInstant(modify.toInstant(), ZoneId.systemDefault()));
+                user.setStart(start);
+                user.setModify(modify);
                 users.add(user);
             }
         } catch (SQLException e) {

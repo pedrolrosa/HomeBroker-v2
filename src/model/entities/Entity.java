@@ -4,7 +4,7 @@
  */
 package model.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -14,8 +14,8 @@ import java.util.Objects;
 abstract class Entity {
     private Long id;
     
-    private LocalDate start;
-    private LocalDate modify;
+    private LocalDateTime start;
+    private LocalDateTime modify;
 
     public Long getId() {
         return id;
@@ -25,28 +25,28 @@ abstract class Entity {
         this.id = id;
     }
 
-    public LocalDate getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(LocalDate start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 
-    public LocalDate getModify() {
+    public LocalDateTime getModify() {
         return modify;
     }
 
-    public void setModify(LocalDate modify) {
+    public void setModify(LocalDateTime modify) {
         this.modify = modify;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.id);
-        hash = 67 * hash + Objects.hashCode(this.start);
-        hash = 67 * hash + Objects.hashCode(this.modify);
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.id);
+        hash = 71 * hash + Objects.hashCode(this.start);
+        hash = 71 * hash + Objects.hashCode(this.modify);
         return hash;
     }
 
@@ -76,11 +76,11 @@ abstract class Entity {
         StringBuilder sb = new StringBuilder();
         sb.append("Entity{");
         sb.append("id=").append(id);
-        sb.append(", origem=").append(start);
-        sb.append(", destino=").append(modify);
+        sb.append(", start=").append(start);
+        sb.append(", modify=").append(modify);
         sb.append('}');
         return sb.toString();
     }
 
-   
+    
 }
