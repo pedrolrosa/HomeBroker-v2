@@ -109,22 +109,20 @@ public class AssetsImpl implements BaseRepository<Assets, Long>{
     }
     
     @Override
-    public Optional<Assets> delete(Assets element){
+    public boolean delete(Long id){
         
         String sql = "delete from assets where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setLong(1, element.getId());
+            stmt.setLong(1, id);
             
             stmt.execute();
             
-            System.out.println("Elemento excluído com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(element);
-        
     }
 }

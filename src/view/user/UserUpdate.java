@@ -7,6 +7,7 @@ package view.user;
 import control.UserController;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.entities.User;
 import model.enums.TypeUser;
 
@@ -271,7 +272,11 @@ public class UserUpdate extends javax.swing.JFrame {
         
         user.setModify(LocalDateTime.now());
         
-        userControl.update(user);
+        if(userControl.update(user)){
+            JOptionPane.showMessageDialog(this, "Update Sucess !");
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed !");
+        }
     }//GEN-LAST:event_updateButtonActionPerformed
 
     private void idComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idComboBoxActionPerformed

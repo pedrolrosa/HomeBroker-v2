@@ -127,20 +127,21 @@ public class UserImpl implements BaseRepository<User, Long>{
     }
     
     @Override
-    public Optional<User> delete(User element){
+    public boolean delete(Long id){
         
         String sql = "delete from users where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setLong(1, element.getId());
+            stmt.setLong(1, id);
             
             stmt.execute();
+            
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(element);
         
     }
 }

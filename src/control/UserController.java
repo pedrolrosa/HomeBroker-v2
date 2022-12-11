@@ -56,4 +56,8 @@ public class UserController {
             return database.update(attempt).isPresent();
         }
     }
+    
+    public boolean delete(Long id){
+        return database.delete(id);
+    }
 }

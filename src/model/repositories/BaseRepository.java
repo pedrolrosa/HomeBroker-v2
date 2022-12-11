@@ -42,10 +42,10 @@ public interface BaseRepository<CLASS, ID> {
     /**
      * Delete object by ID
      *
-     * @param obj
-     * @return
+     * @param id
+     * @return 
      */
-    Optional<CLASS> delete(CLASS obj);
+    boolean delete(ID id);
 
     public interface Target<CLASS, ID> {
 

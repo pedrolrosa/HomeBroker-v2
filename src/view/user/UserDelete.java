@@ -5,6 +5,9 @@
 package view.user;
 
 import control.UserController;
+import java.util.List;
+import javax.swing.JOptionPane;
+import model.entities.User;
 
 /**
  *
@@ -16,6 +19,14 @@ public class UserDelete extends javax.swing.JFrame {
 
     public void setUserControl(UserController userControl) {
         this.userControl = userControl;
+        
+        List<User> users;
+        users = userControl.read();
+        
+        for(User user : users){
+            
+            idComboBox.addItem(String.valueOf(user.getId()));
+        }
     }
 
     /**
@@ -35,6 +46,10 @@ public class UserDelete extends javax.swing.JFrame {
     private void initComponents() {
 
         backButton = new javax.swing.JButton();
+        titleLabel = new javax.swing.JLabel();
+        idComboBox = new javax.swing.JComboBox<>();
+        idLabel = new javax.swing.JLabel();
+        deleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,19 +60,52 @@ public class UserDelete extends javax.swing.JFrame {
             }
         });
 
+        titleLabel.setText("Delete User");
+
+        idLabel.setText("ID:");
+
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(backButton)
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(16, 16, 16)
+                            .addComponent(backButton))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(171, 171, 171)
+                            .addComponent(titleLabel)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(deleteButton)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(idLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(idComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(262, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
+                .addComponent(titleLabel)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(idComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addComponent(deleteButton)
+                .addGap(17, 17, 17)
                 .addComponent(backButton)
                 .addGap(15, 15, 15))
         );
@@ -72,6 +120,21 @@ public class UserDelete extends javax.swing.JFrame {
         userMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        if(userControl.delete(Long.valueOf(idComboBox.getSelectedItem().toString()))){
+            JOptionPane.showMessageDialog(this,"Deleted Sucess!");
+            List<User> users;
+            users = userControl.read();
+
+            for(User user : users){
+
+                idComboBox.addItem(String.valueOf(user.getId()));
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,"Failed !");
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -110,5 +173,9 @@ public class UserDelete extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JComboBox<String> idComboBox;
+    private javax.swing.JLabel idLabel;
+    private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 }

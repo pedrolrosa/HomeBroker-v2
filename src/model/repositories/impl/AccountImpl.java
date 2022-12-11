@@ -10,12 +10,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import model.database.ConnectionFactory;
@@ -107,22 +104,20 @@ public class AccountImpl extends BaseImpl implements BaseRepository<Account, Lon
     }
 
     @Override
-    public Optional<Account> delete(Account element) {
+    public boolean delete(Long id) {
 
         String sql = "delete from accounts where id = ?";
 
         try ( Connection connection = new ConnectionFactory().getConnection();  PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setLong(1, element.getId());
+            stmt.setLong(1, id);
 
             stmt.execute();
 
-            System.out.println("Elemento excluído com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(element);
-
     }
 
 }

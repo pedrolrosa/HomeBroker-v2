@@ -114,22 +114,21 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
     }
     
     @Override
-    public Optional<Transaction> delete(Transaction element){
+    public boolean delete(Long id){
         
         String sql = "delete from transactions where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setLong(1, element.getId());
+            stmt.setLong(1, id);
             
             stmt.execute();
             
-            System.out.println("Elemento excluído com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(element);
         
     }
 }
