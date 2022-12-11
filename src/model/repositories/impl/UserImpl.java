@@ -28,7 +28,7 @@ public class UserImpl implements BaseRepository<User, Long>{
     @Override
     public Optional<User> create(User element){
         String sql = "insert into users "
-                + "(name,cpf,address,phone,login,password,type, start)" + " values (?,?,?,?,?,?,?,?)";
+                + "(name,cpf,address,phone,login,password,type,start)" + " values (?,?,?,?,?,?,?,?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -43,8 +43,6 @@ public class UserImpl implements BaseRepository<User, Long>{
             stmt.setTimestamp(8, Timestamp.valueOf(element.getStart()));
             
             stmt.execute();
-            
-            System.out.println("Elemento inserido com sucesso.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -64,7 +62,7 @@ public class UserImpl implements BaseRepository<User, Long>{
 
             while (rs.next()) {
                 Long id = rs.getLong("id");
-                String name = rs.getString("nome");
+                String name = rs.getString("name");
                 String cpf = rs.getString("cpf");
                 String address = rs.getString("address");
                 String phone = rs.getString("phone");
@@ -75,8 +73,11 @@ public class UserImpl implements BaseRepository<User, Long>{
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
                 LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
-                LocalDateTime modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
-
+                LocalDateTime modify = null;
+                if(rs.getTimestamp("modify") != null){
+                    modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
+                }
+                
                 User user = new User();
                 user.setId(id);
                 user.setName(name);
@@ -110,8 +111,6 @@ public class UserImpl implements BaseRepository<User, Long>{
             stmt.setLong(2, element.getId());
             
             stmt.execute();
-            
-            System.out.println("Elemento alterado com sucesso.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -130,8 +129,6 @@ public class UserImpl implements BaseRepository<User, Long>{
             stmt.setLong(1, element.getId());
             
             stmt.execute();
-            
-            System.out.println("Elemento excluído com sucesso.");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

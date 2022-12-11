@@ -7,6 +7,7 @@ package view;
 import control.UserController;
 import model.enums.TypeUser;
 import view.user.UserCreate;
+import view.user.UserMenu;
 
 /**
  *
@@ -282,9 +283,9 @@ public class UserScreen extends javax.swing.JFrame {
 
     private void userMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuButtonActionPerformed
         
-        UserCreate userCreate = new UserCreate();
-        userCreate.setUserControl(userControl);
-        userCreate.setVisible(true);
+        UserMenu userMenu = new UserMenu();
+        userMenu.setUserControl(userControl);
+        userMenu.setVisible(true);
     }//GEN-LAST:event_userMenuButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed

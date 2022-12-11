@@ -99,6 +99,24 @@ public class UserServices extends BaseImpl implements UserRepository, BaseReposi
 
     @Override
     public Optional<User> searchName(String name) {
-        return null;
+        String sql = "select id from users where name = ?;";
+
+        try ( Connection connection = new ConnectionFactory().getConnection();  
+                PreparedStatement stmt = connection.prepareStatement(sql);  
+                ) {
+            
+            stmt.setString(1, name);
+            
+            try(ResultSet rs = stmt.executeQuery()){
+                rs.next();
+                return Optional.ofNullable(target(rs.getLong("id")));
+            } catch(SQLException e) {
+                throw new RuntimeException(e);
+            }
+            
+            
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

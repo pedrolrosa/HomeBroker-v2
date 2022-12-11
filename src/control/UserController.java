@@ -4,6 +4,7 @@
  */
 package control;
 
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.User;
 import model.repositories.impl.UserImpl;
@@ -36,5 +37,9 @@ public class UserController {
         } else {
             return database.create(attempt).isPresent();
         }
+    }
+    
+    public List<User> read(){
+        return database.read();
     }
 }

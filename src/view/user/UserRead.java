@@ -4,17 +4,56 @@
  */
 package view.user;
 
+import control.UserController;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.entities.User;
+
 /**
  *
  * @author pedro
  */
 public class UserRead extends javax.swing.JFrame {
+    
+    private UserController userControl = new UserController();
+
+    public void setUserControl(UserController userControl) {
+        this.userControl = userControl;
+    }
 
     /**
      * Creates new form UserRead
      */
     public UserRead() {
         initComponents();
+        
+        DefaultTableModel model = (DefaultTableModel) usersTable.getModel();
+        model.setNumRows(0);
+        
+        Object columns[] = new Object[usersTable.getColumnCount()];
+        
+        List<User> users;
+        users = userControl.read();
+        
+        for(int i =0; i < users.size(); i++){
+            
+            User user = users.get(i);
+            
+            columns[0] = user.getId();
+            columns[1] = user.getName();
+            columns[2] = user.getCpf();
+            columns[3] = user.getAddress();
+            columns[4] = user.getPhone();
+            columns[5] = user.getLogin();
+            columns[6] = user.getPassword();
+            columns[7] = user.getType().name();
+            columns[8] = user.getAccount();
+            columns[9] = user.getStart();
+            columns[10] = user.getModify();
+            
+            model.addRow(columns);
+        }
+        
     }
 
     /**
@@ -26,21 +65,90 @@ public class UserRead extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        backButton = new javax.swing.JButton();
+        titleLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        usersTable = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+
+        titleLabel.setText("Read Users");
+
+        usersTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Name", "CPF", "Address", "Phone", "Login", "Password", "Type", "Account", "Start", "Modify"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(usersTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(427, 427, 427)
+                        .addComponent(titleLabel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(backButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(titleLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(backButton)
+                .addGap(17, 17, 17))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        
+        UserMenu userMenu = new UserMenu();
+        userMenu.setUserControl(userControl);
+        userMenu.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +186,9 @@ public class UserRead extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel titleLabel;
+    private javax.swing.JTable usersTable;
     // End of variables declaration//GEN-END:variables
 }
