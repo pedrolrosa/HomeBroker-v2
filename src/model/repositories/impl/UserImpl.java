@@ -102,13 +102,21 @@ public class UserImpl implements BaseRepository<User, Long>{
     @Override
     public Optional<User> update(User element){
         
-        String sql = "update users set name = ? where id = ?";
+        String sql = "update users set name = ?, cpf = ?, address = ?, phone = ?, login = ?, password = ?, type = ?, modify = ? where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, element.getName());
-            stmt.setLong(2, element.getId());
+            stmt.setString(2, element.getCpf());
+            stmt.setString(3, element.getAddress());
+            stmt.setString(4, element.getPhone());
+            stmt.setString(5, element.getLogin());
+            stmt.setString(6, element.getPassword());
+            stmt.setString(7, element.getType().toString());
+            stmt.setTimestamp(8, Timestamp.valueOf(element.getModify()));
+            
+            stmt.setLong(9, element.getId());
             
             stmt.execute();
         } catch (SQLException e) {

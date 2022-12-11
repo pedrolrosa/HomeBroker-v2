@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.User;
 import model.repositories.impl.UserImpl;
+import model.repositories.services.UserServices;
 
 /**
  *
@@ -18,6 +19,7 @@ public class UserController {
     public User logued;
     
     private UserImpl database = new UserImpl();
+    private UserServices databaseServices = new UserServices();
     
     public boolean login(String user, String password){
         User attempt = new User().authenticated(user, password);
@@ -27,6 +29,10 @@ public class UserController {
             this.logued = attempt;
             return true;
         }
+    }
+    
+    public User search(Long id){
+        return databaseServices.target(id);
     }
     
     public boolean create(User attempt){
@@ -40,5 +46,14 @@ public class UserController {
     
     public List<User> read(){
         return database.read();
+    }
+    
+    public boolean update(User attempt){
+        if(attempt == null){
+            JOptionPane.showMessageDialog(null, "Invalid Inserts");
+            return false;
+        } else {
+            return database.update(attempt).isPresent();
+        }
     }
 }

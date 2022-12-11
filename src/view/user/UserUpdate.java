@@ -5,6 +5,10 @@
 package view.user;
 
 import control.UserController;
+import java.time.LocalDateTime;
+import java.util.List;
+import model.entities.User;
+import model.enums.TypeUser;
 
 /**
  *
@@ -16,6 +20,14 @@ public class UserUpdate extends javax.swing.JFrame {
 
     public void setUserControl(UserController userControl) {
         this.userControl = userControl;
+        
+        List<User> users;
+        users = userControl.read();
+        
+        for(User user : users){
+            
+            idComboBox.addItem(String.valueOf(user.getId()));
+        }
     }
 
     /**
@@ -23,6 +35,7 @@ public class UserUpdate extends javax.swing.JFrame {
      */
     public UserUpdate() {
         initComponents();
+        updateButton.setEnabled(false);
     }
 
     /**
@@ -35,6 +48,25 @@ public class UserUpdate extends javax.swing.JFrame {
     private void initComponents() {
 
         backButton = new javax.swing.JButton();
+        idLabel = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        cpfLabel = new javax.swing.JLabel();
+        addressLabel = new javax.swing.JLabel();
+        phoneLabel = new javax.swing.JLabel();
+        typeLabel = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        searchButton = new javax.swing.JButton();
+        nameField = new javax.swing.JTextField();
+        idComboBox = new javax.swing.JComboBox<>();
+        cpfField = new javax.swing.JTextField();
+        addressField = new javax.swing.JTextField();
+        phoneField = new javax.swing.JTextField();
+        typeField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        loginField = new javax.swing.JTextField();
+        passwordField = new javax.swing.JTextField();
+        updateButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,21 +77,150 @@ public class UserUpdate extends javax.swing.JFrame {
             }
         });
 
+        idLabel.setText("ID:");
+
+        nameLabel.setText("Name:");
+
+        cpfLabel.setText("CPF:");
+
+        addressLabel.setText("Address:");
+
+        phoneLabel.setText("Phone:");
+
+        typeLabel.setText("Type:");
+
+        jLabel7.setText("Update User");
+
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
+        nameField.setEditable(false);
+
+        idComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idComboBoxActionPerformed(evt);
+            }
+        });
+
+        cpfField.setEditable(false);
+
+        addressField.setEditable(false);
+
+        phoneField.setEditable(false);
+
+        typeField.setEditable(false);
+
+        jLabel1.setText("Login:");
+
+        jLabel2.setText("Password:");
+
+        loginField.setEditable(false);
+
+        passwordField.setEditable(false);
+
+        updateButton.setText("Update");
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel7)
+                .addGap(209, 209, 209))
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(backButton)
-                .addContainerGap(308, Short.MAX_VALUE))
+                .addGap(141, 141, 141)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(addressLabel)
+                    .addComponent(nameLabel)
+                    .addComponent(cpfLabel)
+                    .addComponent(phoneLabel)
+                    .addComponent(typeLabel)
+                    .addComponent(idLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nameField)
+                    .addComponent(cpfField)
+                    .addComponent(addressField)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(idComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(searchButton))
+                    .addComponent(typeField)
+                    .addComponent(phoneField))
+                .addGap(159, 159, 159))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(backButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(171, 171, 171)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(loginField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(updateButton)
+                                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(258, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
+                .addComponent(jLabel7)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(idLabel)
+                    .addComponent(idComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameLabel)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cpfLabel)
+                    .addComponent(cpfField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addressLabel)
+                    .addComponent(addressField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phoneLabel)
+                    .addComponent(phoneField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(typeLabel)
+                    .addComponent(typeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(loginField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addComponent(updateButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(backButton)
-                .addGap(19, 19, 19))
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -72,6 +233,58 @@ public class UserUpdate extends javax.swing.JFrame {
         userMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        User selected = userControl.search(Long.valueOf(idComboBox.getSelectedItem().toString()));
+        
+        nameField.setText(selected.getName());
+        cpfField.setText(selected.getCpf());
+        addressField.setText(selected.getAddress());
+        phoneField.setText(selected.getPhone());
+        typeField.setText(selected.getType().name());
+        loginField.setText(selected.getLogin());
+        passwordField.setText(selected.getPassword());
+        
+        nameField.setEditable(true);
+        cpfField.setEditable(true);
+        addressField.setEditable(true);
+        phoneField.setEditable(true);
+        typeField.setEditable(true);
+        loginField.setEditable(true);
+        passwordField.setEditable(true);
+        
+        updateButton.setEnabled(true);
+    }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        
+        User user = new User();
+        
+        user.setId(Long.valueOf(idComboBox.getSelectedItem().toString()));
+        user.setName(nameField.getText());
+        user.setCpf(cpfField.getText());
+        user.setAddress(addressField.getText());
+        user.setPhone(phoneField.getText());
+        user.setType(TypeUser.valueOf(typeField.getText()));
+        user.setLogin(loginField.getText());
+        user.setPassword(passwordField.getText());
+        
+        user.setModify(LocalDateTime.now());
+        
+        userControl.update(user);
+    }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void idComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idComboBoxActionPerformed
+        nameField.setEditable(false);
+        cpfField.setEditable(false);
+        addressField.setEditable(false);
+        phoneField.setEditable(false);
+        typeField.setEditable(false);
+        loginField.setEditable(false);
+        passwordField.setEditable(false);
+        
+        updateButton.setEnabled(false);
+    }//GEN-LAST:event_idComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,6 +322,25 @@ public class UserUpdate extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField addressField;
+    private javax.swing.JLabel addressLabel;
     private javax.swing.JButton backButton;
+    private javax.swing.JTextField cpfField;
+    private javax.swing.JLabel cpfLabel;
+    private javax.swing.JComboBox<String> idComboBox;
+    private javax.swing.JLabel idLabel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JTextField loginField;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JTextField passwordField;
+    private javax.swing.JTextField phoneField;
+    private javax.swing.JLabel phoneLabel;
+    private javax.swing.JButton searchButton;
+    private javax.swing.JTextField typeField;
+    private javax.swing.JLabel typeLabel;
+    private javax.swing.JButton updateButton;
     // End of variables declaration//GEN-END:variables
 }
