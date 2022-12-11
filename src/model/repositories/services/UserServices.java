@@ -85,10 +85,12 @@ public class UserServices extends BaseImpl implements UserRepository, BaseReposi
             stmt.setString(2, password);
             
             try(ResultSet rs = stmt.executeQuery()){
-                rs.next();
-                return target(rs.getLong("id"));
+                if(rs.next()){
+                    return target(rs.getLong("id"));
+                }
+                return null;                
             } catch(SQLException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage());
             }
             
             

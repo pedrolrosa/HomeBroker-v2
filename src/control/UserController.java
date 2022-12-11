@@ -22,7 +22,6 @@ public class UserController {
     public boolean login(String user, String password){
         User attempt = new User().authenticated(user, password);
         if(attempt == null){
-            JOptionPane.showMessageDialog(null, "User Not Found");
             return false;
         } else {
             this.logued = attempt;

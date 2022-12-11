@@ -144,17 +144,19 @@ public class LoginScreen extends javax.swing.JFrame {
         System.out.println(user + password);
         
         if(user.isEmpty() || password.equals("")){
-            JOptionPane.showInternalMessageDialog(null, "Field empty");
+            JOptionPane.showInternalMessageDialog(null, "Field empty !");
         } else {
             if(userControl.login(user, password)){
                 UserScreen userScreen = new UserScreen();
                 userScreen.setUserControl(userControl);
                 userScreen.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "User not found !");
             }
             
             userField.setText("");
             passwordField.setText("");
-            this.dispose();
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 

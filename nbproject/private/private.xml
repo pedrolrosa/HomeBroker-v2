@@ -12,7 +12,9 @@
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserRead.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/services/UserServices.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/database/ConnectionFactory.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserMenu.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserCreate.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/services/AccountServices.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/User.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/TransactionImpl.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserUpdate.java</file>
