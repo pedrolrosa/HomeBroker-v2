@@ -23,12 +23,15 @@ public class UserController {
     
     public boolean login(String user, String password){
         User attempt = new User().authenticated(user, password);
-        if(attempt == null){
-            return false;
-        } else {
+        if(attempt != null){
             this.logued = attempt;
             return true;
-        }
+        } 
+        return false;
+    }
+    
+    public boolean coupling(Long account, Long id){
+        return databaseServices.coupling(account, id);
     }
     
     public User search(Long id){
@@ -37,7 +40,6 @@ public class UserController {
     
     public boolean create(User attempt){
         if(attempt == null){
-            JOptionPane.showMessageDialog(null, "Invalid Inserts");
             return false;
         } else {
             return database.create(attempt).isPresent();
@@ -50,7 +52,6 @@ public class UserController {
     
     public boolean update(User attempt){
         if(attempt == null){
-            JOptionPane.showMessageDialog(null, "Invalid Inserts");
             return false;
         } else {
             return database.update(attempt).isPresent();

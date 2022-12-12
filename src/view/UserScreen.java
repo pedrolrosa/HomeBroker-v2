@@ -4,10 +4,11 @@
  */
 package view;
 
+import control.AccountController;
 import control.UserController;
+import javax.swing.JOptionPane;
 import model.enums.TypeUser;
 import view.account.AccountMenu;
-import view.user.UserCreate;
 import view.user.UserMenu;
 
 /**
@@ -17,6 +18,8 @@ import view.user.UserMenu;
 public class UserScreen extends javax.swing.JFrame {
     
     private UserController userControl = new UserController();
+    
+    private AccountController accountControl = new AccountController();
 
     /**
      * Creates new form Account
@@ -33,6 +36,29 @@ public class UserScreen extends javax.swing.JFrame {
             accountMenuButton.setEnabled(false);
             assetMenuButton.setEnabled(false);
         }
+        
+        if(accountControl.current == null){
+            if(!(accountControl.acess(userControl.logued.getAccount()))){
+                if(JOptionPane.showConfirmDialog(this,"User does not have an account, do you want to create one?") ==  JOptionPane.YES_OPTION){
+
+                    if(accountControl.create(userControl.logued.getId())){
+                        
+                        if(accountControl.acess(userControl.logued.getId())){
+                            userControl.coupling(accountControl.current.getId(), userControl.logued.getId());
+                            JOptionPane.showMessageDialog(this, "Create Sucess !");
+                            acessAccountButton.setEnabled(true);
+                        }
+                        
+                    } else {
+                        acessAccountButton.setEnabled(false);
+                    }
+                } else {
+                    acessAccountButton.setEnabled(false);
+                }
+            }
+        }
+        
+        
     }
 
     /**
@@ -55,7 +81,7 @@ public class UserScreen extends javax.swing.JFrame {
         modifyInLabel = new javax.swing.JTextField();
         vascoToken = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        acessAccountButton = new javax.swing.JButton();
         userMenuButton = new javax.swing.JButton();
         accountMenuButton = new javax.swing.JButton();
         assetMenuButton = new javax.swing.JButton();
@@ -183,7 +209,12 @@ public class UserScreen extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jButton1.setText("Acess Account");
+        acessAccountButton.setText("Acess Account");
+        acessAccountButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acessAccountButtonActionPerformed(evt);
+            }
+        });
 
         userMenuButton.setText("User Menu");
         userMenuButton.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +244,7 @@ public class UserScreen extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(accountMenuButton)
                         .addGap(88, 88, 88)
-                        .addComponent(jButton1)))
+                        .addComponent(acessAccountButton)))
                 .addContainerGap(145, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -224,7 +255,7 @@ public class UserScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(accountMenuButton)
-                    .addComponent(jButton1))
+                    .addComponent(acessAccountButton))
                 .addGap(46, 46, 46)
                 .addComponent(assetMenuButton)
                 .addContainerGap())
@@ -315,6 +346,12 @@ public class UserScreen extends javax.swing.JFrame {
         accountScreen.setVisible(true);
     }//GEN-LAST:event_accountMenuButtonActionPerformed
 
+    private void acessAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acessAccountButtonActionPerformed
+        AcessAccountScreen acessAccountScreen = new AcessAccountScreen();
+        acessAccountScreen.setName(userControl.logued.getName());
+        acessAccountScreen.setAccountControl(accountControl);
+    }//GEN-LAST:event_acessAccountButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -353,6 +390,7 @@ public class UserScreen extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accountMenuButton;
+    private javax.swing.JButton acessAccountButton;
     private javax.swing.JTextField addressInLabel;
     private final javax.swing.JLabel addressLabel = new javax.swing.JLabel();
     private javax.swing.JButton assetMenuButton;
@@ -360,7 +398,6 @@ public class UserScreen extends javax.swing.JFrame {
     private javax.swing.JTextField cpfInLabel;
     private final javax.swing.JLabel cpfLabel = new javax.swing.JLabel();
     private javax.swing.JPanel infoAccountPanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField modifyInLabel;

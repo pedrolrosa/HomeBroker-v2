@@ -5,12 +5,15 @@
 package model.repositories;
 import java.math.BigDecimal;
 import java.util.Optional;
+import model.entities.Account;
 
 /**
  *
  * @author pedro
  */
 public interface AccountRepository{
+    
+    Account acess(Long id);
     
     Optional<BigDecimal> deposit(Long id, BigDecimal value);
     

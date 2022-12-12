@@ -144,7 +144,7 @@ public class LoginScreen extends javax.swing.JFrame {
         System.out.println(user + password);
         
         if(user.isEmpty() || password.equals("")){
-            JOptionPane.showInternalMessageDialog(null, "Field empty !");
+            JOptionPane.showInternalMessageDialog(this, "Field empty !");
         } else {
             if(userControl.login(user, password)){
                 UserScreen userScreen = new UserScreen();

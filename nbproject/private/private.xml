@@ -4,7 +4,7 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/UserImpl.java</file>
-            <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/AccountsScreen.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/account/AccountMenu.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/Entity.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/AssetsImpl.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/BaseImpl.java</file>
@@ -18,9 +18,11 @@
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/User.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/TransactionImpl.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserUpdate.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/BaseRepository.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/LoginScreen.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserDelete.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/UserController.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/UserRepository.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/UserScreen.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/enums/TypeUser.java</file>
         </group>

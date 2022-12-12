@@ -71,6 +71,25 @@ public class UserServices extends BaseImpl implements UserRepository, BaseReposi
 
         return null;
     }
+    
+    @Override
+    public boolean coupling(Long account, Long id){
+        String sql = "update users set account = ? where id = ?";
+
+        try ( Connection connection = new ConnectionFactory().getConnection();  
+              PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setLong(1, account);
+            stmt.setLong(2, id);
+
+            stmt.execute();
+
+            System.out.println("Elemento alterado com sucesso.");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
 
     @Override
     public User authenticate(String login, String password) {
@@ -110,10 +129,12 @@ public class UserServices extends BaseImpl implements UserRepository, BaseReposi
             stmt.setString(1, name);
             
             try(ResultSet rs = stmt.executeQuery()){
-                rs.next();
-                return Optional.ofNullable(target(rs.getLong("id")));
+                if(rs.next()){
+                    return Optional.ofNullable(target(rs.getLong("id")));
+                }
+                return null;                
             } catch(SQLException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException(e.getMessage());
             }
             
             

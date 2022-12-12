@@ -13,6 +13,8 @@ import model.entities.User;
  */
 public interface UserRepository{
     
+    boolean coupling(Long account, Long id);
+    
     User authenticate(String login, String password);
     
     Optional<User> searchName(String name);

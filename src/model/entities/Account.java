@@ -6,6 +6,7 @@ package model.entities;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import model.repositories.services.AccountServices;
 
 /**
  *
@@ -51,6 +52,10 @@ public class Account extends Entity{
 
     public void setMax(Double max) {
         this.max = max;
+    }
+    
+    public Account acess(Long id){
+        return new AccountServices().acess(id);
     }
 
     @Override
