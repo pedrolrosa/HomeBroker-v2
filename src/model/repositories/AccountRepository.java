@@ -19,5 +19,5 @@ public interface AccountRepository{
     
     boolean withdraw(Long id, BigDecimal value);
     
-    boolean transfer(Long id, Long destiny, BigDecimal value);
+    boolean transfer(Long id, Long destiny, BigDecimal origin, BigDecimal dest);
 }

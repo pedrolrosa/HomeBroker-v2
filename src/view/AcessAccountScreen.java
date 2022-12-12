@@ -190,6 +190,11 @@ public class AcessAccountScreen extends javax.swing.JFrame {
         });
 
         transferButton.setText("Transfer");
+        transferButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transferButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -261,6 +266,14 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Failed !");
         }
     }//GEN-LAST:event_withdrawButtonActionPerformed
+
+    private void transferButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferButtonActionPerformed
+        if(accountControl.transfer(accountControl.current.getId(), Long.valueOf(JOptionPane.showInputDialog(this, "Destiny ID : ")), new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+            JOptionPane.showMessageDialog(this,"Transfer Sucess !");
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed !");
+        }
+    }//GEN-LAST:event_transferButtonActionPerformed
 
     /**
      * @param args the command line arguments

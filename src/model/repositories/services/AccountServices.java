@@ -120,7 +120,29 @@ public class AccountServices extends BaseImpl implements AccountRepository, Base
     }
 
     @Override
-    public boolean transfer(Long id, Long destiny, BigDecimal value) {
-        return false;
+    public boolean transfer(Long id, Long destiny, BigDecimal origin, BigDecimal dest) {
+        String sql = "update accounts set amount = ? where id = ?";
+        try ( Connection connection = new ConnectionFactory().getConnection();  
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setBigDecimal(1, origin);
+            stmt.setLong(2, id);
+            
+            stmt.execute();
+            
+            try(PreparedStatement stmtB = connection.prepareStatement(sql)){
+                
+                stmtB.setBigDecimal(1, dest);
+                stmtB.setLong(2, destiny);
+
+                stmtB.execute();
+            } catch(SQLException e){
+                throw new RuntimeException(e.getMessage());
+            }
+
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

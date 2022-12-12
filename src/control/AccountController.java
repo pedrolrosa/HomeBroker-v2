@@ -34,6 +34,10 @@ public class AccountController {
         current =  databaseServices.target(current.getId());
     }
     
+    public Account search(Long id){
+        return databaseServices.target(id);
+    }
+    
     public boolean acess(Long owner){
         Account attempt = new Account().acess(owner);
         
@@ -65,6 +69,17 @@ public class AccountController {
     }
     
     public boolean withdraw(Long id, BigDecimal value){
-        return new Account().withdraw(id, this.current.subAmount(value));
+        if(this.current.getAmount().compareTo(value) >= 0){
+            return new Account().withdraw(id, this.current.subAmount(value));
+        } return false;
+    }
+    
+    public boolean transfer(Long id, Long destiny, BigDecimal value){
+        Account accountDestiny = this.search(destiny);
+        if(accountDestiny != null){
+            return new Account().transfer(id, destiny, current.subAmount(value), accountDestiny.addAmount(value));
+        } else {
+            return false;
+        }        
     }
 }

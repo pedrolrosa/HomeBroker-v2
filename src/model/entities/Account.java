@@ -68,6 +68,10 @@ public class Account extends Entity{
     public boolean withdraw(Long id, BigDecimal value){
         return new AccountServices().withdraw(id, value);
     }
+    
+    public boolean transfer(Long id, Long destiny, BigDecimal origin, BigDecimal dest){
+        return new AccountServices().transfer(id, destiny, origin, dest);
+    }
 
 
     @Override
