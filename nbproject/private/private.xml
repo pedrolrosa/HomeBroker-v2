@@ -4,12 +4,16 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/Account.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/TransactionController.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/AssetsImpl.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/services/TransactionServices.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/BaseImpl.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/transaction/TransactionDelete.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/Homebroker.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserRead.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/services/UserServices.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/database/ConnectionFactory.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/TransactionRepository.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/services/AccountServices.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserUpdate.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/BaseRepository.java</file>
@@ -17,18 +21,23 @@
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/UserController.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/UserRepository.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/UserScreen.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/transaction/TransactionMenu.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/UserImpl.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/account/AccountMenu.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/AccountController.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/Entity.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/transaction/TransactionRead.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/AccountImpl.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/AccountRepository.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/AssetsController.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserMenu.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserCreate.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/AcessAccountScreen.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/User.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/TransactionImpl.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserDelete.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/transaction/TransactionUpdate.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/acess/AcessAccountHistory.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/Transaction.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/enums/TypeUser.java</file>
         </group>
