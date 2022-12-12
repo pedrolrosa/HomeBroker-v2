@@ -30,6 +30,10 @@ public class UserController {
         return false;
     }
     
+    public void refresh(){
+        logued =  databaseServices.target(logued.getId());
+    }
+    
     public boolean coupling(Long account, Long id){
         return databaseServices.coupling(account, id);
     }

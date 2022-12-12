@@ -30,6 +30,10 @@ public class AccountController {
         this.name = name;
     }
     
+    public void refresh(){
+        current =  databaseServices.target(current.getId());
+    }
+    
     public boolean acess(Long owner){
         Account attempt = new Account().acess(owner);
         
@@ -54,5 +58,13 @@ public class AccountController {
             
             return database.create(attempt).isPresent();
         }
+    }
+    
+    public boolean deposit(Long id, BigDecimal value){
+        return new Account().deposit(id, this.current.addAmount(value));
+    }
+    
+    public boolean withdraw(Long id, BigDecimal value){
+        return new Account().withdraw(id, this.current.subAmount(value));
     }
 }

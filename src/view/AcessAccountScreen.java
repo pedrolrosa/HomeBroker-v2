@@ -5,6 +5,8 @@
 package view;
 
 import control.AccountController;
+import java.math.BigDecimal;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -47,10 +49,13 @@ public class AcessAccountScreen extends javax.swing.JFrame {
         startField = new javax.swing.JTextField();
         modifyField = new javax.swing.JTextField();
         refreshButton = new javax.swing.JButton();
-        nameLabel = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         idField = new javax.swing.JTextField();
+        nameLabel = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
+        depositButton = new javax.swing.JButton();
+        withdrawButton = new javax.swing.JButton();
+        transferButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,9 +76,9 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             }
         });
 
-        nameLabel.setEditable(false);
-
         jLabel4.setText("ID:");
+
+        nameLabel.setText("Name");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -87,7 +92,7 @@ public class AcessAccountScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ownerField, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
@@ -96,7 +101,10 @@ public class AcessAccountScreen extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(nameLabel)
+                                .addGap(97, 97, 97)))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
@@ -107,7 +115,7 @@ public class AcessAccountScreen extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(modifyField)
                             .addComponent(startField, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                         .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(59, 59, 59))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -115,21 +123,16 @@ public class AcessAccountScreen extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(121, 121, 121))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(300, 300, 300)
-                        .addComponent(refreshButton))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(300, 300, 300)
+                .addComponent(refreshButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(nameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nameLabel)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 12, Short.MAX_VALUE)
@@ -172,21 +175,51 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             }
         });
 
+        depositButton.setText("Deposit");
+        depositButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                depositButtonActionPerformed(evt);
+            }
+        });
+
+        withdrawButton.setText("Withdraw");
+        withdrawButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                withdrawButtonActionPerformed(evt);
+            }
+        });
+
+        transferButton.setText("Transfer");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(backButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(backButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(depositButton)
+                        .addGap(47, 47, 47)
+                        .addComponent(withdrawButton)
+                        .addGap(45, 45, 45)
+                        .addComponent(transferButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(depositButton)
+                    .addComponent(withdrawButton)
+                    .addComponent(transferButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(backButton)
                 .addContainerGap())
         );
@@ -195,6 +228,8 @@ public class AcessAccountScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        accountControl.refresh();
+        
         idField.setText(accountControl.current.getId().toString());
         ownerField.setText(accountControl.current.getOwner().toString());
         amountField.setText(accountControl.current.getAmount().toString());
@@ -210,6 +245,22 @@ public class AcessAccountScreen extends javax.swing.JFrame {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void depositButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositButtonActionPerformed
+        if(accountControl.deposit(accountControl.current.getId(), new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+            JOptionPane.showMessageDialog(this,"Deposit Sucess !");
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed !");
+        }
+    }//GEN-LAST:event_depositButtonActionPerformed
+
+    private void withdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawButtonActionPerformed
+        if(accountControl.withdraw(accountControl.current.getId(), new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+            JOptionPane.showMessageDialog(this,"Withdraw Sucess !");
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed !");
+        }
+    }//GEN-LAST:event_withdrawButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,6 +300,7 @@ public class AcessAccountScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField amountField;
     private javax.swing.JButton backButton;
+    private javax.swing.JButton depositButton;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -259,9 +311,11 @@ public class AcessAccountScreen extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField maxField;
     private javax.swing.JTextField modifyField;
-    private javax.swing.JTextField nameLabel;
+    private javax.swing.JLabel nameLabel;
     private javax.swing.JTextField ownerField;
     private javax.swing.JButton refreshButton;
     private javax.swing.JTextField startField;
+    private javax.swing.JButton transferButton;
+    private javax.swing.JButton withdrawButton;
     // End of variables declaration//GEN-END:variables
 }

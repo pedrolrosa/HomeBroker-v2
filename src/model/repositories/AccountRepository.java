@@ -15,9 +15,9 @@ public interface AccountRepository{
     
     Account acess(Long id);
     
-    Optional<BigDecimal> deposit(Long id, BigDecimal value);
+    boolean deposit(Long id, BigDecimal value);
     
-    Optional<BigDecimal> withdraw(Long id, BigDecimal value);
+    boolean withdraw(Long id, BigDecimal value);
     
-    Optional<BigDecimal> transfer(Long id, Long destiny, BigDecimal value);
+    boolean transfer(Long id, Long destiny, BigDecimal value);
 }

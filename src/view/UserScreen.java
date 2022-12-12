@@ -312,6 +312,8 @@ public class UserScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+
+        userControl.refresh();
         
         nameInLabel.setText(userControl.logued.getName());
         cpfInLabel.setText(userControl.logued.getCpf());

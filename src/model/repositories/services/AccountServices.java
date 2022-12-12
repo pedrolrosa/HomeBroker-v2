@@ -88,7 +88,7 @@ public class AccountServices extends BaseImpl implements AccountRepository, Base
     }
 
     @Override
-    public Optional<BigDecimal> deposit(Long id, BigDecimal value) {
+    public boolean deposit(Long id, BigDecimal value) {
         String sql = "update accounts set amount = ? where id = ?";
         try ( Connection connection = new ConnectionFactory().getConnection();  PreparedStatement stmt = connection.prepareStatement(sql)) {
 
@@ -97,20 +97,30 @@ public class AccountServices extends BaseImpl implements AccountRepository, Base
 
             stmt.execute();
 
-            System.out.println("Elemento alterado com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     @Override
-    public Optional<BigDecimal> withdraw(Long id, BigDecimal value) {
-        return null;
+    public boolean withdraw(Long id, BigDecimal value) {
+        String sql = "update accounts set amount = ? where id = ?";
+        try ( Connection connection = new ConnectionFactory().getConnection();  PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setBigDecimal(1, value);
+            stmt.setLong(2, id);
+
+            stmt.execute();
+
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public Optional<BigDecimal> transfer(Long id, Long destiny, BigDecimal value) {
-        return null;
+    public boolean transfer(Long id, Long destiny, BigDecimal value) {
+        return false;
     }
 }

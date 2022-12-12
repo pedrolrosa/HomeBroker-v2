@@ -38,12 +38,15 @@ public class Account extends Entity{
         this.amount = amount;
     }
     
-    public void addAmount(Double value){
-        this.amount = this.amount.add(new BigDecimal(value));
+    public BigDecimal addAmount(BigDecimal value){
+        return this.amount.add(value);
     }
     
-    public void subAmount(Double value){
-        this.amount = this.amount.subtract(new BigDecimal(value));
+    public BigDecimal subAmount(BigDecimal value){
+        if(this.getAmount().compareTo(value) >= 0){
+            return this.amount.subtract(value);
+        }
+        return null;
     }
 
     public Double getMax() {
@@ -57,6 +60,15 @@ public class Account extends Entity{
     public Account acess(Long id){
         return new AccountServices().acess(id);
     }
+    
+    public boolean deposit(Long id, BigDecimal value){
+        return new AccountServices().deposit(id, value);
+    }
+    
+    public boolean withdraw(Long id, BigDecimal value){
+        return new AccountServices().withdraw(id, value);
+    }
+
 
     @Override
     public int hashCode() {
