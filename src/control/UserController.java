@@ -5,7 +5,6 @@
 package control;
 
 import java.util.List;
-import javax.swing.JOptionPane;
 import model.entities.User;
 import model.repositories.impl.UserImpl;
 import model.repositories.services.UserServices;

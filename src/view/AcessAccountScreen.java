@@ -5,8 +5,13 @@
 package view;
 
 import control.AccountController;
+import control.TransactionController;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
+import model.entities.Transaction;
+import model.enums.TypeTransaction;
+import view.acess.AcessAccountHistory;
 
 /**
  *
@@ -15,6 +20,8 @@ import javax.swing.JOptionPane;
 public class AcessAccountScreen extends javax.swing.JFrame {
     
     AccountController accountControl = new AccountController();
+    
+    TransactionController transactionControl = new TransactionController();
 
     public void setAccountControl(AccountController accountControl) {
         this.accountControl = accountControl;
@@ -56,6 +63,8 @@ public class AcessAccountScreen extends javax.swing.JFrame {
         depositButton = new javax.swing.JButton();
         withdrawButton = new javax.swing.JButton();
         transferButton = new javax.swing.JButton();
+        historyButton = new javax.swing.JButton();
+        homebrokerButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -196,6 +205,15 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             }
         });
 
+        historyButton.setText("History");
+        historyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historyButtonActionPerformed(evt);
+            }
+        });
+
+        homebrokerButton.setText("HomeBroker");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -204,29 +222,45 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(backButton))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(76, 76, 76)
                         .addComponent(depositButton)
-                        .addGap(47, 47, 47)
-                        .addComponent(withdrawButton)
                         .addGap(45, 45, 45)
-                        .addComponent(transferButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(withdrawButton)
+                        .addGap(44, 44, 44)
+                        .addComponent(transferButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(backButton)
+                        .addGap(81, 81, 81)
+                        .addComponent(historyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(homebrokerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(depositButton)
-                    .addComponent(withdrawButton)
-                    .addComponent(transferButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addComponent(backButton)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(depositButton)
+                            .addComponent(withdrawButton)
+                            .addComponent(transferButton))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 21, Short.MAX_VALUE)
+                                .addComponent(backButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(historyButton)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(homebrokerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -252,28 +286,79 @@ public class AcessAccountScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void depositButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositButtonActionPerformed
-        if(accountControl.deposit(accountControl.current.getId(), new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+        BigDecimal value;
+        if(accountControl.deposit(accountControl.current.getId(), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+            
+            String description = JOptionPane.showInputDialog(this, "Description");
+            
             JOptionPane.showMessageDialog(this,"Deposit Sucess !");
+            
+            Transaction transaction = new Transaction();
+            transaction.setOwner(accountControl.current.getId());
+            transaction.setDestiny(null);
+            transaction.setType(TypeTransaction.DEPOSIT);
+            transaction.setDescription(description);
+            transaction.setValue(value);
+            
+            transaction.setStart(LocalDateTime.now());
+            
+            transactionControl.create(transaction);
         } else {
             JOptionPane.showMessageDialog(this, "Failed !");
         }
     }//GEN-LAST:event_depositButtonActionPerformed
 
     private void withdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawButtonActionPerformed
-        if(accountControl.withdraw(accountControl.current.getId(), new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+        BigDecimal value;
+        if(accountControl.withdraw(accountControl.current.getId(), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+            String description = JOptionPane.showInputDialog(this, "Description");
+            
             JOptionPane.showMessageDialog(this,"Withdraw Sucess !");
+            
+            Transaction transaction = new Transaction();
+            transaction.setOwner(accountControl.current.getId());
+            transaction.setDestiny(null);
+            transaction.setType(TypeTransaction.WITHDRAW);
+            transaction.setDescription(description);
+            transaction.setValue(value);
+            
+            transaction.setStart(LocalDateTime.now());
+            
+            transactionControl.create(transaction);
         } else {
             JOptionPane.showMessageDialog(this, "Failed !");
         }
     }//GEN-LAST:event_withdrawButtonActionPerformed
 
     private void transferButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferButtonActionPerformed
-        if(accountControl.transfer(accountControl.current.getId(), Long.valueOf(JOptionPane.showInputDialog(this, "Destiny ID : ")), new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+        BigDecimal value;
+        Long destiny;
+        if(accountControl.transfer(accountControl.current.getId(), destiny = Long.valueOf(JOptionPane.showInputDialog(this, "Destiny ID : ")), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+            String description = JOptionPane.showInputDialog(this, "Description");
+            
             JOptionPane.showMessageDialog(this,"Transfer Sucess !");
+            
+            Transaction transaction = new Transaction();
+            transaction.setOwner(accountControl.current.getId());
+            transaction.setDestiny(destiny);
+            transaction.setType(TypeTransaction.TRANSFER);
+            transaction.setDescription(description);
+            transaction.setValue(value);
+            
+            transaction.setStart(LocalDateTime.now());
+            
+            transactionControl.create(transaction);
         } else {
             JOptionPane.showMessageDialog(this, "Failed !");
         }
     }//GEN-LAST:event_transferButtonActionPerformed
+
+    private void historyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyButtonActionPerformed
+        AcessAccountHistory history = new AcessAccountHistory();
+        history.setTransactionControl(transactionControl);
+        history.setAccountControl(accountControl);
+        history.setVisible(true);
+    }//GEN-LAST:event_historyButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -314,6 +399,8 @@ public class AcessAccountScreen extends javax.swing.JFrame {
     private javax.swing.JTextField amountField;
     private javax.swing.JButton backButton;
     private javax.swing.JButton depositButton;
+    private javax.swing.JButton historyButton;
+    private javax.swing.JButton homebrokerButton;
     private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

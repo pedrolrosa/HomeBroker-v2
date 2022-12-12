@@ -9,6 +9,7 @@ import control.UserController;
 import javax.swing.JOptionPane;
 import model.enums.TypeUser;
 import view.account.AccountMenu;
+import view.transaction.TransactionMenu;
 import view.user.UserMenu;
 
 /**
@@ -35,6 +36,7 @@ public class UserScreen extends javax.swing.JFrame {
             userMenuButton.setEnabled(false);
             accountMenuButton.setEnabled(false);
             assetMenuButton.setEnabled(false);
+            transactionMenu.setEnabled(false);
         }
         
         if(!(accountControl.acess(userControl.logued.getId()))){
@@ -83,6 +85,7 @@ public class UserScreen extends javax.swing.JFrame {
         userMenuButton = new javax.swing.JButton();
         accountMenuButton = new javax.swing.JButton();
         assetMenuButton = new javax.swing.JButton();
+        transactionMenu = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -230,6 +233,13 @@ public class UserScreen extends javax.swing.JFrame {
 
         assetMenuButton.setText("Asset Menu");
 
+        transactionMenu.setText("Transaction Menu");
+        transactionMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transactionMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -237,13 +247,18 @@ public class UserScreen extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(userMenuButton)
-                    .addComponent(assetMenuButton)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(accountMenuButton)
-                        .addGap(88, 88, 88)
-                        .addComponent(acessAccountButton)))
-                .addContainerGap(145, Short.MAX_VALUE))
+                        .addGap(73, 73, 73)
+                        .addComponent(acessAccountButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                        .addComponent(transactionMenu))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(userMenuButton)
+                            .addComponent(assetMenuButton))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,7 +268,8 @@ public class UserScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(accountMenuButton)
-                    .addComponent(acessAccountButton))
+                    .addComponent(acessAccountButton)
+                    .addComponent(transactionMenu))
                 .addGap(46, 46, 46)
                 .addComponent(assetMenuButton)
                 .addContainerGap())
@@ -279,7 +295,7 @@ public class UserScreen extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(backButton)
@@ -353,6 +369,11 @@ public class UserScreen extends javax.swing.JFrame {
         acessAccountScreen.setVisible(true);
     }//GEN-LAST:event_acessAccountButtonActionPerformed
 
+    private void transactionMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transactionMenuActionPerformed
+        TransactionMenu transactionScreen = new TransactionMenu();
+        transactionScreen.setVisible(true);
+    }//GEN-LAST:event_transactionMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -410,6 +431,7 @@ public class UserScreen extends javax.swing.JFrame {
     private javax.swing.JButton refreshButton;
     private javax.swing.JTextField startInLabel;
     private final javax.swing.JLabel startLabel = new javax.swing.JLabel();
+    private javax.swing.JButton transactionMenu;
     private javax.swing.JTextField typeInLabel;
     private javax.swing.JButton userMenuButton;
     private javax.swing.JLabel vascoToken;

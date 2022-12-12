@@ -14,5 +14,7 @@ import model.entities.Transaction;
  */
 public interface TransactionRepository{
     
-    List<Transaction> serchPeriod(Date start, Date end);
+    List<Transaction> search(Long owner);
+    
+    List<Transaction> searchPeriod(Date start, Date end);
 }

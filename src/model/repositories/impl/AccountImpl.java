@@ -53,23 +53,28 @@ public class AccountImpl extends BaseImpl implements BaseRepository<Account, Lon
 
         List<Account> accounts = new ArrayList<>();
 
-        try ( Connection connection = new ConnectionFactory().getConnection();  PreparedStatement stmt = connection.prepareStatement(sql);  ResultSet rs = stmt.executeQuery(sql)) {
+        try ( Connection connection = new ConnectionFactory().getConnection();  
+                PreparedStatement stmt = connection.prepareStatement(sql);  
+                ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 Long id = rs.getLong("id");
                 Long owner = rs.getLong("owner");
                 BigDecimal amount = rs.getBigDecimal("amount");
-                Double limit = rs.getDouble("max");
+                Double max = rs.getDouble("max");
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
                 LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
-                LocalDateTime modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
+                LocalDateTime modify = null;
+                if(rs.getTimestamp("modify") != null){
+                    modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
+                }
 
                 Account account = new Account();
                 account.setId(id);
                 account.setOwner(owner);
                 account.setAmount(amount);
-                account.setMax(limit);
+                account.setMax(max);
                 account.setStart(start);
                 account.setModify(modify);
 

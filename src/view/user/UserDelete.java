@@ -20,13 +20,7 @@ public class UserDelete extends javax.swing.JFrame {
     public void setUserControl(UserController userControl) {
         this.userControl = userControl;
         
-        List<User> users;
-        users = userControl.read();
-        
-        for(User user : users){
-            
-            idComboBox.addItem(String.valueOf(user.getId()));
-        }
+        listItems();
     }
 
     /**
@@ -34,6 +28,16 @@ public class UserDelete extends javax.swing.JFrame {
      */
     public UserDelete() {
         initComponents();
+    }
+    
+    void listItems(){
+        List<User> users;
+        users = userControl.read();
+        
+        for(User user : users){
+            
+            idComboBox.addItem(String.valueOf(user.getId()));
+        }
     }
 
     /**
@@ -131,6 +135,8 @@ public class UserDelete extends javax.swing.JFrame {
 
                 idComboBox.addItem(String.valueOf(user.getId()));
             }
+            
+            idComboBox.removeAllItems();
         } else {
             JOptionPane.showMessageDialog(this,"Failed !");
         }

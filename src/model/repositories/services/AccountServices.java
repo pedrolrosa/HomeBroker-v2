@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import model.database.ConnectionFactory;
 import model.entities.Account;
 import model.repositories.AccountRepository;

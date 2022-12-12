@@ -7,7 +7,6 @@ package control;
 import javax.swing.JOptionPane;
 import java.util.List;
 import model.entities.Assets;
-import model.entities.Assets;
 import model.repositories.impl.AssetsImpl; 
 
 /**

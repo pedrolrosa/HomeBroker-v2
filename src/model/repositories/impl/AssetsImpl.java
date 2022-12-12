@@ -66,7 +66,10 @@ public class AssetsImpl implements BaseRepository<Assets, Long>{
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
                 LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
-                LocalDateTime modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
+                LocalDateTime modify = null;
+                if(rs.getTimestamp("modify") != null){
+                    modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
+                }
 
                 Assets asset = new Assets();
                 asset.setId(id);

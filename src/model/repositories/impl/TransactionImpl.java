@@ -35,7 +35,12 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
             
             stmt.setLong(1, element.getOwner());
-            stmt.setLong(2, element.getDestiny());
+            if(element.getType() == TypeTransaction.DEPOSIT || element.getType() == TypeTransaction.WITHDRAW){
+                stmt.setNull(2,0);
+            } else {
+                stmt.setLong(2, element.getDestiny());
+            }
+            
             stmt.setString(3, element.getType().toString());
             stmt.setString(4, element.getDescription());
             stmt.setBigDecimal(5, element.getValue());
@@ -55,7 +60,7 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
     public List<Transaction> read(){
         String sql = "select * from transactions";
 
-        List<Transaction> users = new ArrayList<>();
+        List<Transaction> transactions = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
@@ -71,7 +76,10 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
                 LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
-                LocalDateTime modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
+                LocalDateTime modify = null;
+                if(rs.getTimestamp("modify") != null){
+                    modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
+                }
 
                 Transaction transaction = new Transaction();
                 transaction.setId(id);
@@ -83,13 +91,13 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
                 transaction.setStart(start);
                 transaction.setModify(modify);
                 
-                users.add(transaction);
+                transactions.add(transaction);
             }
         } catch (SQLException e) {
              throw new RuntimeException(e);
         }
 
-        return users;
+        return transactions;
     }
     
     @Override
