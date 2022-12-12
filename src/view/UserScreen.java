@@ -37,24 +37,22 @@ public class UserScreen extends javax.swing.JFrame {
             assetMenuButton.setEnabled(false);
         }
         
-        if(accountControl.current == null){
-            if(!(accountControl.acess(userControl.logued.getAccount()))){
-                if(JOptionPane.showConfirmDialog(this,"User does not have an account, do you want to create one?") ==  JOptionPane.YES_OPTION){
+        if(!(accountControl.acess(userControl.logued.getId()))){
+            if(JOptionPane.showConfirmDialog(this,"User does not have an account, do you want to create one?") ==  JOptionPane.YES_OPTION){
 
-                    if(accountControl.create(userControl.logued.getId())){
-                        
-                        if(accountControl.acess(userControl.logued.getId())){
-                            userControl.coupling(accountControl.current.getId(), userControl.logued.getId());
-                            JOptionPane.showMessageDialog(this, "Create Sucess !");
-                            acessAccountButton.setEnabled(true);
-                        }
-                        
-                    } else {
-                        acessAccountButton.setEnabled(false);
+                if(accountControl.create(userControl.logued.getId())){
+
+                    if(accountControl.acess(userControl.logued.getId())){
+                        userControl.coupling(accountControl.current.getId(), userControl.logued.getId());
+                        JOptionPane.showMessageDialog(this, "Create Sucess !");
+                        acessAccountButton.setEnabled(true);
                     }
+
                 } else {
                     acessAccountButton.setEnabled(false);
                 }
+            } else {
+                acessAccountButton.setEnabled(false);
             }
         }
         
@@ -348,8 +346,9 @@ public class UserScreen extends javax.swing.JFrame {
 
     private void acessAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acessAccountButtonActionPerformed
         AcessAccountScreen acessAccountScreen = new AcessAccountScreen();
-        acessAccountScreen.setName(userControl.logued.getName());
+        accountControl.setNameLabel(userControl.logued.getName());
         acessAccountScreen.setAccountControl(accountControl);
+        acessAccountScreen.setVisible(true);
     }//GEN-LAST:event_acessAccountButtonActionPerformed
 
     /**

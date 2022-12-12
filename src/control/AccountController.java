@@ -22,11 +22,11 @@ public class AccountController {
     private AccountImpl database = new AccountImpl();
     private AccountServices databaseServices = new AccountServices();
 
-    public String getName() {
+    public String getNameLabel() {
         return name;
     }
     
-    public void setName(String name){
+    public void setNameLabel(String name){
         this.name = name;
     }
     

@@ -64,7 +64,7 @@ public class AccountServices extends BaseImpl implements AccountRepository, Base
     @Override
     public Account acess(Long owner){
         
-        String sql = "select id from accounts where owner = ?;";
+        String sql = "select id from accounts where owner = ?";
 
         try ( Connection connection = new ConnectionFactory().getConnection();  
                 PreparedStatement stmt = connection.prepareStatement(sql);  
