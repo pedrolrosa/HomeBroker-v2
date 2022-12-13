@@ -132,7 +132,7 @@ public class UserMenu extends javax.swing.JFrame {
 
     private void createUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserButtonActionPerformed
         UserCreate userCreate = new UserCreate();
-        userCreate.setVisible(this.rootPaneCheckingEnabled);
+        userCreate.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_createUserButtonActionPerformed
 

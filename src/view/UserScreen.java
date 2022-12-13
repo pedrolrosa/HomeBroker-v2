@@ -352,8 +352,8 @@ public class UserScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_accountMenuButtonActionPerformed
 
     private void acessAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acessAccountButtonActionPerformed
-        AcessAccountScreen acessAccountScreen = new AcessAccountScreen();
         AccountController.setNameLabel(UserController.logued.getName());
+        AcessAccountScreen acessAccountScreen = new AcessAccountScreen();
         acessAccountScreen.setVisible(true);
     }//GEN-LAST:event_acessAccountButtonActionPerformed
 

@@ -24,6 +24,9 @@ public class AcessAccountScreen extends javax.swing.JFrame {
      */
     public AcessAccountScreen() {
         initComponents();
+        
+        System.out.println(AccountController.getNameLabel());
+        nameLabel.setText(AccountController.getNameLabel());
     }
 
     /**
