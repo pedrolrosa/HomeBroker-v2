@@ -25,7 +25,7 @@ public class OrderRead extends javax.swing.JFrame {
         model.setNumRows(0);
         
         Object columns[] = new Object[readTable.getColumnCount()];
-        
+            
         List<Order> orders;
         orders = OrderController.read();
         
@@ -40,8 +40,9 @@ public class OrderRead extends javax.swing.JFrame {
             columns[4] = order.getQuantity();
             columns[5] = order.getValue();
             columns[6] = order.getTotalValue();
-            columns[7] = order.getStart();
-            columns[8] = order.getModify();
+            columns[7] = order.getState();
+            columns[8] = order.getStart();
+            columns[9] = order.getModify();
             
             model.addRow(columns);
         }

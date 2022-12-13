@@ -29,7 +29,7 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
     @Override
     public Order target(Long id) {
         try (Connection connection = new ConnectionFactory().getConnection(); 
-                PreparedStatement stmt = createPreparedStatement("accounts", connection, id); 
+                PreparedStatement stmt = createPreparedStatement("orders", connection, id); 
                 ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
@@ -38,7 +38,7 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
                 String ticker = rs.getString("ticker");
                 Integer quantity = rs.getInt("quantity");
                 BigDecimal value = rs.getBigDecimal("value");
-                BigDecimal valueTotal = rs.getBigDecimal("value_total");
+                BigDecimal valueTotal = rs.getBigDecimal("total_value");
                 StateOrder state = StateOrder.valueOf(rs.getString("state"));
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");

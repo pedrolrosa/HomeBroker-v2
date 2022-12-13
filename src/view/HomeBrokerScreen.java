@@ -236,6 +236,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         order.setState(StateOrder.OPEN);
         order.setValue(new BigDecimal(JOptionPane.showInputDialog("Value :")));
         order.setQuantity(Integer.valueOf(JOptionPane.showInputDialog("Quantity :")));
+        order.setTotalValue(order.getValue().multiply(new BigDecimal(order.getQuantity())));
         order.setStart(LocalDateTime.now());
         
         if(OrderController.create(order)){

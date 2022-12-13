@@ -7,6 +7,7 @@ package view.order;
 import control.OrderController;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.Order;
 
@@ -14,13 +15,24 @@ import model.entities.Order;
  *
  * @author pedro
  */
-public class OrderUpdate extends javax.swing.JFrame {
+public final class OrderUpdate extends javax.swing.JFrame {
+    
+    void listItems(){
+        List<Order> transactions = OrderController.read();
+        
+        for(Order transaction : transactions){
+            
+            idComboBox.addItem(String.valueOf(transaction.getId()));
+        }
+    }
 
     /**
      * Creates new form OrderUpdate
      */
     public OrderUpdate() {
         initComponents();
+        
+        listItems();
     }
 
     /**
@@ -40,6 +52,8 @@ public class OrderUpdate extends javax.swing.JFrame {
         backButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         valueField = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        quantityField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +90,8 @@ public class OrderUpdate extends javax.swing.JFrame {
 
         jLabel2.setText("Value :");
 
+        jLabel3.setText("Quantity:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -89,26 +105,28 @@ public class OrderUpdate extends javax.swing.JFrame {
                         .addGap(201, 201, 201)
                         .addComponent(updateButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(118, 118, 118)
+                        .addGap(116, 116, 116)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2)
-                            .addComponent(idLabel))
+                            .addComponent(idLabel)
+                            .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(idComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(27, 27, 27)
                                 .addComponent(searchButton))
-                            .addComponent(valueField, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(valueField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(quantityField, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(205, 205, 205)
                         .addComponent(jLabel1)))
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(67, Short.MAX_VALUE)
+                .addContainerGap(64, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -119,7 +137,11 @@ public class OrderUpdate extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valueField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(68, 68, 68)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(quantityField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
                 .addComponent(updateButton)
                 .addGap(23, 23, 23)
                 .addComponent(backButton)
@@ -131,6 +153,7 @@ public class OrderUpdate extends javax.swing.JFrame {
 
     private void idComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idComboBoxActionPerformed
         valueField.setEditable(false);
+        quantityField.setEditable(false);
 
         updateButton.setEnabled(false);
     }//GEN-LAST:event_idComboBoxActionPerformed
@@ -139,8 +162,10 @@ public class OrderUpdate extends javax.swing.JFrame {
         Order selected = OrderController.search(Long.valueOf(idComboBox.getSelectedItem().toString()));
 
         valueField.setText(selected.getValue().toString());
+        quantityField.setText(selected.getQuantity().toString());
 
         valueField.setEditable(true);
+        quantityField.setEditable(true);
 
         updateButton.setEnabled(true);
     }//GEN-LAST:event_searchButtonActionPerformed
@@ -151,12 +176,15 @@ public class OrderUpdate extends javax.swing.JFrame {
 
         order.setId(Long.valueOf(idComboBox.getSelectedItem().toString()));
         order.setValue(new BigDecimal(valueField.getText()));
+        order.setQuantity(Integer.valueOf(quantityField.getText()));
+        order.setTotalValue(order.getValue().multiply(new BigDecimal(order.getQuantity())));
 
         order.setModify(LocalDateTime.now());
 
         if(OrderController.update(order)){
             updateButton.setEnabled(false);
             valueField.setEnabled(false);
+            quantityField.setEnabled(false);
             JOptionPane.showMessageDialog(this, "Update Sucess !");
         } else {
             JOptionPane.showMessageDialog(this, "Failed !");
@@ -208,6 +236,8 @@ public class OrderUpdate extends javax.swing.JFrame {
     private javax.swing.JLabel idLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField quantityField;
     private javax.swing.JButton searchButton;
     private javax.swing.JButton updateButton;
     private javax.swing.JTextField valueField;

@@ -71,7 +71,7 @@ public class OrderImpl implements BaseRepository<Order, Long>{
                 String ticker = rs.getString("ticker");
                 Integer quantity = rs.getInt("quantity");
                 BigDecimal value = rs.getBigDecimal("value");
-                BigDecimal valueTotal = rs.getBigDecimal("value_total");
+                BigDecimal valueTotal = rs.getBigDecimal("total_value");
                 StateOrder state = StateOrder.valueOf(rs.getString("state"));
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
@@ -104,13 +104,16 @@ public class OrderImpl implements BaseRepository<Order, Long>{
 
     @Override
     public Optional<Order> update(Order element) {
-        String sql = "update orders set value = ? where id = ?";
+        String sql = "update orders set value = ?, quantity = ?, total_value = ?, modify = ? where id = ?";
 
         try ( Connection connection = new ConnectionFactory().getConnection();  
               PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setBigDecimal(1, element.getValue());
-            stmt.setLong(2, element.getId());
+            stmt.setInt(2,element.getQuantity());
+            stmt.setBigDecimal(3,element.getTotalValue());
+            stmt.setTimestamp(4,Timestamp.valueOf(element.getModify()));
+            stmt.setLong(5, element.getId());
 
             stmt.execute();
 
