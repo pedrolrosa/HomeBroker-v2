@@ -5,10 +5,13 @@
 package view;
 
 import control.AccountController;
+import control.AssetController;
 import control.OrderController;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.swing.JOptionPane;
+import model.entities.Asset;
 import model.entities.Order;
 import model.enums.StateOrder;
 import model.enums.TypeOrder;
@@ -17,7 +20,16 @@ import model.enums.TypeOrder;
  *
  * @author pedro
  */
-public class HomeBrokerScreen extends javax.swing.JFrame {
+public final class HomeBrokerScreen extends javax.swing.JFrame {
+    
+    void listItems(){
+        List<Asset> assets = AssetController.read();
+        
+        for(Asset asset : assets){
+            
+            idComboBox.addItem(String.valueOf(asset.getId()));
+        }
+    }
 
     /**
      * Creates new form HomeBrokerScreen
@@ -26,6 +38,8 @@ public class HomeBrokerScreen extends javax.swing.JFrame {
         initComponents();
         
         amountField.setText("$ "+ AccountController.current.getAmount());
+        
+        listItems();
     }
 
     /**
@@ -48,7 +62,7 @@ public class HomeBrokerScreen extends javax.swing.JFrame {
         myAssetsButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        tickerField = new javax.swing.JComboBox<>();
+        idComboBox = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         priceField = new javax.swing.JTextField();
 
@@ -91,9 +105,9 @@ public class HomeBrokerScreen extends javax.swing.JFrame {
 
         jLabel4.setText("Asset");
 
-        tickerField.addItemListener(new java.awt.event.ItemListener() {
+        idComboBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                tickerFieldItemStateChanged(evt);
+                idComboBoxItemStateChanged(evt);
             }
         });
 
@@ -128,7 +142,7 @@ public class HomeBrokerScreen extends javax.swing.JFrame {
                                         .addComponent(jLabel4)
                                         .addGap(44, 44, 44))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(tickerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(idComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(21, 21, 21))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,7 +182,7 @@ public class HomeBrokerScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tickerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addGap(4, 4, 4)
@@ -199,7 +213,7 @@ public class HomeBrokerScreen extends javax.swing.JFrame {
     private void sellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellButtonActionPerformed
         Order order = new Order();
         order.setAccount(AccountController.current.getId());
-        order.setTicker(tickerField.getSelectedItem().toString());
+        order.setTicker(idComboBox.getSelectedItem().toString());
         order.setType(TypeOrder.SELL);
         order.setState(StateOrder.OPEN);
         order.setValue(new BigDecimal(JOptionPane.showInputDialog("Value :")));
@@ -217,7 +231,7 @@ public class HomeBrokerScreen extends javax.swing.JFrame {
         
         Order order = new Order();
         order.setAccount(AccountController.current.getId());
-        order.setTicker(tickerField.getSelectedItem().toString());
+        order.setTicker(idComboBox.getSelectedItem().toString());
         order.setType(TypeOrder.BUY);
         order.setState(StateOrder.OPEN);
         order.setValue(new BigDecimal(JOptionPane.showInputDialog("Value :")));
@@ -231,10 +245,10 @@ public class HomeBrokerScreen extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buyButtonActionPerformed
 
-    private void tickerFieldItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tickerFieldItemStateChanged
+    private void idComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_idComboBoxItemStateChanged
         // need assets
-        tickerField.getSelectedItem();
-    }//GEN-LAST:event_tickerFieldItemStateChanged
+        priceField.setText(AssetController.search(Long.valueOf(idComboBox.getSelectedItem().toString())).getInitialPrice().toString());
+    }//GEN-LAST:event_idComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -275,6 +289,7 @@ public class HomeBrokerScreen extends javax.swing.JFrame {
     private javax.swing.JTextField amountField;
     private javax.swing.JButton backButton;
     private javax.swing.JButton buyButton;
+    private javax.swing.JComboBox<String> idComboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -284,7 +299,6 @@ public class HomeBrokerScreen extends javax.swing.JFrame {
     private javax.swing.JButton orderBookButton;
     private javax.swing.JTextField priceField;
     private javax.swing.JButton sellButton;
-    private javax.swing.JComboBox<String> tickerField;
     private javax.swing.JButton zeroButton;
     // End of variables declaration//GEN-END:variables
 }
