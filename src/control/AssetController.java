@@ -7,16 +7,23 @@ package control;
 import javax.swing.JOptionPane;
 import java.util.List;
 import model.entities.Asset;
-import model.repositories.impl.AssetsImpl; 
+import model.repositories.impl.AssetImpl; 
+import model.repositories.services.AssetServices;
 
 /**
  *
  * @author silva.junior
  */
-public class AssetsController {
+public class AssetController {
     
  
-    private static final AssetsImpl database = new AssetsImpl();
+    private static final AssetImpl database = new AssetImpl();
+    
+    private static final AssetServices databaseServices = new AssetServices();
+    
+    public static Asset search(Long id){
+        return databaseServices.target(id);
+    }
     
     public static boolean create(Asset asset){
         if(asset == null){ 

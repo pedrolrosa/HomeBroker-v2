@@ -103,13 +103,14 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
     @Override
     public Optional<Transaction> update(Transaction element){
         
-        String sql = "update transactions set description = ? where id = ?";
+        String sql = "update transactions set description = ?, modify = ? where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, element.getDescription());
-            stmt.setLong(2, element.getId());
+            stmt.setTimestamp(2,Timestamp.valueOf(element.getModify()));
+            stmt.setLong(3, element.getId());
             
             stmt.execute();
             

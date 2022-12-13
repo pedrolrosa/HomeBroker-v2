@@ -9,6 +9,8 @@ import control.UserController;
 import javax.swing.JOptionPane;
 import model.enums.TypeUser;
 import view.account.AccountMenu;
+import view.asset.AssetMenu;
+import view.order.OrderMenu;
 import view.transaction.TransactionMenu;
 import view.user.UserMenu;
 
@@ -76,6 +78,7 @@ public class UserScreen extends javax.swing.JFrame {
         accountMenuButton = new javax.swing.JButton();
         assetMenuButton = new javax.swing.JButton();
         transactionMenu = new javax.swing.JButton();
+        orderMenu = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -222,11 +225,23 @@ public class UserScreen extends javax.swing.JFrame {
         });
 
         assetMenuButton.setText("Asset Menu");
+        assetMenuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assetMenuButtonActionPerformed(evt);
+            }
+        });
 
         transactionMenu.setText("Transaction Menu");
         transactionMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 transactionMenuActionPerformed(evt);
+            }
+        });
+
+        orderMenu.setText("Order Menu");
+        orderMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderMenuActionPerformed(evt);
             }
         });
 
@@ -244,17 +259,21 @@ public class UserScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
                         .addComponent(transactionMenu))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(userMenuButton)
-                            .addComponent(assetMenuButton))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(assetMenuButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(userMenuButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(orderMenu)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(userMenuButton)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(userMenuButton)
+                    .addComponent(orderMenu))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(accountMenuButton)
@@ -362,6 +381,16 @@ public class UserScreen extends javax.swing.JFrame {
         transactionScreen.setVisible(true);
     }//GEN-LAST:event_transactionMenuActionPerformed
 
+    private void orderMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderMenuActionPerformed
+        OrderMenu orderScreen = new OrderMenu();
+        orderScreen.setVisible(true);
+    }//GEN-LAST:event_orderMenuActionPerformed
+
+    private void assetMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assetMenuButtonActionPerformed
+        AssetMenu assetScreen = new AssetMenu();
+        assetScreen.setVisible(true);
+    }//GEN-LAST:event_assetMenuButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -414,6 +443,7 @@ public class UserScreen extends javax.swing.JFrame {
     private final javax.swing.JLabel modifyLabel = new javax.swing.JLabel();
     private javax.swing.JTextField nameInLabel;
     private final javax.swing.JLabel nameLabel = new javax.swing.JLabel();
+    private javax.swing.JButton orderMenu;
     private javax.swing.JTextField phoneInLabel;
     private final javax.swing.JLabel phoneLabel = new javax.swing.JLabel();
     private javax.swing.JButton refreshButton;

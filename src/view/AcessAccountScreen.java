@@ -68,9 +68,19 @@ public class AcessAccountScreen extends javax.swing.JFrame {
 
         jLabel3.setText("Max:");
 
+        ownerField.setEditable(false);
+
+        amountField.setEditable(false);
+
+        maxField.setEditable(false);
+
         jLabel5.setText("Start:");
 
         jLabel6.setText("Modify");
+
+        startField.setEditable(false);
+
+        modifyField.setEditable(false);
 
         refreshButton.setText("Refresh");
         refreshButton.addActionListener(new java.awt.event.ActionListener() {
@@ -80,6 +90,8 @@ public class AcessAccountScreen extends javax.swing.JFrame {
         });
 
         jLabel4.setText("ID:");
+
+        idField.setEditable(false);
 
         nameLabel.setText("Name");
 
@@ -207,6 +219,11 @@ public class AcessAccountScreen extends javax.swing.JFrame {
         });
 
         homebrokerButton.setText("HomeBroker");
+        homebrokerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                homebrokerButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -265,7 +282,7 @@ public class AcessAccountScreen extends javax.swing.JFrame {
         
         idField.setText(AccountController.current.getId().toString());
         ownerField.setText(AccountController.current.getOwner().toString());
-        amountField.setText(AccountController.current.getAmount().toString());
+        amountField.setText("$ "+ AccountController.current.getAmount().toString());
         maxField.setText(AccountController.current.getMax().toString());
         
         startField.setText(AccountController.current.getStart().toString());
@@ -351,6 +368,11 @@ public class AcessAccountScreen extends javax.swing.JFrame {
         AcessAccountHistory history = new AcessAccountHistory();
         history.setVisible(true);
     }//GEN-LAST:event_historyButtonActionPerformed
+
+    private void homebrokerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homebrokerButtonActionPerformed
+        HomeBrokerScreen homeBrokerScreen = new HomeBrokerScreen();
+        homeBrokerScreen.setVisible(true);
+    }//GEN-LAST:event_homebrokerButtonActionPerformed
 
     /**
      * @param args the command line arguments

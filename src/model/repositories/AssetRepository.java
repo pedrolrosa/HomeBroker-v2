@@ -8,6 +8,6 @@ package model.repositories;
  *
  * @author silva.junior
  */
-public interface AssetsRepository {
+public interface AssetRepository {
     
 }

@@ -5,6 +5,8 @@
 package view;
 
 import control.UserController;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
@@ -62,6 +64,12 @@ public class LoginScreen extends javax.swing.JFrame {
         jLabel1.setText("User");
 
         jLabel2.setText("Password");
+
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                Enter(evt);
+            }
+        });
 
         javax.swing.GroupLayout formPanelLayout = new javax.swing.GroupLayout(formPanel);
         formPanel.setLayout(formPanelLayout);
@@ -158,6 +166,12 @@ public class LoginScreen extends javax.swing.JFrame {
     private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
         this.dispose();
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void Enter(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Enter
+        if(evt.getKeyCode() == 10){
+            loginButtonActionPerformed(new ActionEvent(evt, evt.getID(), ""));
+        }
+    }//GEN-LAST:event_Enter
 
     /**
      * @param args the command line arguments

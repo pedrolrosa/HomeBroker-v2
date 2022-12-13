@@ -16,6 +16,16 @@ import model.enums.TypeUser;
  * @author pedro
  */
 public class UserUpdate extends javax.swing.JFrame {
+    
+    private void listItems(){
+        List<User> users;
+        users = UserController.read();
+        
+        for(User user : users){
+            
+            idComboBox.addItem(String.valueOf(user.getId()));
+        }
+    }
 
     /**
      * Creates new form UserUpdate
@@ -24,13 +34,7 @@ public class UserUpdate extends javax.swing.JFrame {
         initComponents();
         updateButton.setEnabled(false);
         
-        List<User> users;
-        users = UserController.read();
-        
-        for(User user : users){
-            
-            idComboBox.addItem(String.valueOf(user.getId()));
-        }
+        listItems();
     }
 
     /**

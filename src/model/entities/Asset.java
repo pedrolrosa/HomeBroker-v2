@@ -15,7 +15,7 @@ public class Asset extends Entity{
     
     private String company; 
     private String ticker;
-    private int amount;
+    private Integer amount;
     private BigDecimal initialPrice; 
 
     public String getCompany() {
@@ -38,7 +38,7 @@ public class Asset extends Entity{
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
@@ -72,7 +72,7 @@ public class Asset extends Entity{
             return false;
         }
         final Asset other = (Asset) obj;
-        if (this.amount != other.amount) {
+        if (!Objects.equals(this.amount, other.amount)) {
             return false;
         }
         if (!Objects.equals(this.company, other.company)) {

@@ -217,10 +217,19 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="ownerField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="amountField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="maxField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
@@ -233,8 +242,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="startField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="modifyField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="refreshButton">
           <Properties>
@@ -250,6 +265,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="idField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="nameLabel">
           <Properties>
@@ -302,6 +320,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="HomeBroker"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="homebrokerButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

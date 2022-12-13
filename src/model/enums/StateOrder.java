@@ -9,6 +9,7 @@ package model.enums;
  * @author pedro
  */
 public enum StateOrder {
+    OPEN,
     PARCIAL,
     TOTAL;
 }

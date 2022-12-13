@@ -39,6 +39,8 @@ public class TransactionRead extends javax.swing.JFrame {
             columns[3] = transaction.getType();
             columns[4] = transaction.getValue();
             columns[5] = transaction.getDescription();
+            columns[6] = transaction.getStart();
+            columns[7] = transaction.getModify();
             
             model.addRow(columns);
         }
@@ -71,20 +73,20 @@ public class TransactionRead extends javax.swing.JFrame {
 
         readTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Owner", "Destiny", "Type", "Value", "Description"
+                "ID", "Owner", "Destiny", "Type", "Value", "Description", "Start", "Modify"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -56,7 +56,7 @@ public class OrderImpl implements BaseRepository<Order, Long>{
 
     @Override
     public List<Order> read() {
-        String sql = "select * from accounts";
+        String sql = "select * from orders";
 
         List<Order> orders = new ArrayList<>();
 

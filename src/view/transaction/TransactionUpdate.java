@@ -14,7 +14,7 @@ import model.entities.Transaction;
  *
  * @author pedro
  */
-public class TransactionUpdate extends javax.swing.JFrame {
+public final class TransactionUpdate extends javax.swing.JFrame {
     
     void listItems(){
         List<Transaction> transactions = TransactionController.read();

@@ -15,6 +15,7 @@ import model.entities.Asset;
 
 import model.database.ConnectionFactory;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -22,12 +23,12 @@ import java.time.format.DateTimeFormatter;
  *
  * @author silva.junior
  */
-public class AssetsImpl implements BaseRepository<Asset, Long>{
+public class AssetImpl implements BaseRepository<Asset, Long>{
      
  @Override
     public Optional<Asset> create(Asset element){
         String sql = "insert into assets "
-                + "(company,ticker,amount,initialPrice)" + " values (?,?,?,?)";
+                + "(company,ticker,amount,initial_price, start)" + " values (?,?,?,?, ?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -36,6 +37,7 @@ public class AssetsImpl implements BaseRepository<Asset, Long>{
             stmt.setString(2, element.getTicker());
             stmt.setInt(3, element.getAmount());
             stmt.setBigDecimal(4, element.getInitialPrice());
+            stmt.setTimestamp(5, Timestamp.valueOf(element.getStart()));
             
             stmt.execute();
             
@@ -62,7 +64,7 @@ public class AssetsImpl implements BaseRepository<Asset, Long>{
                 String company = rs.getString("company");
                 String ticker = rs.getString("ticker");
                 int amount = rs.getInt("amount");
-                BigDecimal initialPrice = rs.getBigDecimal("initialPrice");
+                BigDecimal initialPrice = rs.getBigDecimal("initial_price");
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
                 LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
@@ -93,13 +95,16 @@ public class AssetsImpl implements BaseRepository<Asset, Long>{
     @Override
     public Optional<Asset> update(Asset element){
         
-        String sql = "update assets set name = ? where id = ?";
+        String sql = "update assets set company = ?, ticker = ?, amount = ?, modify = ? where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, element.getCompany());
-            stmt.setLong(2, element.getId());
+            stmt.setString(2, element.getTicker());
+            stmt.setInt(3, element.getAmount());
+            stmt.setTimestamp(4,Timestamp.valueOf(element.getModify()));
+            stmt.setLong(5, element.getId());
             
             stmt.execute();
             

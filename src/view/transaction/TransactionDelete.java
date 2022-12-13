@@ -14,7 +14,7 @@ import model.entities.Transaction;
  *
  * @author pedro
  */
-public class TransactionDelete extends javax.swing.JFrame {
+public final class TransactionDelete extends javax.swing.JFrame {
     
     void listItems(){
         List<Transaction> transactions = TransactionController.read();
@@ -59,6 +59,11 @@ public class TransactionDelete extends javax.swing.JFrame {
         jLabel2.setText("ID : ");
 
         backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
 
         deleteButton.setText("Delete");
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +132,10 @@ public class TransactionDelete extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this,"Failed !");
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments

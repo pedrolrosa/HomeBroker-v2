@@ -5,7 +5,6 @@
 package control;
 
 import java.util.List;
-import model.entities.Account;
 import model.entities.Transaction;
 import model.repositories.impl.TransactionImpl;
 import model.repositories.services.TransactionServices;
@@ -16,18 +15,9 @@ import model.repositories.services.TransactionServices;
  */
 public class TransactionController {
     
-    private static Account current = new Account();
-    
     private static final TransactionImpl database = new TransactionImpl();
     private static final TransactionServices databaseServices = new TransactionServices();
 
-    public Account getCurrent() {
-        return current;
-    }
-
-    public static void setCurrent(Account current) {
-        TransactionController.current = current;
-    }
     
     public static Transaction search(Long id){
         return databaseServices.target(id);
