@@ -18,34 +18,26 @@ import view.user.UserMenu;
  */
 public class UserScreen extends javax.swing.JFrame {
     
-    private UserController userControl = new UserController();
-    
-    private AccountController accountControl = new AccountController();
-
     /**
      * Creates new form Account
      */
     public UserScreen() {
         initComponents();
-    }
-    
-    public void setUserControl(UserController userControl){
-        this.userControl = userControl;
         
-        if(userControl.logued.getType().equals(TypeUser.COMMOM)){
+        if(UserController.logued.getType().equals(TypeUser.COMMOM)){
             userMenuButton.setEnabled(false);
             accountMenuButton.setEnabled(false);
             assetMenuButton.setEnabled(false);
             transactionMenu.setEnabled(false);
         }
         
-        if(!(accountControl.acess(userControl.logued.getId()))){
+        if(!(AccountController.acess(UserController.logued.getId()))){
             if(JOptionPane.showConfirmDialog(this,"User does not have an account, do you want to create one?") ==  JOptionPane.YES_OPTION){
 
-                if(accountControl.create(userControl.logued.getId())){
+                if(AccountController.create(UserController.logued.getId())){
 
-                    if(accountControl.acess(userControl.logued.getId())){
-                        userControl.coupling(accountControl.current.getId(), userControl.logued.getId());
+                    if(AccountController.acess(UserController.logued.getId())){
+                        UserController.coupling(AccountController.current.getId(), UserController.logued.getId());
                         JOptionPane.showMessageDialog(this, "Create Sucess !");
                         acessAccountButton.setEnabled(true);
                     }
@@ -57,8 +49,6 @@ public class UserScreen extends javax.swing.JFrame {
                 acessAccountButton.setEnabled(false);
             }
         }
-        
-        
     }
 
     /**
@@ -329,25 +319,24 @@ public class UserScreen extends javax.swing.JFrame {
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
 
-        userControl.refresh();
+        UserController.refresh();
         
-        nameInLabel.setText(userControl.logued.getName());
-        cpfInLabel.setText(userControl.logued.getCpf());
-        addressInLabel.setText(userControl.logued.getAddress());
-        phoneInLabel.setText(userControl.logued.getPhone());
+        nameInLabel.setText(UserController.logued.getName());
+        cpfInLabel.setText(UserController.logued.getCpf());
+        addressInLabel.setText(UserController.logued.getAddress());
+        phoneInLabel.setText(UserController.logued.getPhone());
         
-        startInLabel.setText(userControl.logued.getStart().toString());
-        if(userControl.logued.getModify() != null){
-            modifyInLabel.setText(userControl.logued.getModify().toString());
+        startInLabel.setText(UserController.logued.getStart().toString());
+        if(UserController.logued.getModify() != null){
+            modifyInLabel.setText(UserController.logued.getModify().toString());
         }
         
-        typeInLabel.setText(userControl.logued.getType().name());
+        typeInLabel.setText(UserController.logued.getType().name());
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void userMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuButtonActionPerformed
         
         UserMenu userMenu = new UserMenu();
-        userMenu.setUserControl(userControl);
         userMenu.setVisible(true);
     }//GEN-LAST:event_userMenuButtonActionPerformed
 
@@ -364,8 +353,7 @@ public class UserScreen extends javax.swing.JFrame {
 
     private void acessAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acessAccountButtonActionPerformed
         AcessAccountScreen acessAccountScreen = new AcessAccountScreen();
-        accountControl.setNameLabel(userControl.logued.getName());
-        acessAccountScreen.setAccountControl(accountControl);
+        AccountController.setNameLabel(UserController.logued.getName());
         acessAccountScreen.setVisible(true);
     }//GEN-LAST:event_acessAccountButtonActionPerformed
 

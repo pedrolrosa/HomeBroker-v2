@@ -16,7 +16,14 @@ import model.entities.Transaction;
  */
 public class TransactionDelete extends javax.swing.JFrame {
     
-    TransactionController transactionControl = new TransactionController();
+    void listItems(){
+        List<Transaction> transactions = TransactionController.read();
+        
+        for(Transaction transaction : transactions){
+            
+            idComboBox.addItem(String.valueOf(transaction.getId()));
+        }
+    }
 
     /**
      * Creates new form TransactionDelete
@@ -28,14 +35,7 @@ public class TransactionDelete extends javax.swing.JFrame {
         
     }
 
-    void listItems(){
-        List<Transaction> transactions = transactionControl.read();
-        
-        for(Transaction transaction : transactions){
-            
-            idComboBox.addItem(String.valueOf(transaction.getId()));
-        }
-    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,10 +111,10 @@ public class TransactionDelete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        if(transactionControl.delete(Long.valueOf(idComboBox.getSelectedItem().toString()))){
+        if(TransactionController.delete(Long.valueOf(idComboBox.getSelectedItem().toString()))){
             JOptionPane.showMessageDialog(this,"Deleted Sucess!");
             List<Transaction> transactions;
-            transactions = transactionControl.read();
+            transactions = TransactionController.read();
 
             for(Transaction transaction : transactions){
 

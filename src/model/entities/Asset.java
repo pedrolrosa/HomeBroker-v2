@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author silva.junior
  */
-public class Assets extends Entity{
+public class Asset extends Entity{
     
     private String company; 
     private String ticker;
@@ -71,7 +71,7 @@ public class Assets extends Entity{
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Assets other = (Assets) obj;
+        final Asset other = (Asset) obj;
         if (this.amount != other.amount) {
             return false;
         }

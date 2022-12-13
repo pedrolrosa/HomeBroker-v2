@@ -15,12 +15,6 @@ import model.enums.TypeUser;
  * @author pedro
  */
 public class UserCreate extends javax.swing.JFrame {
-    
-    private UserController userControl = new UserController();
-
-    public void setUserControl(UserController userControl) {
-        this.userControl = userControl;
-    }
 
     /**
      * Creates new form UserCreate
@@ -194,7 +188,7 @@ public class UserCreate extends javax.swing.JFrame {
         
         user.setStart(LocalDateTime.now());
         
-        if(userControl.create(user)){
+        if(UserController.create(user)){
             this.dispose();
             JOptionPane.showMessageDialog(this, "Create User Sucess !");
         } else {
@@ -205,7 +199,6 @@ public class UserCreate extends javax.swing.JFrame {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         
         UserMenu userMenu = new UserMenu();
-        userMenu.setUserControl(userControl);
         userMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed

@@ -79,7 +79,7 @@ public class TransactionServices extends BaseImpl implements TransactionReposito
                 stmt.setLong(1, owner);
                 stmt.setLong(2, owner);
 
-                try(ResultSet rs = stmt.executeQuery(sql)){
+                try(ResultSet rs = stmt.executeQuery()){
                     while (rs.next()) {
                     Long id = rs.getLong("id");
                     Long destiny = rs.getLong("destiny");

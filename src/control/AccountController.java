@@ -16,39 +16,39 @@ import model.repositories.services.AccountServices;
  */
 public class AccountController {
     
-    public Account current;
-    private String name;
+    public static Account current;
+    private static String name;
     
-    private AccountImpl database = new AccountImpl();
-    private AccountServices databaseServices = new AccountServices();
+    private static final AccountImpl database = new AccountImpl();
+    private static final AccountServices databaseServices = new AccountServices();
 
-    public String getNameLabel() {
+    public static String getNameLabel() {
         return name;
     }
     
-    public void setNameLabel(String name){
-        this.name = name;
+    public static void setNameLabel(String name){
+        AccountController.name = name;
     }
     
-    public void refresh(){
+    public static void refresh(){
         current =  databaseServices.target(current.getId());
     }
     
-    public Account search(Long id){
+    public static Account search(Long id){
         return databaseServices.target(id);
     }
     
-    public boolean acess(Long owner){
-        Account attempt = new Account().acess(owner);
+    public static boolean acess(Long owner){
+        Account attempt = databaseServices.acess(owner);
         
         if(attempt != null){
-            this.current = attempt;
+            AccountController.current = attempt;
             return true;
         }
         return false;
     }
     
-    public boolean create(Long owner){
+    public static boolean create(Long owner){
         if(owner == null){
             return false;
         } else {
@@ -64,20 +64,20 @@ public class AccountController {
         }
     }
     
-    public boolean deposit(Long id, BigDecimal value){
-        return new Account().deposit(id, this.current.addAmount(value));
+    public static boolean deposit(Long id, BigDecimal value){
+        return databaseServices.deposit(id, AccountController.current.addAmount(value));
     }
     
-    public boolean withdraw(Long id, BigDecimal value){
-        if(this.current.getAmount().compareTo(value) >= 0){
-            return new Account().withdraw(id, this.current.subAmount(value));
+    public static boolean withdraw(Long id, BigDecimal value){
+        if(AccountController.current.getAmount().compareTo(value) >= 0){
+            return databaseServices.withdraw(id, AccountController.current.subAmount(value));
         } return false;
     }
     
-    public boolean transfer(Long id, Long destiny, BigDecimal value){
-        Account accountDestiny = this.search(destiny);
+    public static boolean transfer(Long id, Long destiny, BigDecimal value){
+        Account accountDestiny = AccountController.search(destiny);
         if(accountDestiny != null){
-            return new Account().transfer(id, destiny, current.subAmount(value), accountDestiny.addAmount(value));
+            return databaseServices.transfer(id, destiny, current.subAmount(value), accountDestiny.addAmount(value));
         } else {
             return false;
         }        

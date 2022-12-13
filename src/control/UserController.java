@@ -15,33 +15,33 @@ import model.repositories.services.UserServices;
  */
 public class UserController {
     
-    public User logued;
+    public static User logued;
     
-    private UserImpl database = new UserImpl();
-    private UserServices databaseServices = new UserServices();
+    private static final UserImpl database = new UserImpl();
+    private static final UserServices databaseServices = new UserServices();
     
-    public boolean login(String user, String password){
-        User attempt = new User().authenticated(user, password);
+    public static boolean login(String user, String password){
+        User attempt = databaseServices.authenticated(user, password);
         if(attempt != null){
-            this.logued = attempt;
+            UserController.logued = attempt;
             return true;
         } 
         return false;
     }
     
-    public void refresh(){
+    public static void refresh(){
         logued =  databaseServices.target(logued.getId());
     }
     
-    public boolean coupling(Long account, Long id){
+    public static boolean coupling(Long account, Long id){
         return databaseServices.coupling(account, id);
     }
     
-    public User search(Long id){
+    public static User search(Long id){
         return databaseServices.target(id);
     }
     
-    public boolean create(User attempt){
+    public static boolean create(User attempt){
         if(attempt == null){
             return false;
         } else {
@@ -49,11 +49,11 @@ public class UserController {
         }
     }
     
-    public List<User> read(){
+    public static List<User> read(){
         return database.read();
     }
     
-    public boolean update(User attempt){
+    public static boolean update(User attempt){
         if(attempt == null){
             return false;
         } else {
@@ -61,7 +61,7 @@ public class UserController {
         }
     }
     
-    public boolean delete(Long id){
+    public static boolean delete(Long id){
         return database.delete(id);
     }
 }

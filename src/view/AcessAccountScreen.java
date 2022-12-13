@@ -18,15 +18,6 @@ import view.acess.AcessAccountHistory;
  * @author pedro
  */
 public class AcessAccountScreen extends javax.swing.JFrame {
-    
-    AccountController accountControl = new AccountController();
-    
-    TransactionController transactionControl = new TransactionController();
-
-    public void setAccountControl(AccountController accountControl) {
-        this.accountControl = accountControl;
-        nameLabel.setText(accountControl.getNameLabel());
-    }
 
     /**
      * Creates new form AcessAccountScreen
@@ -267,16 +258,16 @@ public class AcessAccountScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        accountControl.refresh();
+        AccountController.refresh();
         
-        idField.setText(accountControl.current.getId().toString());
-        ownerField.setText(accountControl.current.getOwner().toString());
-        amountField.setText(accountControl.current.getAmount().toString());
-        maxField.setText(accountControl.current.getMax().toString());
+        idField.setText(AccountController.current.getId().toString());
+        ownerField.setText(AccountController.current.getOwner().toString());
+        amountField.setText(AccountController.current.getAmount().toString());
+        maxField.setText(AccountController.current.getMax().toString());
         
-        startField.setText(accountControl.current.getStart().toString());
-        if(accountControl.current.getModify() != null){
-            modifyField.setText(accountControl.current.getModify().toString());
+        startField.setText(AccountController.current.getStart().toString());
+        if(AccountController.current.getModify() != null){
+            modifyField.setText(AccountController.current.getModify().toString());
         }
         
     }//GEN-LAST:event_refreshButtonActionPerformed
@@ -287,14 +278,14 @@ public class AcessAccountScreen extends javax.swing.JFrame {
 
     private void depositButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositButtonActionPerformed
         BigDecimal value;
-        if(accountControl.deposit(accountControl.current.getId(), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+        if(AccountController.deposit(AccountController.current.getId(), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
             
             String description = JOptionPane.showInputDialog(this, "Description");
             
             JOptionPane.showMessageDialog(this,"Deposit Sucess !");
             
             Transaction transaction = new Transaction();
-            transaction.setOwner(accountControl.current.getId());
+            transaction.setOwner(AccountController.current.getId());
             transaction.setDestiny(null);
             transaction.setType(TypeTransaction.DEPOSIT);
             transaction.setDescription(description);
@@ -302,7 +293,7 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             
             transaction.setStart(LocalDateTime.now());
             
-            transactionControl.create(transaction);
+            TransactionController.create(transaction);
         } else {
             JOptionPane.showMessageDialog(this, "Failed !");
         }
@@ -310,13 +301,13 @@ public class AcessAccountScreen extends javax.swing.JFrame {
 
     private void withdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawButtonActionPerformed
         BigDecimal value;
-        if(accountControl.withdraw(accountControl.current.getId(), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+        if(AccountController.withdraw(AccountController.current.getId(), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
             String description = JOptionPane.showInputDialog(this, "Description");
             
             JOptionPane.showMessageDialog(this,"Withdraw Sucess !");
             
             Transaction transaction = new Transaction();
-            transaction.setOwner(accountControl.current.getId());
+            transaction.setOwner(AccountController.current.getId());
             transaction.setDestiny(null);
             transaction.setType(TypeTransaction.WITHDRAW);
             transaction.setDescription(description);
@@ -324,7 +315,7 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             
             transaction.setStart(LocalDateTime.now());
             
-            transactionControl.create(transaction);
+            TransactionController.create(transaction);
         } else {
             JOptionPane.showMessageDialog(this, "Failed !");
         }
@@ -333,13 +324,13 @@ public class AcessAccountScreen extends javax.swing.JFrame {
     private void transferButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferButtonActionPerformed
         BigDecimal value;
         Long destiny;
-        if(accountControl.transfer(accountControl.current.getId(), destiny = Long.valueOf(JOptionPane.showInputDialog(this, "Destiny ID : ")), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+        if(AccountController.transfer(AccountController.current.getId(), destiny = Long.valueOf(JOptionPane.showInputDialog(this, "Destiny ID : ")), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
             String description = JOptionPane.showInputDialog(this, "Description");
             
             JOptionPane.showMessageDialog(this,"Transfer Sucess !");
             
             Transaction transaction = new Transaction();
-            transaction.setOwner(accountControl.current.getId());
+            transaction.setOwner(AccountController.current.getId());
             transaction.setDestiny(destiny);
             transaction.setType(TypeTransaction.TRANSFER);
             transaction.setDescription(description);
@@ -347,7 +338,7 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             
             transaction.setStart(LocalDateTime.now());
             
-            transactionControl.create(transaction);
+            TransactionController.create(transaction);
         } else {
             JOptionPane.showMessageDialog(this, "Failed !");
         }
@@ -355,8 +346,6 @@ public class AcessAccountScreen extends javax.swing.JFrame {
 
     private void historyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historyButtonActionPerformed
         AcessAccountHistory history = new AcessAccountHistory();
-        history.setTransactionControl(transactionControl);
-        history.setAccountControl(accountControl);
         history.setVisible(true);
     }//GEN-LAST:event_historyButtonActionPerformed
 

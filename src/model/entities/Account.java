@@ -56,23 +56,6 @@ public class Account extends Entity{
     public void setMax(Double max) {
         this.max = max;
     }
-    
-    public Account acess(Long id){
-        return new AccountServices().acess(id);
-    }
-    
-    public boolean deposit(Long id, BigDecimal value){
-        return new AccountServices().deposit(id, value);
-    }
-    
-    public boolean withdraw(Long id, BigDecimal value){
-        return new AccountServices().withdraw(id, value);
-    }
-    
-    public boolean transfer(Long id, Long destiny, BigDecimal origin, BigDecimal dest){
-        return new AccountServices().transfer(id, destiny, origin, dest);
-    }
-
 
     @Override
     public int hashCode() {

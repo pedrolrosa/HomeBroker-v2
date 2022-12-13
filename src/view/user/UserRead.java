@@ -14,13 +14,6 @@ import model.entities.User;
  * @author pedro
  */
 public class UserRead extends javax.swing.JFrame {
-    
-    private UserController userControl = new UserController();
-
-    public void setUserControl(UserController userControl) {
-        this.userControl = userControl;
-    }
-
     /**
      * Creates new form UserRead
      */
@@ -33,7 +26,7 @@ public class UserRead extends javax.swing.JFrame {
         Object columns[] = new Object[usersTable.getColumnCount()];
         
         List<User> users;
-        users = userControl.read();
+        users = UserController.read();
         
         for(int i =0; i < users.size(); i++){
             
@@ -145,7 +138,6 @@ public class UserRead extends javax.swing.JFrame {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         
         UserMenu userMenu = new UserMenu();
-        userMenu.setUserControl(userControl);
         userMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed

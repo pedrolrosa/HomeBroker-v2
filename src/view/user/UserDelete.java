@@ -15,12 +15,14 @@ import model.entities.User;
  */
 public class UserDelete extends javax.swing.JFrame {
     
-    UserController userControl = new UserController();
-
-    public void setUserControl(UserController userControl) {
-        this.userControl = userControl;
+    void listItems(){
+        List<User> users;
+        users = UserController.read();
         
-        listItems();
+        for(User user : users){
+            
+            idComboBox.addItem(String.valueOf(user.getId()));
+        }
     }
 
     /**
@@ -28,16 +30,8 @@ public class UserDelete extends javax.swing.JFrame {
      */
     public UserDelete() {
         initComponents();
-    }
-    
-    void listItems(){
-        List<User> users;
-        users = userControl.read();
         
-        for(User user : users){
-            
-            idComboBox.addItem(String.valueOf(user.getId()));
-        }
+        listItems();
     }
 
     /**
@@ -120,16 +114,15 @@ public class UserDelete extends javax.swing.JFrame {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         
         UserMenu userMenu = new UserMenu();
-        userMenu.setUserControl(userControl);
         userMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        if(userControl.delete(Long.valueOf(idComboBox.getSelectedItem().toString()))){
+        if(UserController.delete(Long.valueOf(idComboBox.getSelectedItem().toString()))){
             JOptionPane.showMessageDialog(this,"Deleted Sucess!");
             List<User> users;
-            users = userControl.read();
+            users = UserController.read();
 
             for(User user : users){
 

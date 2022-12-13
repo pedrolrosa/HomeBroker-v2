@@ -6,7 +6,7 @@ package control;
 
 import javax.swing.JOptionPane;
 import java.util.List;
-import model.entities.Assets;
+import model.entities.Asset;
 import model.repositories.impl.AssetsImpl; 
 
 /**
@@ -16,9 +16,9 @@ import model.repositories.impl.AssetsImpl;
 public class AssetsController {
     
  
-    private AssetsImpl database = new AssetsImpl();
+    private static final AssetsImpl database = new AssetsImpl();
     
-    public boolean create(Assets asset){
+    public static boolean create(Asset asset){
         if(asset == null){ 
             JOptionPane.showMessageDialog(null, "Invalid inserts");
             return false; 
@@ -28,11 +28,11 @@ public class AssetsController {
         }
     } 
     
-    public List<Assets> read(){
+    public static List<Asset> read(){
         return database.read(); 
     }
     
-    public boolean update (Assets asset){
+    public static boolean update (Asset asset){
       if(asset == null){
        JOptionPane.showMessageDialog(null, "Invalid updates");
        return false; 
@@ -42,7 +42,7 @@ public class AssetsController {
       
     }
     
-    public boolean delete(Long id){
+    public static boolean delete(Long id){
      return database.delete(id); 
     }
     

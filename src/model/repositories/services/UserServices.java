@@ -92,7 +92,7 @@ public class UserServices extends BaseImpl implements UserRepository, BaseReposi
     }
 
     @Override
-    public User authenticate(String login, String password) {
+    public User authenticated(String login, String password) {
 
         String sql = "select id from users where login = ? and password = ?;";
 

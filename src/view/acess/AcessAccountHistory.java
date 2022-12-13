@@ -15,17 +15,13 @@ import model.entities.Transaction;
  * @author pedro
  */
 public class AcessAccountHistory extends javax.swing.JFrame {
-    
-    AccountController accountControl = new AccountController();
-    
-    TransactionController transactionControl = new TransactionController();
 
-    public void setTransactionControl(TransactionController transactionControl) {
-        this.transactionControl = transactionControl;
-    }
-    
-    public void setAccountControl(AccountController accountControl) {
-        this.accountControl = accountControl;
+
+    /**
+     * Creates new form AcessAccountHistory
+     */
+    public AcessAccountHistory() {
+        initComponents();
         
         DefaultTableModel model = (DefaultTableModel) historyTable.getModel();
         model.setNumRows(0);
@@ -33,7 +29,7 @@ public class AcessAccountHistory extends javax.swing.JFrame {
         Object columns[] = new Object[historyTable.getColumnCount()];
         
         List<Transaction> transactions;
-        transactions = transactionControl.read(accountControl.current.getId());
+        transactions = TransactionController.read(AccountController.current.getId());
         
         for(int i =0; i < transactions.size(); i++){
             
@@ -48,13 +44,6 @@ public class AcessAccountHistory extends javax.swing.JFrame {
             
             model.addRow(columns);
         }
-    }
-
-    /**
-     * Creates new form AcessAccountHistory
-     */
-    public AcessAccountHistory() {
-        initComponents();
        
     }
 

@@ -4,8 +4,6 @@
  */
 package view.transaction;
 
-import control.TransactionController;
-
 /**
  *
  * @author pedro
@@ -61,6 +59,11 @@ public class TransactionMenu extends javax.swing.JFrame {
         });
 
         backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,6 +119,10 @@ public class TransactionMenu extends javax.swing.JFrame {
         TransactionUpdate updateScreen = new TransactionUpdate();
         updateScreen.setVisible(true);
     }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
 
     /**
      * @param args the command line arguments

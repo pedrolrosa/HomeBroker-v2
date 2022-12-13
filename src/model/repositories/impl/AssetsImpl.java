@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import model.repositories.BaseRepository;
-import model.entities.Assets; 
+import model.entities.Asset; 
 
 import model.database.ConnectionFactory;
 import java.math.BigDecimal;
@@ -22,10 +22,10 @@ import java.time.format.DateTimeFormatter;
  *
  * @author silva.junior
  */
-public class AssetsImpl implements BaseRepository<Assets, Long>{
+public class AssetsImpl implements BaseRepository<Asset, Long>{
      
  @Override
-    public Optional<Assets> create(Assets element){
+    public Optional<Asset> create(Asset element){
         String sql = "insert into assets "
                 + "(company,ticker,amount,initialPrice)" + " values (?,?,?,?)";
 
@@ -48,10 +48,10 @@ public class AssetsImpl implements BaseRepository<Assets, Long>{
     }
     
     @Override
-    public List<Assets> read(){
+    public List<Asset> read(){
         String sql = "select * from assets";
 
-        List<Assets> assets = new ArrayList<>();
+        List<Asset> assets = new ArrayList<>();
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
@@ -71,7 +71,7 @@ public class AssetsImpl implements BaseRepository<Assets, Long>{
                     modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
                 }
 
-                Assets asset = new Assets();
+                Asset asset = new Asset();
                 asset.setId(id);
                 asset.setCompany(company);
                 asset.setTicker(ticker);
@@ -91,7 +91,7 @@ public class AssetsImpl implements BaseRepository<Assets, Long>{
     }
     
     @Override
-    public Optional<Assets> update(Assets element){
+    public Optional<Asset> update(Asset element){
         
         String sql = "update assets set name = ? where id = ?";
 

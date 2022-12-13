@@ -14,8 +14,6 @@ import model.entities.Transaction;
  * @author pedro
  */
 public class TransactionRead extends javax.swing.JFrame {
-    
-    TransactionController transactionControl = new TransactionController();
 
     /**
      * Creates new form TransactionRead
@@ -29,7 +27,7 @@ public class TransactionRead extends javax.swing.JFrame {
         Object columns[] = new Object[readTable.getColumnCount()];
         
         List<Transaction> transactions;
-        transactions = transactionControl.read();
+        transactions = TransactionController.read();
         
         for(int i =0; i < transactions.size(); i++){
             

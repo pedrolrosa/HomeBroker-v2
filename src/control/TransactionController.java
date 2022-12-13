@@ -16,40 +16,40 @@ import model.repositories.services.TransactionServices;
  */
 public class TransactionController {
     
-    private Account current = new Account();
+    private static Account current = new Account();
     
-    private TransactionImpl database = new TransactionImpl();
-    private TransactionServices databaseServices = new TransactionServices();
+    private static final TransactionImpl database = new TransactionImpl();
+    private static final TransactionServices databaseServices = new TransactionServices();
 
     public Account getCurrent() {
         return current;
     }
 
-    public void setCurrent(Account current) {
-        this.current = current;
+    public static void setCurrent(Account current) {
+        TransactionController.current = current;
     }
     
-    public Transaction search(Long id){
+    public static Transaction search(Long id){
         return databaseServices.target(id);
     }    
     
-    public boolean create(Transaction attempt){
+    public static boolean create(Transaction attempt){
         return database.create(attempt).isPresent();
     }
     
-    public List<Transaction> read(){
+    public static List<Transaction> read(){
         return database.read();
     }
     
-    public List<Transaction> read(Long owner){
+    public static List<Transaction> read(Long owner){
         return databaseServices.search(owner);
     }
     
-    public boolean update(Transaction transaction){
+    public static boolean update(Transaction transaction){
         return database.update(transaction).isPresent();
     }
     
-    public boolean delete(Long id){
+    public static boolean delete(Long id){
         return database.delete(id);
     }
 }

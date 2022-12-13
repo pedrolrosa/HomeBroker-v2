@@ -16,20 +16,6 @@ import model.enums.TypeUser;
  * @author pedro
  */
 public class UserUpdate extends javax.swing.JFrame {
-    
-    private UserController userControl = new UserController();
-
-    public void setUserControl(UserController userControl) {
-        this.userControl = userControl;
-        
-        List<User> users;
-        users = userControl.read();
-        
-        for(User user : users){
-            
-            idComboBox.addItem(String.valueOf(user.getId()));
-        }
-    }
 
     /**
      * Creates new form UserUpdate
@@ -37,6 +23,14 @@ public class UserUpdate extends javax.swing.JFrame {
     public UserUpdate() {
         initComponents();
         updateButton.setEnabled(false);
+        
+        List<User> users;
+        users = UserController.read();
+        
+        for(User user : users){
+            
+            idComboBox.addItem(String.valueOf(user.getId()));
+        }
     }
 
     /**
@@ -230,13 +224,12 @@ public class UserUpdate extends javax.swing.JFrame {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         
         UserMenu userMenu = new UserMenu();
-        userMenu.setUserControl(userControl);
         userMenu.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        User selected = userControl.search(Long.valueOf(idComboBox.getSelectedItem().toString()));
+        User selected = UserController.search(Long.valueOf(idComboBox.getSelectedItem().toString()));
         
         nameField.setText(selected.getName());
         cpfField.setText(selected.getCpf());
@@ -272,7 +265,7 @@ public class UserUpdate extends javax.swing.JFrame {
         
         user.setModify(LocalDateTime.now());
         
-        if(userControl.update(user)){
+        if(UserController.update(user)){
             JOptionPane.showMessageDialog(this, "Update Sucess !");
         } else {
             JOptionPane.showMessageDialog(this, "Failed !");

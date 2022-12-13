@@ -13,8 +13,6 @@ import javax.swing.JOptionPane;
  */
 public class LoginScreen extends javax.swing.JFrame {
     
-    private UserController userControl = new UserController();
-    
     /**
      * Creates new form App
      */
@@ -146,9 +144,8 @@ public class LoginScreen extends javax.swing.JFrame {
         if(user.isEmpty() || password.equals("")){
             JOptionPane.showInternalMessageDialog(this, "Field empty !");
         } else {
-            if(userControl.login(user, password)){
+            if(UserController.login(user, password)){
                 UserScreen userScreen = new UserScreen();
-                userScreen.setUserControl(userControl);
                 userScreen.setVisible(true);
                 this.dispose();
             } else {

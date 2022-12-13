@@ -16,7 +16,14 @@ import model.entities.Transaction;
  */
 public class TransactionUpdate extends javax.swing.JFrame {
     
-    TransactionController transactionControl = new TransactionController();
+    void listItems(){
+        List<Transaction> transactions = TransactionController.read();
+        
+        for(Transaction transaction : transactions){
+            
+            idComboBox.addItem(String.valueOf(transaction.getId()));
+        }
+    }
 
     /**
      * Creates new form TransactionUpdate
@@ -27,14 +34,7 @@ public class TransactionUpdate extends javax.swing.JFrame {
         listItems();
     }
     
-    void listItems(){
-        List<Transaction> transactions = transactionControl.read();
-        
-        for(Transaction transaction : transactions){
-            
-            idComboBox.addItem(String.valueOf(transaction.getId()));
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -159,7 +159,7 @@ public class TransactionUpdate extends javax.swing.JFrame {
     }//GEN-LAST:event_idComboBoxActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        Transaction selected = transactionControl.search(Long.valueOf(idComboBox.getSelectedItem().toString()));
+        Transaction selected = TransactionController.search(Long.valueOf(idComboBox.getSelectedItem().toString()));
 
         descriptionField.setText(selected.getDescription());
 
@@ -177,7 +177,7 @@ public class TransactionUpdate extends javax.swing.JFrame {
 
         transaction.setModify(LocalDateTime.now());
 
-        if(transactionControl.update(transaction)){
+        if(TransactionController.update(transaction)){
             updateButton.setEnabled(false);
             descriptionField.setEnabled(false);
             JOptionPane.showMessageDialog(this, "Update Sucess !");

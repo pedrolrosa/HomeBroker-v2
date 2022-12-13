@@ -12,12 +12,6 @@ import control.UserController;
  */
 public class UserMenu extends javax.swing.JFrame {
     
-    UserController userControl = new UserController();
-
-    public void setUserControl(UserController userControl) {
-        this.userControl = userControl;
-    }
-
     /**
      * Creates new form UserMenu
      */
@@ -138,28 +132,24 @@ public class UserMenu extends javax.swing.JFrame {
 
     private void createUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserButtonActionPerformed
         UserCreate userCreate = new UserCreate();
-        userCreate.setUserControl(userControl);
         userCreate.setVisible(this.rootPaneCheckingEnabled);
         this.dispose();
     }//GEN-LAST:event_createUserButtonActionPerformed
 
     private void readUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readUserButtonActionPerformed
         UserRead userRead = new UserRead();
-        userRead.setUserControl(userControl);
         userRead.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_readUserButtonActionPerformed
 
     private void updateUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateUserButtonActionPerformed
         UserUpdate userUpdate = new UserUpdate();
-        userUpdate.setUserControl(userControl);
         userUpdate.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_updateUserButtonActionPerformed
 
     private void deleteUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserButtonActionPerformed
         UserDelete userDelete = new UserDelete();
-        userDelete.setUserControl(userControl);
         userDelete.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_deleteUserButtonActionPerformed

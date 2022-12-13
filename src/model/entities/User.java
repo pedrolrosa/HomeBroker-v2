@@ -88,10 +88,6 @@ public class User extends Entity{
     public void setType(TypeUser type) {
         this.type = type;
     }
-    
-    public User authenticated(String login, String password){
-        return new UserServices().authenticate(login, password);
-    }
 
     @Override
     public int hashCode() {
