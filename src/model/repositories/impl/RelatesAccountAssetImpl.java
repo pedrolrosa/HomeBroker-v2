@@ -50,7 +50,7 @@ public class RelatesAccountAssetImpl extends BaseImpl implements BaseRepository<
 
     @Override
     public List<RelatesAccountAsset> read() {
-        String sql = "select * from relatesAccountAsset";
+        String sql = "select * from relatesAccountAssets";
 
         List<RelatesAccountAsset> relates = new ArrayList<>();
 
@@ -90,7 +90,7 @@ public class RelatesAccountAssetImpl extends BaseImpl implements BaseRepository<
 
     @Override
     public Optional<RelatesAccountAsset> update(RelatesAccountAsset element) {
-        String sql = "update relatedAccountAssets set quantity = ?, modify = ? where id = ?";
+        String sql = "update relatesAccountAssets set quantity = ?, modify = ? where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -111,7 +111,7 @@ public class RelatesAccountAssetImpl extends BaseImpl implements BaseRepository<
     @Override
     public boolean delete(Long id) {
         
-        String sql = "delete from relatedAccountAssets where id = ?";
+        String sql = "delete from relatesAccountAssets where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {

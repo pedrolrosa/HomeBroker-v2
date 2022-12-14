@@ -11,6 +11,7 @@ import model.enums.TypeUser;
 import view.account.AccountMenu;
 import view.asset.AssetMenu;
 import view.order.OrderMenu;
+import view.relates.RelatesMenu;
 import view.transaction.TransactionMenu;
 import view.user.UserMenu;
 
@@ -79,6 +80,7 @@ public class UserScreen extends javax.swing.JFrame {
         assetMenuButton = new javax.swing.JButton();
         transactionMenu = new javax.swing.JButton();
         orderMenu = new javax.swing.JButton();
+        relatesMenu = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -245,6 +247,13 @@ public class UserScreen extends javax.swing.JFrame {
             }
         });
 
+        relatesMenu.setText("Relates");
+        relatesMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                relatesMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -260,6 +269,8 @@ public class UserScreen extends javax.swing.JFrame {
                         .addComponent(transactionMenu))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(assetMenuButton)
+                        .addGap(104, 104, 104)
+                        .addComponent(relatesMenu)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(userMenuButton)
@@ -280,7 +291,9 @@ public class UserScreen extends javax.swing.JFrame {
                     .addComponent(acessAccountButton)
                     .addComponent(transactionMenu))
                 .addGap(46, 46, 46)
-                .addComponent(assetMenuButton)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(assetMenuButton)
+                    .addComponent(relatesMenu))
                 .addContainerGap())
         );
 
@@ -391,6 +404,11 @@ public class UserScreen extends javax.swing.JFrame {
         assetScreen.setVisible(true);
     }//GEN-LAST:event_assetMenuButtonActionPerformed
 
+    private void relatesMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatesMenuActionPerformed
+        RelatesMenu relatesScreen = new RelatesMenu();
+        relatesScreen.setVisible(true);
+    }//GEN-LAST:event_relatesMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -447,6 +465,7 @@ public class UserScreen extends javax.swing.JFrame {
     private javax.swing.JTextField phoneInLabel;
     private final javax.swing.JLabel phoneLabel = new javax.swing.JLabel();
     private javax.swing.JButton refreshButton;
+    private javax.swing.JButton relatesMenu;
     private javax.swing.JTextField startInLabel;
     private final javax.swing.JLabel startLabel = new javax.swing.JLabel();
     private javax.swing.JButton transactionMenu;
