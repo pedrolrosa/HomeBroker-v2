@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import model.database.ConnectionFactory;
-import model.entities.Account;
 import model.entities.Transaction;
 import model.enums.TypeTransaction;
 import model.repositories.BaseRepository;

@@ -4,10 +4,19 @@
  */
 package model.repositories;
 
+import java.util.List;
+import model.entities.RelatesAccountAsset;
+
 /**
  *
  * @author pedro
  */
 public interface RelatesAccountAssetRepository {
+    
+    Long requestId(Long account);
+    
+    List<RelatesAccountAsset> searchAssets(Long account);
+    
+    List<RelatesAccountAsset> searchAccounts(Long account);
     
 }
