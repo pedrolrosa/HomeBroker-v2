@@ -39,7 +39,7 @@ public class AssetController {
             return false; 
         }else{
              
-            return database.create(asset).isPresent(); 
+            return database.create(asset); 
         }
     } 
     
@@ -52,7 +52,7 @@ public class AssetController {
        JOptionPane.showMessageDialog(null, "Invalid updates");
        return false; 
       }else{
-       return database.update(asset).isPresent(); 
+       return database.update(asset); 
       } 
       
     }

@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import model.database.ConnectionFactory;
 import model.entities.Transaction;
 import model.enums.TypeTransaction;
@@ -27,7 +26,7 @@ import model.repositories.BaseRepository;
 public class TransactionImpl implements BaseRepository<Transaction, Long>{
     
     @Override
-    public Optional<Transaction> create(Transaction element){
+    public boolean create(Transaction element){
         String sql = "insert into transactions "
                 + "(owner, destiny, type, description, value, start)" + " values (?,?,?,?,?,?)";
 
@@ -48,12 +47,10 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
             
             stmt.execute();
             
-            System.out.println("Elemento inserido com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        
-        return Optional.ofNullable(element);
     }
     
     @Override
@@ -101,7 +98,7 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
     }
     
     @Override
-    public Optional<Transaction> update(Transaction element){
+    public boolean update(Transaction element){
         
         String sql = "update transactions set description = ?, modify = ? where id = ?";
 
@@ -114,11 +111,10 @@ public class TransactionImpl implements BaseRepository<Transaction, Long>{
             
             stmt.execute();
             
-            System.out.println("Elemento alterado com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(element);
         
     }
     

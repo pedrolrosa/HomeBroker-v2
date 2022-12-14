@@ -4,7 +4,6 @@
  */
 package model.repositories;
 
-import java.util.Optional;
 import model.entities.User;
 
 /**
@@ -17,5 +16,5 @@ public interface UserRepository{
     
     User authenticated(String login, String password);
     
-    Optional<User> searchName(String name);
+    boolean searchName(String name);
 }

@@ -5,7 +5,6 @@
 package model.repositories;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  *
@@ -22,7 +21,7 @@ public interface BaseRepository<CLASS, ID> {
      * @param obj
      * @return
      */
-    Optional<CLASS> create(CLASS obj);
+    boolean create(CLASS obj);
 
     /**
      * Returns all the entities
@@ -37,7 +36,7 @@ public interface BaseRepository<CLASS, ID> {
      * @param obj
      * @return
      */
-    Optional<CLASS> update(CLASS obj);
+    boolean update(CLASS obj);
 
     /**
      * Delete object by ID

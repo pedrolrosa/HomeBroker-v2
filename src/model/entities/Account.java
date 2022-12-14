@@ -6,7 +6,6 @@ package model.entities;
 
 import java.math.BigDecimal;
 import java.util.Objects;
-import model.repositories.services.AccountServices;
 
 /**
  *

@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import model.database.ConnectionFactory;
 import model.entities.User;
 import model.enums.TypeUser;
@@ -26,7 +25,7 @@ import model.repositories.BaseRepository;
 public class UserImpl implements BaseRepository<User, Long>{
     
     @Override
-    public Optional<User> create(User element){
+    public boolean create(User element){
         String sql = "insert into users "
                 + "(name,cpf,address,phone,login,password,type,start)" + " values (?,?,?,?,?,?,?,?)";
 
@@ -43,11 +42,12 @@ public class UserImpl implements BaseRepository<User, Long>{
             stmt.setTimestamp(8, Timestamp.valueOf(element.getStart()));
             
             stmt.execute();
+            
+            return true;
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        
-        return Optional.ofNullable(element);
     }
     
     @Override
@@ -100,7 +100,7 @@ public class UserImpl implements BaseRepository<User, Long>{
     }
     
     @Override
-    public Optional<User> update(User element){
+    public boolean update(User element){
         
         String sql = "update users set name = ?, cpf = ?, address = ?, phone = ?, login = ?, password = ?, type = ?, modify = ? where id = ?";
 
@@ -119,10 +119,12 @@ public class UserImpl implements BaseRepository<User, Long>{
             stmt.setLong(9, element.getId());
             
             stmt.execute();
+            
+            return true;
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(element);
         
     }
     

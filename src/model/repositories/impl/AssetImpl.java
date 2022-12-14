@@ -9,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import model.repositories.BaseRepository;
 import model.entities.Asset; 
 
@@ -26,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 public class AssetImpl implements BaseRepository<Asset, Long>{
      
  @Override
-    public Optional<Asset> create(Asset element){
+    public boolean create(Asset element){
         String sql = "insert into assets "
                 + "(company,ticker,amount,initial_price, start)" + " values (?,?,?,?, ?)";
 
@@ -41,12 +40,11 @@ public class AssetImpl implements BaseRepository<Asset, Long>{
             
             stmt.execute();
             
-            System.out.println("Elemento inserido com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         
-        return Optional.ofNullable(element);
     }
     
     @Override
@@ -93,7 +91,7 @@ public class AssetImpl implements BaseRepository<Asset, Long>{
     }
     
     @Override
-    public Optional<Asset> update(Asset element){
+    public boolean update(Asset element){
         
         String sql = "update assets set company = ?, ticker = ?, amount = ?, modify = ? where id = ?";
 
@@ -108,11 +106,10 @@ public class AssetImpl implements BaseRepository<Asset, Long>{
             
             stmt.execute();
             
-            System.out.println("Elemento alterado com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(element);
         
     }
     

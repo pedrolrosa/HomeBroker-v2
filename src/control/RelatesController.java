@@ -43,7 +43,7 @@ public class RelatesController {
     }
     
     public static boolean create(RelatesAccountAsset attempt){
-        return database.create(attempt).isPresent();
+        return database.create(attempt);
     }
     
     public static List<RelatesAccountAsset> read(){
@@ -59,7 +59,7 @@ public class RelatesController {
     }
     
     public static boolean update(RelatesAccountAsset transaction){
-        return database.update(transaction).isPresent();
+        return database.update(transaction);
     }
     
     public static boolean delete(Long id){

@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import model.database.ConnectionFactory;
 import model.entities.RelatesAccountAsset;
 import model.repositories.BaseRepository;
@@ -26,7 +25,7 @@ import model.repositories.BaseRepository;
 public class RelatesAccountAssetImpl extends BaseImpl implements BaseRepository<RelatesAccountAsset, Long>{
 
     @Override
-    public Optional<RelatesAccountAsset> create(RelatesAccountAsset element) {
+    public boolean create(RelatesAccountAsset element) {
         String sql = "insert into relatesAccountAssets "
                 + "(account, asset, quantity, start)" + " values (?,?,?,?)";
 
@@ -40,12 +39,10 @@ public class RelatesAccountAssetImpl extends BaseImpl implements BaseRepository<
             
             stmt.execute();
             
-            System.out.println("Elemento inserido com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        
-        return Optional.ofNullable(element);
     }
 
     @Override
@@ -89,7 +86,7 @@ public class RelatesAccountAssetImpl extends BaseImpl implements BaseRepository<
     }
 
     @Override
-    public Optional<RelatesAccountAsset> update(RelatesAccountAsset element) {
+    public boolean update(RelatesAccountAsset element) {
         String sql = "update relatesAccountAssets set quantity = ?, modify = ? where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
@@ -101,11 +98,10 @@ public class RelatesAccountAssetImpl extends BaseImpl implements BaseRepository<
             
             stmt.execute();
             
-            System.out.println("Elemento alterado com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(element);
     }
 
     @Override

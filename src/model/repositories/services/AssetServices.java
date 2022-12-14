@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import model.database.ConnectionFactory;
 import model.entities.Asset;
 import model.repositories.AssetRepository;

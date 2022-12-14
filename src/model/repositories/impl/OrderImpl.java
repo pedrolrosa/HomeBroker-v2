@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import model.database.ConnectionFactory;
 import model.entities.Order;
 import model.enums.StateOrder;
@@ -30,7 +29,7 @@ import model.repositories.BaseRepository;
 public class OrderImpl implements BaseRepository<Order, Long>{
 
     @Override
-    public Optional<Order> create(Order element) {
+    public boolean create(Order element) {
         String sql = "insert into orders "
                 + "(account,type,ticker,quantity,value,total_value,state,start)" + " values (?,?,?,?,?,?,?,?)";
 
@@ -47,11 +46,11 @@ public class OrderImpl implements BaseRepository<Order, Long>{
             stmt.setTimestamp(8, Timestamp.valueOf(element.getStart()));
             
             stmt.execute();
+            
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        
-        return Optional.ofNullable(element);
     }
 
     @Override
@@ -103,7 +102,7 @@ public class OrderImpl implements BaseRepository<Order, Long>{
     }
 
     @Override
-    public Optional<Order> update(Order element) {
+    public boolean update(Order element) {
         String sql = "update orders set value = ?, quantity = ?, total_value = ?, modify = ? where id = ?";
 
         try ( Connection connection = new ConnectionFactory().getConnection();  
@@ -117,11 +116,10 @@ public class OrderImpl implements BaseRepository<Order, Long>{
 
             stmt.execute();
 
-            System.out.println("Elemento alterado com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(element);
     }
 
     @Override

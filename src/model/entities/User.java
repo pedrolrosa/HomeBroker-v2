@@ -6,7 +6,6 @@ package model.entities;
 
 import java.util.Objects;
 import model.enums.TypeUser;
-import model.repositories.services.UserServices;
 
 /**
  *

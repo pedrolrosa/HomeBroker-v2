@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import model.database.ConnectionFactory;
 import model.entities.User;
 import model.enums.TypeUser;
@@ -119,27 +118,7 @@ public class UserServices extends BaseImpl implements UserRepository, BaseReposi
     }
 
     @Override
-    public Optional<User> searchName(String name) {
-        String sql = "select id from users where name = ?;";
-
-        try ( Connection connection = new ConnectionFactory().getConnection();  
-                PreparedStatement stmt = connection.prepareStatement(sql);  
-                ) {
-            
-            stmt.setString(1, name);
-            
-            try(ResultSet rs = stmt.executeQuery()){
-                if(rs.next()){
-                    return Optional.ofNullable(target(rs.getLong("id")));
-                }
-                return null;                
-            } catch(SQLException e) {
-                throw new RuntimeException(e.getMessage());
-            }
-            
-            
-        } catch (SQLException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+    public boolean searchName(String name) {
+        return true;
     }
 }

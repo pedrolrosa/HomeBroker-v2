@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import model.database.ConnectionFactory;
 import model.entities.Account;
 import model.repositories.BaseRepository;
@@ -26,7 +25,7 @@ import model.repositories.BaseRepository;
 public class AccountImpl extends BaseImpl implements BaseRepository<Account, Long> {
 
     @Override
-    public Optional<Account> create(Account element) {
+    public boolean create(Account element) {
         String sql = "insert into accounts "
                 + "(owner, amount, max, start)" + " values (?,?,?,?)";
 
@@ -39,12 +38,10 @@ public class AccountImpl extends BaseImpl implements BaseRepository<Account, Lon
 
             stmt.execute();
 
-            System.out.println("Elemento inserido com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        return Optional.ofNullable(element);
     }
 
     @Override
@@ -88,7 +85,7 @@ public class AccountImpl extends BaseImpl implements BaseRepository<Account, Lon
     }
 
     @Override
-    public Optional<Account> update(Account element) {
+    public boolean update(Account element) {
 
         String sql = "update accounts set limit = ? where id = ?";
 
@@ -100,11 +97,10 @@ public class AccountImpl extends BaseImpl implements BaseRepository<Account, Lon
 
             stmt.execute();
 
-            System.out.println("Elemento alterado com sucesso.");
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return Optional.ofNullable(element);
 
     }
 

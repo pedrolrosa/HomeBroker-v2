@@ -47,11 +47,7 @@ public class AccountController {
     
     public static boolean hasBalance(BigDecimal value){
         
-        if(current.getAmount().compareTo(value) >= 0){
-            return true;
-        }
-        
-        return false;
+        return current.getAmount().compareTo(value) >= 0;
     }
 
     public static void refresh() {
@@ -84,7 +80,7 @@ public class AccountController {
             attempt.setMax(Double.valueOf(attempt.getAmount().multiply(BigDecimal.TEN).toString()));
             attempt.setStart(LocalDateTime.now());
 
-            return database.create(attempt).isPresent();
+            return database.create(attempt);
         }
     }
 

@@ -24,7 +24,7 @@ public class TransactionController {
     }    
     
     public static boolean create(Transaction attempt){
-        return database.create(attempt).isPresent();
+        return database.create(attempt);
     }
     
     public static List<Transaction> read(){
@@ -36,7 +36,7 @@ public class TransactionController {
     }
     
     public static boolean update(Transaction transaction){
-        return database.update(transaction).isPresent();
+        return database.update(transaction);
     }
     
     public static boolean delete(Long id){

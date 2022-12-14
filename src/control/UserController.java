@@ -45,7 +45,7 @@ public class UserController {
         if(attempt == null){
             return false;
         } else {
-            return database.create(attempt).isPresent();
+            return database.create(attempt);
         }
     }
     
@@ -57,7 +57,7 @@ public class UserController {
         if(attempt == null){
             return false;
         } else {
-            return database.update(attempt).isPresent();
+            return database.update(attempt);
         }
     }
     
