@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -68,6 +69,30 @@ public class RelatesAccountAssetServices extends BaseImpl implements RelatesAcco
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setLong(1, account);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getLong("id");
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+    
+    @Override
+    public Long requestId(Long account, Long asset) {
+        String sql = "select id from relatesAccountAssets where account = ? and asset = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection(); 
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setLong(1, account);
+            stmt.setLong(2,asset);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -171,6 +196,25 @@ public class RelatesAccountAssetServices extends BaseImpl implements RelatesAcco
         }
 
         return relates;
+    }
+    
+    @Override
+    public boolean updateAmount(Long id, Integer quantity) {
+        String sql = "update relatesAccountAssets set quantity = ?, modify = ? where id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, quantity);
+            stmt.setTimestamp(2,Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setLong(3, id);
+            
+            stmt.execute();
+            
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

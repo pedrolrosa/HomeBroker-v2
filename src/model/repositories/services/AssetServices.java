@@ -9,13 +9,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import model.database.ConnectionFactory;
 import model.entities.Asset;
-import model.entities.Order;
-import model.enums.StateOrder;
-import model.enums.TypeOrder;
 import model.repositories.AssetRepository;
 import model.repositories.BaseRepository;
 import model.repositories.impl.BaseImpl;
@@ -64,5 +63,26 @@ public class AssetServices extends BaseImpl implements AssetRepository, BaseRepo
 
         return null;
     }
+
+    @Override
+    public boolean updateAmount(Long id, Integer quantity) {
+        String sql = "update assets set amount = ?, modify = ? where id = ?";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1, quantity);
+            stmt.setTimestamp(2,Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setLong(3, id);
+            
+            stmt.execute();
+            
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    
     
 }

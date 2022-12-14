@@ -13,7 +13,7 @@ import model.repositories.services.RelatesAccountAssetServices;
  *
  * @author pedro
  */
-public class Relates {
+public class RelatesController {
     
     private static final RelatesAccountAssetImpl database = new RelatesAccountAssetImpl();
     private static final RelatesAccountAssetServices databaseServices = new RelatesAccountAssetServices();
@@ -22,8 +22,24 @@ public class Relates {
         return databaseServices.requestId(account);
     }
     
+    public static Long requestId(Long account, Long asset){
+        return databaseServices.requestId(account, asset);
+    }
+    
     public static RelatesAccountAsset search(Long account){
         return databaseServices.target(requestId(account));
+    }
+    
+    public static RelatesAccountAsset searchPerId(Long id){
+        return databaseServices.target(id);
+    }
+    
+    public static boolean addAmount(Long id, Integer quantity){
+        return databaseServices.updateAmount(id, searchPerId(id).getQuantity() + quantity);
+    }
+    
+    public static boolean subAmount(Long id, Integer quantity){
+        return databaseServices.updateAmount(id, searchPerId(id).getQuantity() - quantity);
     }
     
     public static boolean create(RelatesAccountAsset attempt){

@@ -88,22 +88,22 @@ public class AccountController {
         }
     }
 
-    public static boolean deposit(Long id, BigDecimal value) {
-        return databaseServices.deposit(id, AccountController.current.addAmount(value));
+    public static boolean deposit(BigDecimal value) {
+        return databaseServices.deposit(current.getId(), AccountController.current.addAmount(value));
     }
 
-    public static boolean withdraw(Long id, BigDecimal value) {
+    public static boolean withdraw(BigDecimal value) {
         if (AccountController.hasBalance(value)) {
-            return databaseServices.withdraw(id, AccountController.current.subAmount(value));
+            return databaseServices.withdraw(current.getId(), AccountController.current.subAmount(value));
         }
         return false;
     }
 
-    public static boolean transfer(Long id, Long destiny, BigDecimal value) {
+    public static boolean transfer(Long destiny, BigDecimal value) {
         Account accountDestiny = AccountController.search(destiny);
         if (AccountController.current.getAmount().compareTo(value) >= 0) {
             if (accountDestiny != null) {
-                return databaseServices.transfer(id, destiny, current.subAmount(value), accountDestiny.addAmount(value));
+                return databaseServices.transfer(current.getId(), destiny, current.subAmount(value), accountDestiny.addAmount(value));
             }
         }
         return false; 

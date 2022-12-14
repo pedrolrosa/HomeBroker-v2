@@ -7,12 +7,14 @@ package view;
 import control.AccountController;
 import control.AssetController;
 import control.OrderController;
+import control.RelatesController;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.Asset;
 import model.entities.Order;
+import model.entities.RelatesAccountAsset;
 import model.enums.StateOrder;
 import model.enums.TypeOrder;
 
@@ -216,11 +218,12 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void sellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellButtonActionPerformed
-        
+
+        // verifica se possui ativo na conta para venda
         BigDecimal value = new BigDecimal(JOptionPane.showInputDialog("Value :"));
         Integer quantity = Integer.valueOf(JOptionPane.showInputDialog("Quantity :"));
         BigDecimal totalValue = value.multiply(new BigDecimal(quantity));
-        
+
         Order order = new Order();
         order.setAccount(AccountController.current.getId());
         order.setTicker(idComboBox.getSelectedItem().toString());
@@ -274,12 +277,37 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
     private void zeroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroButtonActionPerformed
 
         if (AccountController.addOrderZero()) {
-            zeroButton.setEnabled(true);
+
+            Long asset = Long.valueOf(idComboBox.getSelectedItem().toString());
 
             Integer quantity = Integer.valueOf(JOptionPane.showInputDialog("Quantity :"));
             BigDecimal totalValue = new BigDecimal(priceField.getText()).multiply(new BigDecimal(quantity));
 
-            if (AccountController.hasBalance(totalValue)) {
+            if (AccountController.hasBalance(totalValue) && AssetController.hasAmount(asset, quantity)) {
+
+                Long idRelates = RelatesController.requestId(AccountController.current.getId(), asset);
+
+                if (idRelates != null) {
+                    if (RelatesController.addAmount(idRelates, quantity) 
+                            && AccountController.withdraw(totalValue)
+                            && AssetController.subAmount(asset, quantity)) {
+                        JOptionPane.showMessageDialog(this, "Sucess !");
+                    }
+                } else {
+                    RelatesAccountAsset related = new RelatesAccountAsset();
+                    related.setAccount(AccountController.current.getId());
+                    related.setAsset(asset);
+                    related.setQuantity(quantity);
+
+                    related.setStart(LocalDateTime.now());
+
+                    if (RelatesController.create(related)
+                            && AccountController.withdraw(totalValue)
+                            && AssetController.subAmount(asset, quantity)) {
+
+                        JOptionPane.showMessageDialog(this, "Sucess !");
+                    }
+                }
 
             } else {
                 JOptionPane.showMessageDialog(this, "Balance Insufficient !");
@@ -287,6 +315,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
 
         } else {
             zeroButton.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Max of Order Zero Solicited !");
         }
 
 

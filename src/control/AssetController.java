@@ -25,6 +25,14 @@ public class AssetController {
         return databaseServices.target(id);
     }
     
+    public static boolean hasAmount(Long id, Integer quantity){
+        return search(id).getAmount() >= quantity;
+    }
+    
+    public static boolean subAmount(Long asset, Integer quantity){
+        return databaseServices.updateAmount(asset, search(asset).getAmount() - quantity);
+    }
+    
     public static boolean create(Asset asset){
         if(asset == null){ 
             JOptionPane.showMessageDialog(null, "Invalid inserts");

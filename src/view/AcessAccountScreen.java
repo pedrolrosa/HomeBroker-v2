@@ -298,8 +298,8 @@ public class AcessAccountScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void depositButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositButtonActionPerformed
-        BigDecimal value;
-        if(AccountController.deposit(AccountController.current.getId(), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+        BigDecimal value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : "));
+        if(AccountController.deposit(value)){
             
             String description = JOptionPane.showInputDialog(this, "Description");
             
@@ -321,11 +321,9 @@ public class AcessAccountScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_depositButtonActionPerformed
 
     private void withdrawButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawButtonActionPerformed
-        BigDecimal value;
-        if(AccountController.withdraw(AccountController.current.getId(), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+        BigDecimal value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : "));
+        if(AccountController.withdraw(value)){
             String description = JOptionPane.showInputDialog(this, "Description");
-            
-            JOptionPane.showMessageDialog(this,"Withdraw Sucess !");
             
             Transaction transaction = new Transaction();
             transaction.setOwner(AccountController.current.getId());
@@ -336,19 +334,20 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             
             transaction.setStart(LocalDateTime.now());
             
-            TransactionController.create(transaction);
+            if(TransactionController.create(transaction)){
+                JOptionPane.showMessageDialog(this,"Withdraw Sucess !");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Failed !");
         }
     }//GEN-LAST:event_withdrawButtonActionPerformed
 
     private void transferButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transferButtonActionPerformed
-        BigDecimal value;
-        Long destiny;
-        if(AccountController.transfer(AccountController.current.getId(), destiny = Long.valueOf(JOptionPane.showInputDialog(this, "Destiny ID : ")), value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : ")))){
+        BigDecimal value = new BigDecimal(JOptionPane.showInputDialog(this, "Value : "));
+        Long destiny = Long.valueOf(JOptionPane.showInputDialog(this, "Destiny ID : "));
+        
+        if(AccountController.transfer(destiny , value)){
             String description = JOptionPane.showInputDialog(this, "Description");
-            
-            JOptionPane.showMessageDialog(this,"Transfer Sucess !");
             
             Transaction transaction = new Transaction();
             transaction.setOwner(AccountController.current.getId());
@@ -359,7 +358,9 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             
             transaction.setStart(LocalDateTime.now());
             
-            TransactionController.create(transaction);
+            if(TransactionController.create(transaction)){
+                JOptionPane.showMessageDialog(this,"Transfer Sucess !");
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Failed !");
         }

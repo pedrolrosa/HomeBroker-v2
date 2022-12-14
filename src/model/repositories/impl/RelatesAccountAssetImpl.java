@@ -27,8 +27,8 @@ public class RelatesAccountAssetImpl extends BaseImpl implements BaseRepository<
 
     @Override
     public Optional<RelatesAccountAsset> create(RelatesAccountAsset element) {
-        String sql = "insert into relatesAccountAsset "
-                + "(account, asset, quantity)" + " values (?,?,?)";
+        String sql = "insert into relatesAccountAssets "
+                + "(account, asset, quantity, start)" + " values (?,?,?,?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {

@@ -10,4 +10,6 @@ package model.repositories;
  */
 public interface AssetRepository {
     
+    boolean updateAmount(Long id, Integer quantity);
+    
 }

@@ -15,8 +15,12 @@ public interface RelatesAccountAssetRepository {
     
     Long requestId(Long account);
     
+    Long requestId(Long account, Long asset);
+    
     List<RelatesAccountAsset> searchAssets(Long account);
     
     List<RelatesAccountAsset> searchAccounts(Long account);
+    
+    boolean updateAmount(Long id, Integer quantity);
     
 }
