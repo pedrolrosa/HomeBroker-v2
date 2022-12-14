@@ -32,6 +32,8 @@ public class UserScreen extends javax.swing.JFrame {
             accountMenuButton.setEnabled(false);
             assetMenuButton.setEnabled(false);
             transactionMenu.setEnabled(false);
+            orderMenu.setEnabled(false);
+            relatesMenu.setEnabled(false);
         }
         
         if(!(AccountController.acess(UserController.logued.getId()))){

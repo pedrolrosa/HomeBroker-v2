@@ -237,26 +237,36 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
 
     private void sellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellButtonActionPerformed
 
-        // verifica se possui ativo na conta para venda
+        Long asset = Long.valueOf(idComboBox.getSelectedItem().toString());
+        Long idRelated = RelatesController.requestId(AccountController.current.getId(), asset);
+
         BigDecimal value = new BigDecimal(JOptionPane.showInputDialog("Value :"));
         Integer quantity = Integer.valueOf(JOptionPane.showInputDialog("Quantity :"));
         BigDecimal totalValue = value.multiply(new BigDecimal(quantity));
 
-        Order order = new Order();
-        order.setAccount(AccountController.current.getId());
-        order.setTicker(idComboBox.getSelectedItem().toString());
-        order.setType(TypeOrder.SELL);
-        order.setState(StateOrder.OPEN);
-        order.setValue(value);
-        order.setQuantity(quantity);
-        order.setTotalValue(totalValue);
-        order.setStart(LocalDateTime.now());
+        if (RelatesController.searchPerId(idRelated).getQuantity() >= quantity) {
 
-        if (OrderController.create(order)) {
-            JOptionPane.showMessageDialog(this, "Created Sucess!");
+            Order order = new Order();
+            order.setAccount(AccountController.current.getId());
+            order.setTicker(idComboBox.getSelectedItem().toString());
+            order.setType(TypeOrder.SELL);
+            order.setState(StateOrder.OPEN);
+            order.setValue(value);
+            order.setQuantity(quantity);
+            order.setTotalValue(totalValue);
+            order.setStart(LocalDateTime.now());
+
+            if (OrderController.create(order)
+                    && RelatesController.subAmount(idRelated, quantity)) {
+                JOptionPane.showMessageDialog(this, "Created Sucess!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed !");
+            }
+
         } else {
-            JOptionPane.showMessageDialog(this, "Failed !");
+            JOptionPane.showMessageDialog(this, "Quantity Insuficient !");
         }
+
     }//GEN-LAST:event_sellButtonActionPerformed
 
     private void buyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyButtonActionPerformed
@@ -306,7 +316,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
                 Long idRelates = RelatesController.requestId(AccountController.current.getId(), asset);
 
                 if (idRelates != null) {
-                    if (RelatesController.addAmount(idRelates, quantity) 
+                    if (RelatesController.addAmount(idRelates, quantity)
                             && AccountController.withdraw(totalValue)
                             && AssetController.subAmount(asset, quantity)) {
                         JOptionPane.showMessageDialog(this, "Sucess !");
