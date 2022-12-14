@@ -21,12 +21,12 @@ import model.enums.TypeOrder;
  * @author pedro
  */
 public final class HomeBrokerScreen extends javax.swing.JFrame {
-    
-    void listItems(){
+
+    void listItems() {
         List<Asset> assets = AssetController.read();
-        
-        for(Asset asset : assets){
-            
+
+        for (Asset asset : assets) {
+
             idComboBox.addItem(String.valueOf(asset.getId()));
         }
     }
@@ -36,9 +36,9 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
      */
     public HomeBrokerScreen() {
         initComponents();
-        
-        amountField.setText("$ "+ AccountController.current.getAmount());
-        
+
+        amountField.setText("$ " + AccountController.current.getAmount());
+
         listItems();
     }
 
@@ -89,6 +89,11 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         });
 
         zeroButton.setText("Zero");
+        zeroButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                zeroButtonActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Order");
 
@@ -211,45 +216,81 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void sellButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellButtonActionPerformed
+        
+        BigDecimal value = new BigDecimal(JOptionPane.showInputDialog("Value :"));
+        Integer quantity = Integer.valueOf(JOptionPane.showInputDialog("Quantity :"));
+        BigDecimal totalValue = value.multiply(new BigDecimal(quantity));
+        
         Order order = new Order();
         order.setAccount(AccountController.current.getId());
         order.setTicker(idComboBox.getSelectedItem().toString());
         order.setType(TypeOrder.SELL);
         order.setState(StateOrder.OPEN);
-        order.setValue(new BigDecimal(JOptionPane.showInputDialog("Value :")));
-        order.setQuantity(Integer.valueOf(JOptionPane.showInputDialog("Quantity :")));
+        order.setValue(value);
+        order.setQuantity(quantity);
+        order.setTotalValue(totalValue);
         order.setStart(LocalDateTime.now());
-        
-        if(OrderController.create(order)){
-            JOptionPane.showMessageDialog(this,"Created Sucess!");
+
+        if (OrderController.create(order)) {
+            JOptionPane.showMessageDialog(this, "Created Sucess!");
         } else {
-            JOptionPane.showMessageDialog(this,"Failed !");
+            JOptionPane.showMessageDialog(this, "Failed !");
         }
     }//GEN-LAST:event_sellButtonActionPerformed
 
     private void buyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyButtonActionPerformed
-        
-        Order order = new Order();
-        order.setAccount(AccountController.current.getId());
-        order.setTicker(idComboBox.getSelectedItem().toString());
-        order.setType(TypeOrder.BUY);
-        order.setState(StateOrder.OPEN);
-        order.setValue(new BigDecimal(JOptionPane.showInputDialog("Value :")));
-        order.setQuantity(Integer.valueOf(JOptionPane.showInputDialog("Quantity :")));
-        order.setTotalValue(order.getValue().multiply(new BigDecimal(order.getQuantity())));
-        order.setStart(LocalDateTime.now());
-        
-        if(OrderController.create(order)){
-            JOptionPane.showMessageDialog(this,"Created Sucess!");
+
+        BigDecimal value = new BigDecimal(JOptionPane.showInputDialog("Value :"));
+        Integer quantity = Integer.valueOf(JOptionPane.showInputDialog("Quantity :"));
+        BigDecimal totalValue = value.multiply(new BigDecimal(quantity));
+
+        if (AccountController.hasBalance(totalValue)) {
+            Order order = new Order();
+            order.setAccount(AccountController.current.getId());
+            order.setTicker(idComboBox.getSelectedItem().toString());
+            order.setType(TypeOrder.BUY);
+            order.setState(StateOrder.OPEN);
+            order.setValue(value);
+            order.setQuantity(quantity);
+            order.setTotalValue(totalValue);
+            order.setStart(LocalDateTime.now());
+
+            if (OrderController.create(order)) {
+                JOptionPane.showMessageDialog(this, "Created Sucess!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed !");
+            }
         } else {
-            JOptionPane.showMessageDialog(this,"Failed !");
+            JOptionPane.showMessageDialog(this, "Balance Insufficient !");
         }
+
     }//GEN-LAST:event_buyButtonActionPerformed
 
     private void idComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_idComboBoxItemStateChanged
         // need assets
         priceField.setText(AssetController.search(Long.valueOf(idComboBox.getSelectedItem().toString())).getInitialPrice().toString());
     }//GEN-LAST:event_idComboBoxItemStateChanged
+
+    private void zeroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroButtonActionPerformed
+
+        if (AccountController.addOrderZero()) {
+            zeroButton.setEnabled(true);
+
+            Integer quantity = Integer.valueOf(JOptionPane.showInputDialog("Quantity :"));
+            BigDecimal totalValue = new BigDecimal(priceField.getText()).multiply(new BigDecimal(quantity));
+
+            if (AccountController.hasBalance(totalValue)) {
+
+            } else {
+                JOptionPane.showMessageDialog(this, "Balance Insufficient !");
+            }
+
+        } else {
+            zeroButton.setEnabled(false);
+        }
+
+
+    }//GEN-LAST:event_zeroButtonActionPerformed
 
     /**
      * @param args the command line arguments

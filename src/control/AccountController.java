@@ -18,6 +18,7 @@ public class AccountController {
 
     public static Account current;
     private static String name;
+    private static Integer orderZero = 0;
 
     private static final AccountImpl database = new AccountImpl();
     private static final AccountServices databaseServices = new AccountServices();
@@ -28,6 +29,29 @@ public class AccountController {
 
     public static void setNameLabel(String name) {
         AccountController.name = name;
+    }
+    
+    public static void resetOrderZero(){
+        orderZero = 0;
+    }
+    
+    public static boolean addOrderZero(){
+        
+        if(orderZero < 3){
+            orderZero += 1;
+            return true;
+        } 
+        return false;
+        
+    }
+    
+    public static boolean hasBalance(BigDecimal value){
+        
+        if(current.getAmount().compareTo(value) >= 0){
+            return true;
+        }
+        
+        return false;
     }
 
     public static void refresh() {
@@ -69,7 +93,7 @@ public class AccountController {
     }
 
     public static boolean withdraw(Long id, BigDecimal value) {
-        if (AccountController.current.getAmount().compareTo(value) >= 0) {
+        if (AccountController.hasBalance(value)) {
             return databaseServices.withdraw(id, AccountController.current.subAmount(value));
         }
         return false;

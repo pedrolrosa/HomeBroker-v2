@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import model.database.ConnectionFactory;
-import model.entities.Account;
 import model.entities.Order;
 import model.enums.StateOrder;
 import model.enums.TypeOrder;
