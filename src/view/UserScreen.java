@@ -28,12 +28,7 @@ public class UserScreen extends javax.swing.JFrame {
         initComponents();
         
         if(UserController.logued.getType().equals(TypeUser.COMMOM)){
-            userMenuButton.setEnabled(false);
-            accountMenuButton.setEnabled(false);
-            assetMenuButton.setEnabled(false);
-            transactionMenu.setEnabled(false);
-            orderMenu.setEnabled(false);
-            relatesMenu.setEnabled(false);
+            admButton.setEnabled(false);
         }
         
         if(!(AccountController.acess(UserController.logued.getId()))){
@@ -77,12 +72,7 @@ public class UserScreen extends javax.swing.JFrame {
         vascoToken = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         acessAccountButton = new javax.swing.JButton();
-        userMenuButton = new javax.swing.JButton();
-        accountMenuButton = new javax.swing.JButton();
-        assetMenuButton = new javax.swing.JButton();
-        transactionMenu = new javax.swing.JButton();
-        orderMenu = new javax.swing.JButton();
-        relatesMenu = new javax.swing.JButton();
+        admButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -214,45 +204,10 @@ public class UserScreen extends javax.swing.JFrame {
             }
         });
 
-        userMenuButton.setText("User Menu");
-        userMenuButton.addActionListener(new java.awt.event.ActionListener() {
+        admButton.setText("Administrator");
+        admButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userMenuButtonActionPerformed(evt);
-            }
-        });
-
-        accountMenuButton.setText("Account Menu");
-        accountMenuButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                accountMenuButtonActionPerformed(evt);
-            }
-        });
-
-        assetMenuButton.setText("Asset Menu");
-        assetMenuButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assetMenuButtonActionPerformed(evt);
-            }
-        });
-
-        transactionMenu.setText("Transaction Menu");
-        transactionMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                transactionMenuActionPerformed(evt);
-            }
-        });
-
-        orderMenu.setText("Order Menu");
-        orderMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                orderMenuActionPerformed(evt);
-            }
-        });
-
-        relatesMenu.setText("Relates");
-        relatesMenu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                relatesMenuActionPerformed(evt);
+                admButtonActionPerformed(evt);
             }
         });
 
@@ -261,42 +216,20 @@ public class UserScreen extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(accountMenuButton)
-                        .addGap(73, 73, 73)
-                        .addComponent(acessAccountButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
-                        .addComponent(transactionMenu))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(assetMenuButton)
-                        .addGap(104, 104, 104)
-                        .addComponent(relatesMenu)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(userMenuButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(orderMenu)))
-                .addContainerGap())
+                .addGap(28, 28, 28)
+                .addComponent(admButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(acessAccountButton)
+                .addContainerGap(210, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(83, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userMenuButton)
-                    .addComponent(orderMenu))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(accountMenuButton)
                     .addComponent(acessAccountButton)
-                    .addComponent(transactionMenu))
-                .addGap(46, 46, 46)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(assetMenuButton)
-                    .addComponent(relatesMenu))
-                .addContainerGap())
+                    .addComponent(admButton))
+                .addGap(75, 75, 75))
         );
 
         backButton.setText("Back");
@@ -368,22 +301,11 @@ public class UserScreen extends javax.swing.JFrame {
         typeInLabel.setText(UserController.logued.getType().name());
     }//GEN-LAST:event_refreshButtonActionPerformed
 
-    private void userMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userMenuButtonActionPerformed
-        
-        UserMenu userMenu = new UserMenu();
-        userMenu.setVisible(true);
-    }//GEN-LAST:event_userMenuButtonActionPerformed
-
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         LoginScreen loginScreen = new LoginScreen();
         loginScreen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
-
-    private void accountMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accountMenuButtonActionPerformed
-        AccountMenu accountScreen = new AccountMenu();
-        accountScreen.setVisible(true);
-    }//GEN-LAST:event_accountMenuButtonActionPerformed
 
     private void acessAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acessAccountButtonActionPerformed
         AccountController.setNameLabel(UserController.logued.getName());
@@ -391,25 +313,11 @@ public class UserScreen extends javax.swing.JFrame {
         acessAccountScreen.setVisible(true);
     }//GEN-LAST:event_acessAccountButtonActionPerformed
 
-    private void transactionMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_transactionMenuActionPerformed
-        TransactionMenu transactionScreen = new TransactionMenu();
-        transactionScreen.setVisible(true);
-    }//GEN-LAST:event_transactionMenuActionPerformed
-
-    private void orderMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderMenuActionPerformed
-        OrderMenu orderScreen = new OrderMenu();
-        orderScreen.setVisible(true);
-    }//GEN-LAST:event_orderMenuActionPerformed
-
-    private void assetMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assetMenuButtonActionPerformed
-        AssetMenu assetScreen = new AssetMenu();
-        assetScreen.setVisible(true);
-    }//GEN-LAST:event_assetMenuButtonActionPerformed
-
-    private void relatesMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_relatesMenuActionPerformed
-        RelatesMenu relatesScreen = new RelatesMenu();
-        relatesScreen.setVisible(true);
-    }//GEN-LAST:event_relatesMenuActionPerformed
+    private void admButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_admButtonActionPerformed
+        AdmScreen admScreen = new AdmScreen();
+        admScreen.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_admButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -448,11 +356,10 @@ public class UserScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton accountMenuButton;
     private javax.swing.JButton acessAccountButton;
     private javax.swing.JTextField addressInLabel;
     private final javax.swing.JLabel addressLabel = new javax.swing.JLabel();
-    private javax.swing.JButton assetMenuButton;
+    private javax.swing.JButton admButton;
     private javax.swing.JButton backButton;
     private javax.swing.JTextField cpfInLabel;
     private final javax.swing.JLabel cpfLabel = new javax.swing.JLabel();
@@ -463,16 +370,12 @@ public class UserScreen extends javax.swing.JFrame {
     private final javax.swing.JLabel modifyLabel = new javax.swing.JLabel();
     private javax.swing.JTextField nameInLabel;
     private final javax.swing.JLabel nameLabel = new javax.swing.JLabel();
-    private javax.swing.JButton orderMenu;
     private javax.swing.JTextField phoneInLabel;
     private final javax.swing.JLabel phoneLabel = new javax.swing.JLabel();
     private javax.swing.JButton refreshButton;
-    private javax.swing.JButton relatesMenu;
     private javax.swing.JTextField startInLabel;
     private final javax.swing.JLabel startLabel = new javax.swing.JLabel();
-    private javax.swing.JButton transactionMenu;
     private javax.swing.JTextField typeInLabel;
-    private javax.swing.JButton userMenuButton;
     private javax.swing.JLabel vascoToken;
     // End of variables declaration//GEN-END:variables
 }

@@ -27,8 +27,14 @@ public class OrderController {
         if(attempt == null){
             return false;
         } else {
-            return database.create(attempt);
+            if(AssetNegotiationController.verifyOrderExecution(attempt)){
+                
+            } else {
+                return database.create(attempt);
+            }
         }
+        
+        return false;
     }
     
     public static List<Order> read(){
