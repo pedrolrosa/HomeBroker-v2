@@ -12,6 +12,8 @@ import model.entities.Account;
  */
 public interface AccountRepository{
     
+    Long searchPerType(String type);
+    
     Account acess(Long id);
     
     boolean deposit(Long id, BigDecimal value);

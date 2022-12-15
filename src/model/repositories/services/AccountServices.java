@@ -61,6 +61,31 @@ public class AccountServices extends BaseImpl implements AccountRepository, Base
     }
     
     @Override
+    public Long searchPerType(String type){
+        String sql = "select id from accounts where type = ?";
+
+        try ( Connection connection = new ConnectionFactory().getConnection();  
+                PreparedStatement stmt = connection.prepareStatement(sql);  
+                ) {
+            
+            stmt.setString(1, type);
+            
+            try(ResultSet rs = stmt.executeQuery()){
+                if(rs.next()){
+                    return rs.getLong("id");
+                }
+                return null;                
+            } catch(SQLException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+            
+            
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+    
+    @Override
     public Account acess(Long owner){
         
         String sql = "select id from accounts where owner = ?";

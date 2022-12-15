@@ -257,6 +257,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             order.setStart(LocalDateTime.now());
 
             if (OrderController.create(order)
+                    && AccountController.fee(BigDecimal.TEN)
                     && RelatesController.subAmount(idRelated, quantity)) {
                 JOptionPane.showMessageDialog(this, "Created Sucess!");
             } else {
@@ -275,7 +276,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         Integer quantity = Integer.valueOf(JOptionPane.showInputDialog("Quantity :"));
         BigDecimal totalValue = value.multiply(new BigDecimal(quantity));
 
-        if (AccountController.hasBalance(totalValue)) {
+        if (AccountController.hasBalance(totalValue.add(BigDecimal.TEN))) {
             Order order = new Order();
             order.setAccount(AccountController.current.getId());
             order.setTicker(idComboBox.getSelectedItem().toString());
@@ -286,7 +287,8 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             order.setTotalValue(totalValue);
             order.setStart(LocalDateTime.now());
 
-            if (OrderController.create(order)) {
+            if (OrderController.create(order)
+                    && AccountController.fee(BigDecimal.TEN)) {
                 JOptionPane.showMessageDialog(this, "Created Sucess!");
             } else {
                 JOptionPane.showMessageDialog(this, "Failed !");
@@ -311,7 +313,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             Integer quantity = Integer.valueOf(JOptionPane.showInputDialog("Quantity :"));
             BigDecimal totalValue = new BigDecimal(priceField.getText()).multiply(new BigDecimal(quantity));
 
-            if (AccountController.hasBalance(totalValue) && AssetController.hasAmount(asset, quantity)) {
+            if (AccountController.hasBalance(totalValue.add(BigDecimal.TEN)) && AssetController.hasAmount(asset, quantity)) {
 
                 Long idRelates = RelatesController.requestId(AccountController.current.getId(), asset);
 
@@ -330,6 +332,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
                     related.setStart(LocalDateTime.now());
 
                     if (RelatesController.create(related)
+                            && AccountController.fee(BigDecimal.TEN)
                             && AccountController.withdraw(totalValue)
                             && AssetController.subAmount(asset, quantity)) {
 

@@ -45,6 +45,14 @@ public class AccountController {
         
     }
     
+    public static Long searchAdm(){
+        return databaseServices.searchPerType("ADM");
+    }
+    
+    public static boolean fee(BigDecimal value){
+        return transfer(searchAdm(), value);
+    }
+    
     public static boolean hasBalance(BigDecimal value){
         
         return current.getAmount().compareTo(value) >= 0;
