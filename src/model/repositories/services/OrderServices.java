@@ -82,7 +82,7 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
               PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1,state.name());
-            stmt.setTimestamp(4,Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setTimestamp(2,Timestamp.valueOf(LocalDateTime.now()));
             stmt.setLong(3,id);
 
             stmt.execute();

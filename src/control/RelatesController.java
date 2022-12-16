@@ -31,7 +31,10 @@ public class RelatesController {
     }
     
     public static RelatesAccountAsset searchPerId(Long id){
-        return databaseServices.target(id);
+        if(id != null){
+            return databaseServices.target(id);
+        }
+        return null;
     }
     
     public static boolean addAmount(Long id, Integer quantity){

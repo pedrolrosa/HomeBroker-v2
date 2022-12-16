@@ -62,7 +62,7 @@ public class AccountServices extends BaseImpl implements AccountRepository, Base
     
     @Override
     public Long searchPerType(String type){
-        String sql = "select id from accounts where type = ?";
+        String sql = "select accounts.id from accounts inner join users on accounts.id = users.account where users.type = ?";
 
         try ( Connection connection = new ConnectionFactory().getConnection();  
                 PreparedStatement stmt = connection.prepareStatement(sql);  

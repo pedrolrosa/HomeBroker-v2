@@ -243,7 +243,9 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         Integer quantity = Integer.valueOf(JOptionPane.showInputDialog("Quantity :"));
         BigDecimal totalValue = value.multiply(new BigDecimal(quantity));
 
-        if (RelatesController.searchPerId(idRelated).getQuantity() >= quantity) {
+        RelatesAccountAsset related = RelatesController.searchPerId(idRelated);
+        
+        if (related != null && related.getQuantity() >= quantity) {
 
             Order order = new Order();
             order.setAccount(AccountController.current.getId());
@@ -258,12 +260,15 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             if (OrderController.create(order)
                     && AccountController.fee(BigDecimal.TEN)) {
                 JOptionPane.showMessageDialog(this, "Created Sucess!");
+                
+                if(OrderController.verifyOrderExecution(order)){
+                    JOptionPane.showMessageDialog(this,"Executed Order !");
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Failed !");
             }
-
         } else {
-            JOptionPane.showMessageDialog(this, "Quantity Insuficient !");
+            JOptionPane.showMessageDialog(this, "Balance Insufficient !");
         }
 
     }//GEN-LAST:event_sellButtonActionPerformed

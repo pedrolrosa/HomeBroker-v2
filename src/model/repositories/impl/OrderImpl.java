@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -55,10 +56,10 @@ public class OrderImpl implements BaseRepository<Order, Long>{
     
     public Long createReturnID(Order element) {
         String sql = "insert into orders "
-                + "(account,type,ticker,quantity,value,total_value,state,start)" + " values (?,?,?,?,?,?,?,?)";
+                + "(account,type,asset,quantity,value,total_value,state,start)" + " values (?,?,?,?,?,?,?,?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
-                PreparedStatement stmt = connection.prepareStatement(sql)) {
+                PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             
             stmt.setLong(1, element.getAccount());
             stmt.setString(2, element.getType().name());
@@ -75,7 +76,7 @@ public class OrderImpl implements BaseRepository<Order, Long>{
             
             Long id = null;
             if(rs.next()){
-                id = rs.getLong("id");
+                id = rs.getLong(1);
             }
             
             return id;
