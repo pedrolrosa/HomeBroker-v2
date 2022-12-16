@@ -12,9 +12,18 @@ import java.util.Objects;
  */
 public class OrderExecution extends Entity{
     
+    private Long order;
     private Long buyer;
     private Long seller;
     private Integer quantity;
+
+    public Long getOrder() {
+        return order;
+    }
+
+    public void setOrder(Long order) {
+        this.order = order;
+    }
 
     public Long getBuyer() {
         return buyer;
@@ -43,9 +52,10 @@ public class OrderExecution extends Entity{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.buyer);
-        hash = 23 * hash + Objects.hashCode(this.seller);
-        hash = 23 * hash + Objects.hashCode(this.quantity);
+        hash = 17 * hash + Objects.hashCode(this.order);
+        hash = 17 * hash + Objects.hashCode(this.buyer);
+        hash = 17 * hash + Objects.hashCode(this.seller);
+        hash = 17 * hash + Objects.hashCode(this.quantity);
         return hash;
     }
 
@@ -61,26 +71,26 @@ public class OrderExecution extends Entity{
             return false;
         }
         final OrderExecution other = (OrderExecution) obj;
+        if (!Objects.equals(this.order, other.order)) {
+            return false;
+        }
         if (!Objects.equals(this.buyer, other.buyer)) {
             return false;
         }
         if (!Objects.equals(this.seller, other.seller)) {
             return false;
         }
-        return Objects.equals(this.quantity, other.quantity);
+        if (!Objects.equals(this.quantity, other.quantity)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("OrderExecution{");
-        sb.append(", buyer=").append(buyer);
-        sb.append(", seller=").append(seller);
-        sb.append(", quantity=").append(quantity);
-        sb.append('}');
-        return sb.toString();
+        return "OrderExecution{" + "order=" + order + ", buyer=" + buyer + ", seller=" + seller + ", quantity=" + quantity + '}';
     }
-    
+
     
     
 }

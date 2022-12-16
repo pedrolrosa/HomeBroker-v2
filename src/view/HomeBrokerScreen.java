@@ -185,8 +185,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
                                             .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(17, 17, 17)
-                                                .addComponent(jLabel5)
-                                                .addGap(22, 22, 22)))))
+                                                .addComponent(jLabel5)))))
                                 .addGap(56, 56, 56))))))
         );
         layout.setVerticalGroup(

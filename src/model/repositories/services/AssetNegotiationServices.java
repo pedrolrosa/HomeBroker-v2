@@ -24,7 +24,18 @@ public class AssetNegotiationServices extends BaseImpl implements AssetNegotiati
     }
     
     @Override
-    public boolean verifyOrderExecution(Order attempt){
+    public boolean verifyOrderBuy(Order attempt){
+        
+        
+        
+        return false;
+        
+    }
+    
+    @Override
+    public boolean verifyOrderSell(Order attempt){
+        
+        
         
         return false;
         

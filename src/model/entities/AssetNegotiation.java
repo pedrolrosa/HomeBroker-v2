@@ -11,8 +11,12 @@ import java.util.Objects;
  *
  * @author pedro
  */
-public class AssetNegotiation extends OrderExecution{
+public class AssetNegotiation extends Entity{
+    
     private Long asset;
+    private Long buyer;
+    private Long seller;
+    private Integer quantity;
     private BigDecimal value;
     private BigDecimal valueTotal;
 
@@ -22,6 +26,30 @@ public class AssetNegotiation extends OrderExecution{
 
     public void setAsset(Long asset) {
         this.asset = asset;
+    }
+
+    public Long getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(Long buyer) {
+        this.buyer = buyer;
+    }
+
+    public Long getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Long seller) {
+        this.seller = seller;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public BigDecimal getValue() {
@@ -42,10 +70,13 @@ public class AssetNegotiation extends OrderExecution{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + Objects.hashCode(this.asset);
-        hash = 37 * hash + Objects.hashCode(this.value);
-        hash = 37 * hash + Objects.hashCode(this.valueTotal);
+        int hash = 3;
+        hash = 53 * hash + Objects.hashCode(this.asset);
+        hash = 53 * hash + Objects.hashCode(this.buyer);
+        hash = 53 * hash + Objects.hashCode(this.seller);
+        hash = 53 * hash + Objects.hashCode(this.quantity);
+        hash = 53 * hash + Objects.hashCode(this.value);
+        hash = 53 * hash + Objects.hashCode(this.valueTotal);
         return hash;
     }
 
@@ -64,22 +95,29 @@ public class AssetNegotiation extends OrderExecution{
         if (!Objects.equals(this.asset, other.asset)) {
             return false;
         }
+        if (!Objects.equals(this.buyer, other.buyer)) {
+            return false;
+        }
+        if (!Objects.equals(this.seller, other.seller)) {
+            return false;
+        }
+        if (!Objects.equals(this.quantity, other.quantity)) {
+            return false;
+        }
         if (!Objects.equals(this.value, other.value)) {
             return false;
         }
-        return Objects.equals(this.valueTotal, other.valueTotal);
+        if (!Objects.equals(this.valueTotal, other.valueTotal)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("AssetNegotiation{");
-        sb.append("asset=").append(asset);
-        sb.append(", value=").append(value);
-        sb.append(", valueTotal=").append(valueTotal);
-        sb.append('}');
-        return sb.toString();
+        return "AssetNegotiation{" + "asset=" + asset + ", buyer=" + buyer + ", seller=" + seller + ", quantity=" + quantity + ", value=" + value + ", valueTotal=" + valueTotal + '}';
     }
 
+    
     
 }

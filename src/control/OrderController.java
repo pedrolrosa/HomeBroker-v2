@@ -6,6 +6,7 @@ package control;
 
 import java.util.List;
 import model.entities.Order;
+import model.enums.TypeOrder;
 import model.repositories.impl.OrderImpl;
 import model.repositories.services.OrderServices;
 
