@@ -286,9 +286,12 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             order.setStart(LocalDateTime.now());
 
             if (OrderController.create(order)
-                    && OrderController.verifyOrderExecution(order)
                     && AccountController.fee(BigDecimal.TEN)) {
                 JOptionPane.showMessageDialog(this, "Created Sucess!");
+                
+                if(OrderController.verifyOrderExecution(order)){
+                    JOptionPane.showMessageDialog(this,"Executed Order !");
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Failed !");
             }
@@ -320,7 +323,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
                     if (RelatesController.addAmount(idRelates, quantity)
                             && AccountController.withdraw(totalValue)
                             && AssetController.subAmount(asset, quantity)) {
-                        JOptionPane.showMessageDialog(this, "Sucess !");
+                        JOptionPane.showMessageDialog(this, "Add in Related !");
                     }
                 } else {
                     RelatesAccountAsset related = new RelatesAccountAsset();
@@ -335,7 +338,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
                             && AccountController.withdraw(totalValue)
                             && AssetController.subAmount(asset, quantity)) {
 
-                        JOptionPane.showMessageDialog(this, "Sucess !");
+                        JOptionPane.showMessageDialog(this, "Create Related !");
                     }
                 }
 

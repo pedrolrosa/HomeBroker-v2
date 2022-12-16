@@ -4,6 +4,7 @@
  */
 package control;
 
+import java.math.BigDecimal;
 import model.entities.Order;
 import model.enums.TypeOrder;
 import model.repositories.impl.AssetNegotiationImpl;
@@ -18,6 +19,10 @@ public class AssetNegotiationController {
     private static final AssetNegotiationImpl database = new AssetNegotiationImpl();
 
     private static final AssetNegotiationServices databaseServices = new AssetNegotiationServices();
+    
+    public static boolean attPriceAsset(Long asset, BigDecimal value){
+        return false;
+    }
 
     public boolean create() {
         return false;
