@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import model.entities.AssetNegotiation;
 import model.entities.Order;
 import model.entities.OrderExecution;
 import model.entities.RelatesAccountAsset;
@@ -180,6 +181,16 @@ public class OrderController {
                     databaseServices.updateState(satisfy.getId(), StateOrder.PARCIAL);
 
                 }
+                
+                AssetNegotiation negotiation = new AssetNegotiation();
+                negotiation.setAsset(attempt.getAsset());
+                negotiation.setBuyer(satisfy.getAccount());
+                negotiation.setSeller(attempt.getAccount());
+                negotiation.setQuantity(quantity);
+                negotiation.setValue(attempt.getValue());
+                negotiation.setValueTotal(value);
+                
+                negotiation.setStart(LocalDateTime.now());
 
                 Long idRelatesBuyer = RelatesController.requestId(satisfy.getAccount(), attempt.getAsset());
                 Long idRelatesSeller = RelatesController.requestId(attempt.getAccount(), attempt.getAsset());
@@ -190,7 +201,7 @@ public class OrderController {
                             && OrderExecutionController.create(executionSeller)
                             && AccountController.transferToMe(satisfy.getAccount(), value)
                             && RelatesController.subAmount(idRelatesSeller, quantity)
-                            && AssetNegotiationController.attPriceAsset(attempt.getAsset(), attempt.getValue())) {
+                            && AssetNegotiationController.create(negotiation)) {
                         return true;
                     }
                 } else {
@@ -206,7 +217,7 @@ public class OrderController {
                             && OrderExecutionController.create(executionSeller)
                             && AccountController.transferToMe(satisfy.getAccount(), value)
                             && RelatesController.subAmount(idRelatesSeller, quantity)
-                            && AssetNegotiationController.attPriceAsset(attempt.getAsset(), attempt.getValue())) {
+                            && AssetNegotiationController.create(negotiation)) {
                         return true;
                     }
                 }

@@ -5,6 +5,7 @@
 package control;
 
 import java.math.BigDecimal;
+import model.entities.AssetNegotiation;
 import model.entities.Order;
 import model.enums.TypeOrder;
 import model.repositories.impl.AssetNegotiationImpl;
@@ -24,19 +25,19 @@ public class AssetNegotiationController {
         return false;
     }
 
-    public boolean create() {
+    public static boolean create(AssetNegotiation attempt) {
+        return database.create(attempt);
+    }
+
+    public static boolean read() {
         return false;
     }
 
-    public boolean read() {
+    public static boolean update() {
         return false;
     }
 
-    public boolean update() {
-        return false;
-    }
-
-    public boolean delete() {
+    public static boolean delete() {
         return false;
     }
 
