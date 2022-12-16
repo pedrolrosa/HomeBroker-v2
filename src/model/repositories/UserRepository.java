@@ -16,5 +16,4 @@ public interface UserRepository{
     
     User authenticated(String login, String password);
     
-    boolean searchName(String name);
 }

@@ -116,9 +116,4 @@ public class UserServices extends BaseImpl implements UserRepository, BaseReposi
             throw new RuntimeException(e.getMessage());
         }
     }
-
-    @Override
-    public boolean searchName(String name) {
-        return true;
-    }
 }

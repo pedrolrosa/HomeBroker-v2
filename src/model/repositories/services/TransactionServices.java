@@ -117,8 +117,4 @@ public class TransactionServices extends BaseImpl implements TransactionReposito
         return transactions;
     }
     
-    @Override
-    public List<Transaction> searchPeriod(Date start, Date end){
-        return null;
-    }
 }

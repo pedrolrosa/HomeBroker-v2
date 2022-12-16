@@ -15,7 +15,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import model.database.ConnectionFactory;
-import model.entities.Asset;
 import model.entities.AssetNegotiation;
 import model.repositories.BaseRepository;
 

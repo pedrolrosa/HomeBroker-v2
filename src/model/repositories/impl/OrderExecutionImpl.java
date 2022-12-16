@@ -48,7 +48,7 @@ public class OrderExecutionImpl implements BaseRepository<OrderExecution, Long> 
 
     @Override
     public List<OrderExecution> read() {
-        String sql = "select * from orders";
+        String sql = "select * from ordersExecution";
 
         List<OrderExecution> executions = new ArrayList<>();
 

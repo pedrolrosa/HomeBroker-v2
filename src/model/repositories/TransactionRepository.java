@@ -16,5 +16,4 @@ public interface TransactionRepository{
     
     List<Transaction> search(Long owner);
     
-    List<Transaction> searchPeriod(Date start, Date end);
 }
