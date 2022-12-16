@@ -13,6 +13,8 @@ import model.enums.StateOrder;
  */
 public interface OrderRepository {
     
+    void updateQuantity(Long id, Integer quantity);
+    
     void updateState(Long id, StateOrder state);
     
     Order verifyOrderBuy(Order attempt);

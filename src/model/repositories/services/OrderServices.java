@@ -93,6 +93,24 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
     }
     
     @Override
+    public void updateQuantity(Long id, Integer quantity){
+        String sql = "update orders set quantity = ?, modify = ? where id = ?";
+
+        try ( Connection connection = new ConnectionFactory().getConnection();  
+              PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setInt(1,quantity);
+            stmt.setTimestamp(2,Timestamp.valueOf(LocalDateTime.now()));
+            stmt.setLong(3,id);
+
+            stmt.execute();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    @Override
     public Order verifyOrderBuy(Order attempt) {
 
         String sql = "select id from orders where type = ? and value <= ? and (state = ? or state = ?)";
