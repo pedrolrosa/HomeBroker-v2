@@ -38,7 +38,7 @@ public class OrderImpl implements BaseRepository<Order, Long>{
             
             stmt.setLong(1, element.getAccount());
             stmt.setString(2, element.getType().name());
-            stmt.setString(3, element.getTicker());
+            stmt.setLong(3, element.getAsset());
             stmt.setInt(4, element.getQuantity());
             stmt.setDouble(5, element.getValue().doubleValue());
             stmt.setDouble(6, element.getTotalValue().doubleValue());
@@ -47,7 +47,38 @@ public class OrderImpl implements BaseRepository<Order, Long>{
             
             stmt.execute();
             
-            return true;
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public Long createReturnID(Order element) {
+        String sql = "insert into orders "
+                + "(account,type,ticker,quantity,value,total_value,state,start)" + " values (?,?,?,?,?,?,?,?)";
+
+        try (Connection connection = new ConnectionFactory().getConnection();
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+            
+            stmt.setLong(1, element.getAccount());
+            stmt.setString(2, element.getType().name());
+            stmt.setLong(3, element.getAsset());
+            stmt.setInt(4, element.getQuantity());
+            stmt.setDouble(5, element.getValue().doubleValue());
+            stmt.setDouble(6, element.getTotalValue().doubleValue());
+            stmt.setString(7, element.getState().toString());
+            stmt.setTimestamp(8, Timestamp.valueOf(element.getStart()));
+            
+            stmt.execute();
+            
+            ResultSet rs = stmt.getGeneratedKeys();
+            
+            Long id = null;
+            if(rs.next()){
+                id = rs.getLong("id");
+            }
+            
+            return id;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -67,7 +98,7 @@ public class OrderImpl implements BaseRepository<Order, Long>{
                 Long id = rs.getLong("id");
                 Long account = rs.getLong("account");
                 TypeOrder type = TypeOrder.valueOf(rs.getString("type"));
-                String ticker = rs.getString("ticker");
+                Long asset = rs.getLong("asset");
                 Integer quantity = rs.getInt("quantity");
                 BigDecimal value = rs.getBigDecimal("value");
                 BigDecimal valueTotal = rs.getBigDecimal("total_value");
@@ -85,7 +116,7 @@ public class OrderImpl implements BaseRepository<Order, Long>{
                 order.setAccount(account);
                 order.setType(type);
                 order.setQuantity(quantity);
-                order.setTicker(ticker);
+                order.setAsset(asset);
                 order.setValue(value);
                 order.setTotalValue(valueTotal);
                 order.setState(state);

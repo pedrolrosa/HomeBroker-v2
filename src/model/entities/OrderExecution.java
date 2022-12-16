@@ -88,9 +88,16 @@ public class OrderExecution extends Entity{
 
     @Override
     public String toString() {
-        return "OrderExecution{" + "order=" + order + ", buyer=" + buyer + ", seller=" + seller + ", quantity=" + quantity + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("OrderExecution{");
+        sb.append("order=").append(order);
+        sb.append(", buyer=").append(buyer);
+        sb.append(", seller=").append(seller);
+        sb.append(", quantity=").append(quantity);
+        sb.append('}');
+        return sb.toString();
     }
 
-    
+   
     
 }

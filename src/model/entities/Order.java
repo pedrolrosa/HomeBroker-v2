@@ -17,7 +17,7 @@ public class Order extends Entity{
     
     private Long account;
     private TypeOrder type;
-    private String ticker;
+    private Long asset;
     private Integer quantity;
     private BigDecimal value;
     private BigDecimal totalValue;
@@ -39,12 +39,12 @@ public class Order extends Entity{
         this.type = type;
     }
 
-    public String getTicker() {
-        return ticker;
+    public Long getAsset() {
+        return asset;
     }
 
-    public void setTicker(String ticker) {
-        this.ticker = ticker;
+    public void setAsset(Long asset) {
+        this.asset = asset;
     }
 
     public Integer getQuantity() {
@@ -82,13 +82,13 @@ public class Order extends Entity{
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 43 * hash + Objects.hashCode(this.account);
-        hash = 43 * hash + Objects.hashCode(this.type);
-        hash = 43 * hash + Objects.hashCode(this.ticker);
-        hash = 43 * hash + Objects.hashCode(this.quantity);
-        hash = 43 * hash + Objects.hashCode(this.value);
-        hash = 43 * hash + Objects.hashCode(this.totalValue);
-        hash = 43 * hash + Objects.hashCode(this.state);
+        hash = 71 * hash + Objects.hashCode(this.account);
+        hash = 71 * hash + Objects.hashCode(this.type);
+        hash = 71 * hash + Objects.hashCode(this.asset);
+        hash = 71 * hash + Objects.hashCode(this.quantity);
+        hash = 71 * hash + Objects.hashCode(this.value);
+        hash = 71 * hash + Objects.hashCode(this.totalValue);
+        hash = 71 * hash + Objects.hashCode(this.state);
         return hash;
     }
 
@@ -104,13 +104,13 @@ public class Order extends Entity{
             return false;
         }
         final Order other = (Order) obj;
-        if (!Objects.equals(this.ticker, other.ticker)) {
-            return false;
-        }
         if (!Objects.equals(this.account, other.account)) {
             return false;
         }
         if (this.type != other.type) {
+            return false;
+        }
+        if (!Objects.equals(this.asset, other.asset)) {
             return false;
         }
         if (!Objects.equals(this.quantity, other.quantity)) {
@@ -131,7 +131,7 @@ public class Order extends Entity{
         sb.append("Order{");
         sb.append("account=").append(account);
         sb.append(", type=").append(type);
-        sb.append(", ticker=").append(ticker);
+        sb.append(", asset=").append(asset);
         sb.append(", quantity=").append(quantity);
         sb.append(", value=").append(value);
         sb.append(", totalValue=").append(totalValue);
@@ -139,4 +139,6 @@ public class Order extends Entity{
         sb.append('}');
         return sb.toString();
     }
+
+    
 }

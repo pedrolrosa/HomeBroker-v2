@@ -36,7 +36,7 @@ public class OrderRead extends javax.swing.JFrame {
             columns[0] = order.getId();
             columns[1] = order.getAccount();
             columns[2] = order.getType();
-            columns[3] = order.getTicker();
+            columns[3] = order.getAsset();
             columns[4] = order.getQuantity();
             columns[5] = order.getValue();
             columns[6] = order.getTotalValue();
@@ -72,11 +72,11 @@ public class OrderRead extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Account", "Type", "Ticker", "Quantity", "Value", "Total Value", "State", "Start", "Modify"
+                "ID", "Account", "Type", "Asset", "Quantity", "Value", "Total Value", "State", "Start", "Modify"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Long.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false

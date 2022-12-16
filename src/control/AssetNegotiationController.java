@@ -19,15 +19,6 @@ public class AssetNegotiationController {
 
     private static final AssetNegotiationServices databaseServices = new AssetNegotiationServices();
 
-    public static boolean verifyOrderExecution(Order attempt) {
-        if (attempt.getType().equals(TypeOrder.BUY)) {
-            return databaseServices.verifyOrderBuy(attempt);
-        } else if (attempt.getType().equals(TypeOrder.SELL)) {
-            return databaseServices.verifyOrderSell(attempt);
-        }
-        return false;
-    }
-
     public boolean create() {
         return false;
     }

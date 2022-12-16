@@ -12,8 +12,6 @@ import model.entities.Order;
  */
 public interface AssetNegotiationRepository {
     
-    boolean verifyOrderBuy(Order attempt);
     
-    boolean verifyOrderSell(Order attempt);
     
 }

@@ -5,6 +5,8 @@
  */
 package control;
 
+import java.util.List;
+import model.entities.OrderExecution;
 import model.repositories.impl.OrderExecutionImpl;
 import model.repositories.services.OrderExecutionServices;
 
@@ -18,20 +20,28 @@ public class OrderExecutionController {
     
     private static final OrderExecutionServices databaseServices = new OrderExecutionServices();
     
-    public boolean create(){
-        return false;
+   public static boolean create(OrderExecution attempt){
+        if(attempt == null){
+            return false;
+        } else {
+            return database.create(attempt);
+        }
     }
     
-    public boolean read(){
-        return false;
+    public static List<OrderExecution> read(){
+        return database.read();
     }
     
-    public boolean update(){
-        return false;
+    public static boolean update(OrderExecution attempt){
+        if(attempt == null){
+            return false;
+        } else {
+            return database.update(attempt);
+        }
     }
     
-    public boolean delete(){
-        return false;
+    public static boolean delete(Long id){
+        return database.delete(id);
     }
     
 }

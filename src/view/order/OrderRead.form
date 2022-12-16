@@ -72,7 +72,7 @@
                 <Column editable="false" title="ID" type="java.lang.Long"/>
                 <Column editable="false" title="Account" type="java.lang.Long"/>
                 <Column editable="false" title="Type" type="java.lang.String"/>
-                <Column editable="false" title="Ticker" type="java.lang.String"/>
+                <Column editable="false" title="Asset" type="java.lang.Long"/>
                 <Column editable="false" title="Quantity" type="java.lang.Integer"/>
                 <Column editable="false" title="Value" type="java.lang.Double"/>
                 <Column editable="false" title="Total Value" type="java.lang.Double"/>

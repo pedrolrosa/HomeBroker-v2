@@ -115,9 +115,17 @@ public class AssetNegotiation extends Entity{
 
     @Override
     public String toString() {
-        return "AssetNegotiation{" + "asset=" + asset + ", buyer=" + buyer + ", seller=" + seller + ", quantity=" + quantity + ", value=" + value + ", valueTotal=" + valueTotal + '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("AssetNegotiation{");
+        sb.append("asset=").append(asset);
+        sb.append(", buyer=").append(buyer);
+        sb.append(", seller=").append(seller);
+        sb.append(", quantity=").append(quantity);
+        sb.append(", value=").append(value);
+        sb.append(", valueTotal=").append(valueTotal);
+        sb.append('}');
+        return sb.toString();
     }
 
-    
     
 }

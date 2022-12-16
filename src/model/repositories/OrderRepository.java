@@ -4,10 +4,19 @@
  */
 package model.repositories;
 
+import model.entities.Order;
+import model.enums.StateOrder;
+
 /**
  *
  * @author pedro
  */
 public interface OrderRepository {
+    
+    void updateState(Long id, StateOrder state);
+    
+    Order verifyOrderBuy(Order attempt);
+    
+    Order verifyOrderSell(Order attempt);
     
 }

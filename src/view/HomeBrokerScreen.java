@@ -247,7 +247,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
 
             Order order = new Order();
             order.setAccount(AccountController.current.getId());
-            order.setTicker(idComboBox.getSelectedItem().toString());
+            order.setAsset(Long.valueOf(idComboBox.getSelectedItem().toString()));
             order.setType(TypeOrder.SELL);
             order.setState(StateOrder.OPEN);
             order.setValue(value);
@@ -256,8 +256,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             order.setStart(LocalDateTime.now());
 
             if (OrderController.create(order)
-                    && AccountController.fee(BigDecimal.TEN)
-                    && RelatesController.subAmount(idRelated, quantity)) {
+                    && AccountController.fee(BigDecimal.TEN)) {
                 JOptionPane.showMessageDialog(this, "Created Sucess!");
             } else {
                 JOptionPane.showMessageDialog(this, "Failed !");
@@ -278,7 +277,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         if (AccountController.hasBalance(totalValue.add(BigDecimal.TEN))) {
             Order order = new Order();
             order.setAccount(AccountController.current.getId());
-            order.setTicker(idComboBox.getSelectedItem().toString());
+            order.setAsset(Long.valueOf(idComboBox.getSelectedItem().toString()));
             order.setType(TypeOrder.BUY);
             order.setState(StateOrder.OPEN);
             order.setValue(value);
@@ -287,6 +286,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             order.setStart(LocalDateTime.now());
 
             if (OrderController.create(order)
+                    && OrderController.verifyOrderExecution(order)
                     && AccountController.fee(BigDecimal.TEN)) {
                 JOptionPane.showMessageDialog(this, "Created Sucess!");
             } else {
