@@ -64,9 +64,7 @@ public class OrderController {
 
                     databaseServices.updateState(attempt.getId(), StateOrder.TOTAL);
                     databaseServices.updateState(satisfy.getId(), StateOrder.TOTAL);
-
-                    // gerenciar relacionamentos das contas com os ativos
-                    // atualizar o preço do ativo
+                    
                 } else if (satisfy.getQuantity() < attempt.getQuantity()) {
 
                     value = satisfy.getTotalValue();
@@ -95,6 +93,16 @@ public class OrderController {
 
                 }
 
+                AssetNegotiation negotiation = new AssetNegotiation();
+                negotiation.setAsset(satisfy.getAsset());
+                negotiation.setBuyer(attempt.getAccount());
+                negotiation.setSeller(satisfy.getAccount());
+                negotiation.setQuantity(quantity);
+                negotiation.setValue(satisfy.getValue());
+                negotiation.setValueTotal(value);
+                
+                negotiation.setStart(LocalDateTime.now());
+                
                 Long idRelatesBuyer = RelatesController.requestId(attempt.getAccount(), attempt.getAsset());
                 Long idRelatesSeller = RelatesController.requestId(satisfy.getAccount(), attempt.getAsset());
 
@@ -104,7 +112,7 @@ public class OrderController {
                             && OrderExecutionController.create(executionSeller)
                             && AccountController.transfer(satisfy.getAccount(), value)
                             && RelatesController.subAmount(idRelatesSeller, quantity)
-                            && AssetNegotiationController.attPriceAsset(attempt.getAsset(), satisfy.getValue())) {
+                            && AssetNegotiationController.create(negotiation)) {
                         return true;
                     }
                 } else {
@@ -120,7 +128,7 @@ public class OrderController {
                             && OrderExecutionController.create(executionSeller)
                             && AccountController.transfer(satisfy.getAccount(), value)
                             && RelatesController.subAmount(idRelatesSeller, quantity)
-                            && AssetNegotiationController.attPriceAsset(attempt.getAsset(), satisfy.getValue())) {
+                            && AssetNegotiationController.create(negotiation)) {
                         return true;
                     }
                 }
@@ -160,8 +168,6 @@ public class OrderController {
                     databaseServices.updateState(attempt.getId(), StateOrder.TOTAL);
                     databaseServices.updateState(satisfy.getId(), StateOrder.TOTAL);
 
-                    // gerenciar relacionamentos das contas com os ativos
-                    // atualizar o preço do ativo
                 } else if (satisfy.getQuantity() < attempt.getQuantity()) {
 
                     value = satisfy.getTotalValue();
