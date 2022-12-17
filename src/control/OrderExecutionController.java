@@ -20,6 +20,10 @@ public class OrderExecutionController {
     
     private static final OrderExecutionServices databaseServices = new OrderExecutionServices();
     
+    public static Integer quantityOrigin(Long order){
+        return databaseServices.quantityOrigin(order);
+    }
+    
    public static boolean create(OrderExecution attempt){
         if(attempt == null){
             return false;

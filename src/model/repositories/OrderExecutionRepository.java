@@ -11,4 +11,6 @@ package model.repositories;
  */
 public interface OrderExecutionRepository {
     
+    Integer quantityOrigin(Long order);
+    
 }

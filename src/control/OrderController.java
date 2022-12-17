@@ -66,6 +66,9 @@ public class OrderController {
 
                     databaseServices.updateState(attempt.getId(), StateOrder.TOTAL);
                     databaseServices.updateState(satisfy.getId(), StateOrder.TOTAL);
+                    
+                    databaseServices.updateQuantity(attempt.getId(), attempt.getQuantity() + OrderExecutionController.quantityOrigin(attempt.getId()));
+                    databaseServices.updateQuantity(satisfy.getId(), satisfy.getQuantity() + OrderExecutionController.quantityOrigin(satisfy.getId()));
 
                 } else if (satisfy.getQuantity() < attempt.getQuantity()) {
 
@@ -79,6 +82,7 @@ public class OrderController {
                     databaseServices.updateState(satisfy.getId(), StateOrder.TOTAL);
 
                     databaseServices.updateQuantity(attempt.getId(), attempt.getQuantity() - quantity);
+                    databaseServices.updateQuantity(satisfy.getId(), satisfy.getQuantity() + OrderExecutionController.quantityOrigin(satisfy.getId()));
                     attempt.setQuantity(attempt.getQuantity() - quantity);
 
                 } else if (satisfy.getQuantity() > attempt.getQuantity()) {
@@ -93,6 +97,7 @@ public class OrderController {
                     databaseServices.updateState(satisfy.getId(), StateOrder.PARCIAL);
 
                     databaseServices.updateQuantity(satisfy.getId(), satisfy.getQuantity() - quantity);
+                    databaseServices.updateQuantity(attempt.getId(), attempt.getQuantity() + OrderExecutionController.quantityOrigin(attempt.getId()));
                     satisfy.setQuantity(satisfy.getQuantity() - quantity);
 
                 }
@@ -169,7 +174,10 @@ public class OrderController {
 
                     databaseServices.updateState(attempt.getId(), StateOrder.TOTAL);
                     databaseServices.updateState(satisfy.getId(), StateOrder.TOTAL);
-
+                    
+                    databaseServices.updateQuantity(attempt.getId(), attempt.getQuantity() + OrderExecutionController.quantityOrigin(attempt.getId()));
+                    databaseServices.updateQuantity(satisfy.getId(), satisfy.getQuantity() + OrderExecutionController.quantityOrigin(satisfy.getId()));
+                    
                 } else if (satisfy.getQuantity() < attempt.getQuantity()) {
 
                     value = satisfy.getTotalValue();
@@ -182,6 +190,7 @@ public class OrderController {
                     databaseServices.updateState(satisfy.getId(), StateOrder.TOTAL);
 
                     databaseServices.updateQuantity(attempt.getId(), attempt.getQuantity() - quantity);
+                    databaseServices.updateQuantity(satisfy.getId(), satisfy.getQuantity() + OrderExecutionController.quantityOrigin(satisfy.getId()));
                     attempt.setQuantity(attempt.getQuantity() - quantity);
 
                 } else if (satisfy.getQuantity() > attempt.getQuantity()) {
@@ -196,6 +205,7 @@ public class OrderController {
                     databaseServices.updateState(satisfy.getId(), StateOrder.PARCIAL);
 
                     databaseServices.updateQuantity(satisfy.getId(), satisfy.getQuantity() - quantity);
+                    databaseServices.updateQuantity(attempt.getId(), attempt.getQuantity() + OrderExecutionController.quantityOrigin(attempt.getId()));
                     satisfy.setQuantity(satisfy.getQuantity() - quantity);
 
                 }
