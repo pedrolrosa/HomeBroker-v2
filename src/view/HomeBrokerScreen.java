@@ -132,6 +132,12 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
 
         jLabel4.setText("Asset");
 
+        idComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                idComboBoxItemStateChanged(evt);
+            }
+        });
+
         jLabel5.setText("Price Asset");
 
         priceField.setEditable(false);
@@ -369,6 +375,10 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_zeroButtonActionPerformed
+
+    private void idComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_idComboBoxItemStateChanged
+        setPriceAsset();
+    }//GEN-LAST:event_idComboBoxItemStateChanged
 
     /**
      * @param args the command line arguments

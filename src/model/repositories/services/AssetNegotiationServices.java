@@ -72,7 +72,7 @@ public class AssetNegotiationServices extends BaseImpl implements AssetNegotiati
 
     @Override
     public AssetNegotiation search(Long asset){
-        String sql = "select id from assetNegotiation where asset = ? order by asset asc";
+        String sql = "select id from assetNegotiation where asset = ? order by id desc";
 
         try (Connection connection = new ConnectionFactory().getConnection(); 
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
