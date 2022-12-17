@@ -8,12 +8,6 @@ import control.AccountController;
 import control.UserController;
 import javax.swing.JOptionPane;
 import model.enums.TypeUser;
-import view.account.AccountMenu;
-import view.asset.AssetMenu;
-import view.order.OrderMenu;
-import view.relates.RelatesMenu;
-import view.transaction.TransactionMenu;
-import view.user.UserMenu;
 
 /**
  *
@@ -26,6 +20,20 @@ public class UserScreen extends javax.swing.JFrame {
      */
     public UserScreen() {
         initComponents();
+        
+        UserController.refresh();
+
+        nameInLabel.setText(UserController.logued.getName());
+        cpfInLabel.setText(UserController.logued.getCpf());
+        addressInLabel.setText(UserController.logued.getAddress());
+        phoneInLabel.setText(UserController.logued.getPhone());
+
+        startInLabel.setText(UserController.logued.getStart().toString());
+        if(UserController.logued.getModify() != null){
+            modifyInLabel.setText(UserController.logued.getModify().toString());
+        }
+
+        typeInLabel.setText(UserController.logued.getType().name());
         
         if(UserController.logued.getType().equals(TypeUser.COMMOM)){
             admButton.setEnabled(false);
@@ -65,7 +73,6 @@ public class UserScreen extends javax.swing.JFrame {
         cpfInLabel = new javax.swing.JTextField();
         addressInLabel = new javax.swing.JTextField();
         phoneInLabel = new javax.swing.JTextField();
-        refreshButton = new javax.swing.JButton();
         typeInLabel = new javax.swing.JTextField();
         startInLabel = new javax.swing.JTextField();
         modifyInLabel = new javax.swing.JTextField();
@@ -98,13 +105,6 @@ public class UserScreen extends javax.swing.JFrame {
 
         modifyLabel.setText("Modify");
 
-        refreshButton.setText("Refresh");
-        refreshButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refreshButtonActionPerformed(evt);
-            }
-        });
-
         typeInLabel.setEditable(false);
         typeInLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
 
@@ -117,40 +117,35 @@ public class UserScreen extends javax.swing.JFrame {
         infoAccountPanelLayout.setHorizontalGroup(
             infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoAccountPanelLayout.createSequentialGroup()
-                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(addressLabel)
-                                    .addComponent(phoneLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(phoneInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(addressInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(98, Short.MAX_VALUE)
+                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(infoAccountPanelLayout.createSequentialGroup()
+                            .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(addressLabel)
+                                .addComponent(phoneLabel))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(infoAccountPanelLayout.createSequentialGroup()
-                                    .addGap(10, 10, 10)
-                                    .addComponent(nameLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(nameInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoAccountPanelLayout.createSequentialGroup()
-                                    .addComponent(cpfLabel)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cpfInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(92, 92, 92)
-                        .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(startLabel)
-                            .addComponent(modifyLabel)
-                            .addComponent(startInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(modifyInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(72, 72, 72)
-                        .addComponent(typeInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(88, 88, 88))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoAccountPanelLayout.createSequentialGroup()
-                        .addComponent(refreshButton)
-                        .addGap(341, 341, 341))))
+                                .addComponent(phoneInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(addressInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, infoAccountPanelLayout.createSequentialGroup()
+                            .addComponent(cpfLabel)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cpfInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(infoAccountPanelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(nameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nameInLabel)))
+                .addGap(92, 92, 92)
+                .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(startLabel)
+                    .addComponent(modifyLabel)
+                    .addComponent(startInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(modifyInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(72, 72, 72)
+                .addComponent(typeInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
         );
         infoAccountPanelLayout.setVerticalGroup(
             infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,9 +182,7 @@ public class UserScreen extends javax.swing.JFrame {
                         .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(phoneLabel)
                             .addComponent(phoneInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(9, 9, 9)
-                .addComponent(refreshButton)
-                .addGap(17, 17, 17))
+                .addGap(49, 49, 49))
         );
 
         vascoToken.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
@@ -215,21 +208,21 @@ public class UserScreen extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(admButton, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(acessAccountButton)
-                .addContainerGap(210, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(163, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(acessAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                    .addComponent(admButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(152, 152, 152))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(acessAccountButton)
-                    .addComponent(admButton))
-                .addGap(75, 75, 75))
+                .addContainerGap(57, Short.MAX_VALUE)
+                .addComponent(admButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(acessAccountButton)
+                .addGap(42, 42, 42))
         );
 
         backButton.setText("Back");
@@ -247,21 +240,19 @@ public class UserScreen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(infoAccountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(backButton)
-                        .addGap(112, 112, 112)
+                        .addGap(235, 235, 235)
                         .addComponent(vascoToken)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(infoAccountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -269,37 +260,21 @@ public class UserScreen extends javax.swing.JFrame {
                 .addComponent(infoAccountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(backButton)
-                            .addComponent(vascoToken)))
-                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(backButton)
+                        .addContainerGap())
+                    .addComponent(vascoToken, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-
-        UserController.refresh();
-        
-        nameInLabel.setText(UserController.logued.getName());
-        cpfInLabel.setText(UserController.logued.getCpf());
-        addressInLabel.setText(UserController.logued.getAddress());
-        phoneInLabel.setText(UserController.logued.getPhone());
-        
-        startInLabel.setText(UserController.logued.getStart().toString());
-        if(UserController.logued.getModify() != null){
-            modifyInLabel.setText(UserController.logued.getModify().toString());
-        }
-        
-        typeInLabel.setText(UserController.logued.getType().name());
-    }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         LoginScreen loginScreen = new LoginScreen();
@@ -372,7 +347,6 @@ public class UserScreen extends javax.swing.JFrame {
     private final javax.swing.JLabel nameLabel = new javax.swing.JLabel();
     private javax.swing.JTextField phoneInLabel;
     private final javax.swing.JLabel phoneLabel = new javax.swing.JLabel();
-    private javax.swing.JButton refreshButton;
     private javax.swing.JTextField startInLabel;
     private final javax.swing.JLabel startLabel = new javax.swing.JLabel();
     private javax.swing.JTextField typeInLabel;

@@ -93,11 +93,13 @@ public class AccountController {
     }
 
     public static boolean deposit(BigDecimal value) {
+        current.addAmount(value);
         return databaseServices.deposit(current.getId(), AccountController.current.addAmount(value));
     }
 
     public static boolean withdraw(BigDecimal value) {
         if (AccountController.hasBalance(value)) {
+            current.subAmount(value);
             return databaseServices.withdraw(current.getId(), AccountController.current.subAmount(value));
         }
         return false;
@@ -107,6 +109,7 @@ public class AccountController {
         Account accountDestiny = AccountController.search(destiny);
         if (AccountController.current.getAmount().compareTo(value) >= 0) {
             if (accountDestiny != null) {
+                current.subAmount(value);
                 return databaseServices.transfer(current.getId(), destiny, current.subAmount(value), accountDestiny.addAmount(value));
             }
         }
@@ -116,6 +119,7 @@ public class AccountController {
     public static boolean transferToMe(Long origin, BigDecimal value){
         Account accountOrigin = AccountController.search(origin);
         if (accountOrigin.getAmount().compareTo(value) >= 0) {
+            current.addAmount(value);
             return databaseServices.transfer(origin, current.getId(), accountOrigin.subAmount(value), current.addAmount(value));
         }
         return false; 

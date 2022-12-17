@@ -299,7 +299,8 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Balance Insufficient !");
         }
-
+        
+        amountField.setText("$ " + AccountController.current.getAmount());
     }//GEN-LAST:event_sellButtonActionPerformed
 
     private void buyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buyButtonActionPerformed
@@ -334,6 +335,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Balance Insufficient !");
         }
 
+        amountField.setText("$ " + AccountController.current.getAmount());
     }//GEN-LAST:event_buyButtonActionPerformed
 
     private void zeroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroButtonActionPerformed
@@ -382,7 +384,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Max of Order Zero Solicited !");
         }
 
-
+        amountField.setText("$ " + AccountController.current.getAmount());
     }//GEN-LAST:event_zeroButtonActionPerformed
 
     private void idComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_idComboBoxItemStateChanged
