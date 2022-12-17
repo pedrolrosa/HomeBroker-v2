@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import model.database.ConnectionFactory;
 import model.entities.Account;
 import model.repositories.AccountRepository;
@@ -202,5 +204,33 @@ public class AccountServices extends BaseImpl implements AccountRepository, Base
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage());
         }
+    }
+    
+    @Override
+    public List<Long> accountsDividend(Long asset){
+        List<Long> accounts = new ArrayList<>();
+        
+        String sql = "select id from relatesaccountassets where asset = ?";
+        
+        try ( Connection connection = new ConnectionFactory().getConnection();  
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setLong(1, asset);
+            
+            stmt.execute();
+            
+            try(ResultSet rs = stmt.executeQuery()){
+                
+                while(rs.next()){
+                    accounts.add(rs.getLong("id"));
+                }
+            } catch(SQLException e){
+                throw new RuntimeException(e.getMessage());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        
+        return accounts;
     }
 }

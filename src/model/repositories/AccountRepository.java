@@ -4,6 +4,7 @@
  */
 package model.repositories;
 import java.math.BigDecimal;
+import java.util.List;
 import model.entities.Account;
 
 /**
@@ -11,6 +12,8 @@ import model.entities.Account;
  * @author pedro
  */
 public interface AccountRepository{
+    
+    List<Long> accountsDividend(Long asset);
     
     Long searchPerType(String type);
     
