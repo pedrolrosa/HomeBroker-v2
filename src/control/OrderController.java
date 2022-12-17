@@ -5,7 +5,6 @@
 package control;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import model.entities.AssetNegotiation;
@@ -263,6 +262,10 @@ public class OrderController {
 
     public static List<Order> read() {
         return database.read();
+    }
+    
+    public static List<Order> read(Long asset) {
+        return database.read(asset);
     }
 
     public static boolean update(Order attempt) {

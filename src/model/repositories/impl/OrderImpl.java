@@ -21,22 +21,19 @@ import model.enums.StateOrder;
 import model.enums.TypeOrder;
 import model.repositories.BaseRepository;
 
-
-
 /**
  *
  * @author pedro
  */
-public class OrderImpl implements BaseRepository<Order, Long>{
+public class OrderImpl implements BaseRepository<Order, Long> {
 
     @Override
     public boolean create(Order element) {
         String sql = "insert into orders "
                 + "(account,type,ticker,quantity,value,total_value,state,start)" + " values (?,?,?,?,?,?,?,?)";
 
-        try (Connection connection = new ConnectionFactory().getConnection();
-                PreparedStatement stmt = connection.prepareStatement(sql)) {
-            
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
             stmt.setLong(1, element.getAccount());
             stmt.setString(2, element.getType().name());
             stmt.setLong(3, element.getAsset());
@@ -45,22 +42,21 @@ public class OrderImpl implements BaseRepository<Order, Long>{
             stmt.setDouble(6, element.getTotalValue().doubleValue());
             stmt.setString(7, element.getState().toString());
             stmt.setTimestamp(8, Timestamp.valueOf(element.getStart()));
-            
+
             stmt.execute();
-            
+
             return false;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    
+
     public Long createReturnID(Order element) {
         String sql = "insert into orders "
                 + "(account,type,asset,quantity,value,total_value,state,start)" + " values (?,?,?,?,?,?,?,?)";
 
-        try (Connection connection = new ConnectionFactory().getConnection();
-                PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
             stmt.setLong(1, element.getAccount());
             stmt.setString(2, element.getType().name());
             stmt.setLong(3, element.getAsset());
@@ -69,16 +65,16 @@ public class OrderImpl implements BaseRepository<Order, Long>{
             stmt.setDouble(6, element.getTotalValue().doubleValue());
             stmt.setString(7, element.getState().toString());
             stmt.setTimestamp(8, Timestamp.valueOf(element.getStart()));
-            
+
             stmt.execute();
-            
+
             ResultSet rs = stmt.getGeneratedKeys();
-            
+
             Long id = null;
-            if(rs.next()){
+            if (rs.next()) {
                 id = rs.getLong(1);
             }
-            
+
             return id;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -91,9 +87,7 @@ public class OrderImpl implements BaseRepository<Order, Long>{
 
         List<Order> orders = new ArrayList<>();
 
-        try ( Connection connection = new ConnectionFactory().getConnection();  
-                PreparedStatement stmt = connection.prepareStatement(sql);  
-                ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql); ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 Long id = rs.getLong("id");
@@ -104,11 +98,11 @@ public class OrderImpl implements BaseRepository<Order, Long>{
                 BigDecimal value = rs.getBigDecimal("value");
                 BigDecimal valueTotal = rs.getBigDecimal("total_value");
                 StateOrder state = StateOrder.valueOf(rs.getString("state"));
-                
+
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
                 LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
                 LocalDateTime modify = null;
-                if(rs.getTimestamp("modify") != null){
+                if (rs.getTimestamp("modify") != null) {
                     modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
                 }
 
@@ -133,17 +127,67 @@ public class OrderImpl implements BaseRepository<Order, Long>{
         return orders;
     }
 
+    public List<Order> read(Long asset) {
+        String sql = "select * from orders where asset = ?";
+
+        List<Order> orders = new ArrayList<>();
+
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setLong(1, asset);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Long id = rs.getLong("id");
+                    Long account = rs.getLong("account");
+                    TypeOrder type = TypeOrder.valueOf(rs.getString("type"));
+                    Integer quantity = rs.getInt("quantity");
+                    BigDecimal value = rs.getBigDecimal("value");
+                    BigDecimal valueTotal = rs.getBigDecimal("total_value");
+                    StateOrder state = StateOrder.valueOf(rs.getString("state"));
+
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
+                    LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
+                    LocalDateTime modify = null;
+                    if (rs.getTimestamp("modify") != null) {
+                        modify = LocalDateTime.parse(rs.getTimestamp("modify").toString(), formatter);
+                    }
+
+                    Order order = new Order();
+                    order.setId(id);
+                    order.setAccount(account);
+                    order.setType(type);
+                    order.setQuantity(quantity);
+                    order.setAsset(asset);
+                    order.setValue(value);
+                    order.setTotalValue(valueTotal);
+                    order.setState(state);
+                    order.setStart(start);
+                    order.setModify(modify);
+
+                    orders.add(order);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return orders;
+    }
+
     @Override
     public boolean update(Order element) {
         String sql = "update orders set value = ?, quantity = ?, total_value = ?, modify = ? where id = ?";
 
-        try ( Connection connection = new ConnectionFactory().getConnection();  
-              PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setBigDecimal(1, element.getValue());
-            stmt.setInt(2,element.getQuantity());
-            stmt.setBigDecimal(3,element.getTotalValue());
-            stmt.setTimestamp(4,Timestamp.valueOf(element.getModify()));
+            stmt.setInt(2, element.getQuantity());
+            stmt.setBigDecimal(3, element.getTotalValue());
+            stmt.setTimestamp(4, Timestamp.valueOf(element.getModify()));
             stmt.setLong(5, element.getId());
 
             stmt.execute();
@@ -158,17 +202,16 @@ public class OrderImpl implements BaseRepository<Order, Long>{
     public boolean delete(Long id) {
         String sql = "delete from orders where id = ?";
 
-        try (Connection connection = new ConnectionFactory().getConnection();
-                PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setLong(1, id);
-            
+
             stmt.execute();
-            
+
             return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    
+
 }

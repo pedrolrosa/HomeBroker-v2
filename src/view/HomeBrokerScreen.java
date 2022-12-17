@@ -19,6 +19,7 @@ import model.entities.Order;
 import model.entities.RelatesAccountAsset;
 import model.enums.StateOrder;
 import model.enums.TypeOrder;
+import view.acess.AcessOrderBook;
 
 /**
  *
@@ -121,6 +122,11 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         jLabel3.setText("Order");
 
         orderBookButton.setText("Order Book");
+        orderBookButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                orderBookButtonActionPerformed(evt);
+            }
+        });
 
         myAssetsButton.setText("My Assets");
 
@@ -390,6 +396,11 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
     private void idComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_idComboBoxItemStateChanged
         setPriceAsset();
     }//GEN-LAST:event_idComboBoxItemStateChanged
+
+    private void orderBookButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orderBookButtonActionPerformed
+        AcessOrderBook orderBookScreen = new AcessOrderBook();
+        orderBookScreen.setVisible(true);
+    }//GEN-LAST:event_orderBookButtonActionPerformed
 
     /**
      * @param args the command line arguments
