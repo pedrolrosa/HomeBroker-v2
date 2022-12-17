@@ -107,10 +107,7 @@ public class AssetNegotiation extends Entity{
         if (!Objects.equals(this.value, other.value)) {
             return false;
         }
-        if (!Objects.equals(this.valueTotal, other.valueTotal)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.valueTotal, other.valueTotal);
     }
 
     @Override

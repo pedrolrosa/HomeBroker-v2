@@ -116,9 +116,7 @@ public class AccountController {
     public static boolean transferToMe(Long origin, BigDecimal value){
         Account accountOrigin = AccountController.search(origin);
         if (accountOrigin.getAmount().compareTo(value) >= 0) {
-            if (accountOrigin != null) {
-                return databaseServices.transfer(origin, current.getId(), accountOrigin.subAmount(value), current.addAmount(value));
-            }
+            return databaseServices.transfer(origin, current.getId(), accountOrigin.subAmount(value), current.addAmount(value));
         }
         return false; 
     }

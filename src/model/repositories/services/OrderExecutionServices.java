@@ -5,17 +5,13 @@
  */
 package model.repositories.services;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.database.ConnectionFactory;
-import model.entities.AssetNegotiation;
 import model.entities.OrderExecution;
 import model.repositories.BaseRepository;
 import model.repositories.OrderExecutionRepository;

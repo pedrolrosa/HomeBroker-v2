@@ -4,10 +4,7 @@
  */
 package control;
 
-import java.math.BigDecimal;
 import model.entities.AssetNegotiation;
-import model.entities.Order;
-import model.enums.TypeOrder;
 import model.repositories.impl.AssetNegotiationImpl;
 import model.repositories.services.AssetNegotiationServices;
 

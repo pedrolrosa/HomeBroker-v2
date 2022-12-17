@@ -4,7 +4,6 @@
  */
 package model.repositories;
 
-import java.util.Date;
 import java.util.List;
 import model.entities.Transaction;
 

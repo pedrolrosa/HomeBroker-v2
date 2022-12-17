@@ -80,10 +80,7 @@ public class OrderExecution extends Entity{
         if (!Objects.equals(this.seller, other.seller)) {
             return false;
         }
-        if (!Objects.equals(this.quantity, other.quantity)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.quantity, other.quantity);
     }
 
     @Override
