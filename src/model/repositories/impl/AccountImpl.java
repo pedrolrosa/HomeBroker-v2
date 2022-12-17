@@ -33,7 +33,7 @@ public class AccountImpl extends BaseImpl implements BaseRepository<Account, Lon
 
             stmt.setLong(1, element.getOwner());
             stmt.setBigDecimal(2, element.getAmount());
-            stmt.setDouble(3, element.getMax());
+            stmt.setBigDecimal(3, element.getMax());
             stmt.setTimestamp(4, Timestamp.valueOf(element.getStart()));
 
             stmt.execute();
@@ -58,7 +58,7 @@ public class AccountImpl extends BaseImpl implements BaseRepository<Account, Lon
                 Long id = rs.getLong("id");
                 Long owner = rs.getLong("owner");
                 BigDecimal amount = rs.getBigDecimal("amount");
-                Double max = rs.getDouble("max");
+                BigDecimal max = rs.getBigDecimal("max");
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
                 LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
@@ -87,12 +87,12 @@ public class AccountImpl extends BaseImpl implements BaseRepository<Account, Lon
     @Override
     public boolean update(Account element) {
 
-        String sql = "update accounts set limit = ? where id = ?";
+        String sql = "update accounts set max = ? where id = ?";
 
         try ( Connection connection = new ConnectionFactory().getConnection();  
               PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setDouble(1, element.getMax());
+            stmt.setBigDecimal(1, element.getMax());
             stmt.setLong(2, element.getId());
 
             stmt.execute();

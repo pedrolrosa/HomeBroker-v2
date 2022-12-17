@@ -30,7 +30,6 @@ public class AccountMenu extends javax.swing.JFrame {
         deleteUserButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        createUserButton = new javax.swing.JButton();
         readUserButton = new javax.swing.JButton();
         vascoToken = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -60,13 +59,6 @@ public class AccountMenu extends javax.swing.JFrame {
 
         jLabel1.setText("Account Menu");
 
-        createUserButton.setText("Create Account");
-        createUserButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createUserButtonActionPerformed(evt);
-            }
-        });
-
         readUserButton.setText("Read Account");
         readUserButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,11 +84,7 @@ public class AccountMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(createUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(11, 11, 11))
-                                .addComponent(readUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(readUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(deleteUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(updateUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
@@ -106,7 +94,7 @@ public class AccountMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(87, 87, 87)
                         .addComponent(exitButton)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,15 +103,13 @@ public class AccountMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(115, 115, 115)
                         .addComponent(jLabel1)
-                        .addGap(42, 42, 42)
-                        .addComponent(createUserButton)
-                        .addGap(34, 34, 34)
+                        .addGap(62, 62, 62)
                         .addComponent(readUserButton)
                         .addGap(43, 43, 43)
                         .addComponent(updateUserButton)
                         .addGap(36, 36, 36)
                         .addComponent(deleteUserButton)
-                        .addGap(41, 41, 41)
+                        .addGap(78, 78, 78)
                         .addComponent(exitButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
@@ -137,13 +123,13 @@ public class AccountMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void updateUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateUserButtonActionPerformed
-        AssetUpdate assetUpdate = new AssetUpdate();
-        assetUpdate.setVisible(true);
+        AccountUpdate accountUpdate = new AccountUpdate();
+        accountUpdate.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_updateUserButtonActionPerformed
 
     private void deleteUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserButtonActionPerformed
-        AssetDelete assetDelete = new AssetDelete();
+        AccountDelete assetDelete = new AccountDelete();
         assetDelete.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_deleteUserButtonActionPerformed
@@ -153,14 +139,8 @@ public class AccountMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_exitButtonActionPerformed
 
-    private void createUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserButtonActionPerformed
-        AssetCreate assetCreate = new AssetCreate();
-        assetCreate.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_createUserButtonActionPerformed
-
     private void readUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readUserButtonActionPerformed
-        AssetRead assetRead = new AssetRead();
+        AccountRead assetRead = new AccountRead();
         assetRead.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_readUserButtonActionPerformed
@@ -201,7 +181,6 @@ public class AccountMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton createUserButton;
     private javax.swing.JButton deleteUserButton;
     private javax.swing.JButton exitButton;
     private javax.swing.JLabel jLabel1;

@@ -32,7 +32,7 @@ public class AccountServices extends BaseImpl implements AccountRepository, Base
             while (rs.next()) {
                 Long owner = rs.getLong("owner");
                 BigDecimal amount = rs.getBigDecimal("amount");
-                Double max = rs.getDouble("max");
+                BigDecimal max = rs.getBigDecimal("max");
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
                 LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);

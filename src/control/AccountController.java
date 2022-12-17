@@ -6,6 +6,7 @@ package control;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import model.entities.Account;
 import model.repositories.impl.AccountImpl;
 import model.repositories.services.AccountServices;
@@ -85,11 +86,23 @@ public class AccountController {
 
             attempt.setOwner(owner);
             attempt.setAmount(new BigDecimal(20000));
-            attempt.setMax(Double.valueOf(attempt.getAmount().multiply(BigDecimal.TEN).toString()));
+            attempt.setMax(attempt.getAmount().multiply(BigDecimal.TEN));
             attempt.setStart(LocalDateTime.now());
 
             return database.create(attempt);
         }
+    }
+    
+    public static List<Account> read(){
+        return database.read();
+    }
+    
+    public static boolean update(Account attempt){
+        return database.update(attempt);
+    }
+    
+    public static boolean delete(Long id){
+        return database.delete(id);
     }
 
     public static boolean deposit(BigDecimal value) {

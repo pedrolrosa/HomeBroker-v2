@@ -15,11 +15,7 @@ public class Account extends Entity{
     
     private Long owner;
     private BigDecimal amount;
-    private Double max;
-
-    public Account() {
-        this.amount = BigDecimal.ZERO;
-    }
+    private BigDecimal max;
 
     public Long getOwner() {
         return owner;
@@ -32,9 +28,17 @@ public class Account extends Entity{
     public BigDecimal getAmount() {
         return amount;
     }
-    
-    public void setAmount(BigDecimal amount){
+
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public BigDecimal getMax() {
+        return max;
+    }
+
+    public void setMax(BigDecimal max) {
+        this.max = max;
     }
     
     public BigDecimal addAmount(BigDecimal value){
@@ -48,20 +52,12 @@ public class Account extends Entity{
         return null;
     }
 
-    public Double getMax() {
-        return max;
-    }
-
-    public void setMax(Double max) {
-        this.max = max;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.owner);
-        hash = 29 * hash + Objects.hashCode(this.amount);
-        hash = 29 * hash + Objects.hashCode(this.max);
+        hash = 83 * hash + Objects.hashCode(this.owner);
+        hash = 83 * hash + Objects.hashCode(this.amount);
+        hash = 83 * hash + Objects.hashCode(this.max);
         return hash;
     }
 
@@ -92,8 +88,10 @@ public class Account extends Entity{
         sb.append("Account{");
         sb.append("owner=").append(owner);
         sb.append(", amount=").append(amount);
-        sb.append(", limit=").append(max);
+        sb.append(", max=").append(max);
         sb.append('}');
         return sb.toString();
     }
+
+    
 }
