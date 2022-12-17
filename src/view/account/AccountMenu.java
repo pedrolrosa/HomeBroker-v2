@@ -6,12 +6,12 @@ package view.account;
 
 /**
  *
- * @author silva.junior
+ * @author pedro
  */
 public class AccountMenu extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewJFrame
+     * Creates new form AccountMenu
      */
     public AccountMenu() {
         initComponents();
@@ -26,120 +26,144 @@ public class AccountMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton5 = new javax.swing.JButton();
-        yourAccountButton = new javax.swing.JButton();
-        newAccountButton = new javax.swing.JButton();
-        changeAccountButton = new javax.swing.JButton();
+        updateUserButton = new javax.swing.JButton();
+        deleteUserButton = new javax.swing.JButton();
+        exitButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        createUserButton = new javax.swing.JButton();
+        readUserButton = new javax.swing.JButton();
         vascoToken = new javax.swing.JLabel();
-        deleteAccountButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-
-        jButton5.setText("jButton1");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        yourAccountButton.setText("Read accounts");
-        yourAccountButton.addActionListener(new java.awt.event.ActionListener() {
+        updateUserButton.setText("Update Account");
+        updateUserButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                yourAccountButtonActionPerformed(evt);
+                updateUserButtonActionPerformed(evt);
             }
         });
 
-        newAccountButton.setText("Create account");
-        newAccountButton.addActionListener(new java.awt.event.ActionListener() {
+        deleteUserButton.setText("Delete Account");
+        deleteUserButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newAccountButtonActionPerformed(evt);
+                deleteUserButtonActionPerformed(evt);
             }
         });
 
-        changeAccountButton.setText("Update account");
-        changeAccountButton.addActionListener(new java.awt.event.ActionListener() {
+        exitButton.setText("Exit");
+        exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changeAccountButtonActionPerformed(evt);
+                exitButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Account Menu");
+
+        createUserButton.setText("Create Account");
+        createUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createUserButtonActionPerformed(evt);
+            }
+        });
+
+        readUserButton.setText("Read Account");
+        readUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readUserButtonActionPerformed(evt);
             }
         });
 
         vascoToken.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         vascoToken.setText("all rigths reserved to vascoToken");
 
-        deleteAccountButton.setText("Delete account");
-        deleteAccountButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteAccountButtonActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setText("ACCOUNTS");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/romero.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(vascoToken)
+                    .addComponent(jLabel2))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(newAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(73, 73, 73)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(deleteAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(yourAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(changeAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(createUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(11, 11, 11))
+                                .addComponent(readUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(deleteUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(updateUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(jLabel1))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(vascoToken))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addComponent(jLabel2)))
-                .addContainerGap(107, Short.MAX_VALUE))
+                        .addGap(87, 87, 87)
+                        .addComponent(exitButton)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(30, 30, 30)
-                .addComponent(newAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(yourAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
-                .addComponent(changeAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(deleteAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
-                .addComponent(vascoToken))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addComponent(jLabel1)
+                        .addGap(42, 42, 42)
+                        .addComponent(createUserButton)
+                        .addGap(34, 34, 34)
+                        .addComponent(readUserButton)
+                        .addGap(43, 43, 43)
+                        .addComponent(updateUserButton)
+                        .addGap(36, 36, 36)
+                        .addComponent(deleteUserButton)
+                        .addGap(41, 41, 41)
+                        .addComponent(exitButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel2)))
+                .addGap(37, 37, 37)
+                .addComponent(vascoToken)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void yourAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yourAccountButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_yourAccountButtonActionPerformed
+    private void updateUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateUserButtonActionPerformed
+        AssetUpdate assetUpdate = new AssetUpdate();
+        assetUpdate.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_updateUserButtonActionPerformed
 
-    private void newAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newAccountButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newAccountButtonActionPerformed
+    private void deleteUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserButtonActionPerformed
+        AssetDelete assetDelete = new AssetDelete();
+        assetDelete.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_deleteUserButtonActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void exitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitButtonActionPerformed
 
-    private void changeAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeAccountButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_changeAccountButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_exitButtonActionPerformed
 
-    private void deleteAccountButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteAccountButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteAccountButtonActionPerformed
+    private void createUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createUserButtonActionPerformed
+        AssetCreate assetCreate = new AssetCreate();
+        assetCreate.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_createUserButtonActionPerformed
+
+    private void readUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readUserButtonActionPerformed
+        AssetRead assetRead = new AssetRead();
+        assetRead.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_readUserButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,13 +191,6 @@ public class AccountMenu extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(AccountMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -184,12 +201,13 @@ public class AccountMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton changeAccountButton;
-    private javax.swing.JButton deleteAccountButton;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton createUserButton;
+    private javax.swing.JButton deleteUserButton;
+    private javax.swing.JButton exitButton;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JButton newAccountButton;
+    private javax.swing.JButton readUserButton;
+    private javax.swing.JButton updateUserButton;
     private javax.swing.JLabel vascoToken;
-    private javax.swing.JButton yourAccountButton;
     // End of variables declaration//GEN-END:variables
 }
