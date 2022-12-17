@@ -14,6 +14,8 @@ public interface AccountRepository{
     
     Long searchPerType(String type);
     
+    Integer feeMonth();
+    
     Account acess(Long id);
     
     boolean deposit(Long id, BigDecimal value);

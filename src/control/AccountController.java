@@ -5,7 +5,6 @@
 package control;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import model.entities.Account;
 import model.repositories.impl.AccountImpl;
@@ -54,6 +53,11 @@ public class AccountController {
         return transfer(searchAdm(), value);
     }
     
+    public static void feeMonth(){
+        Integer nTurn = databaseServices.feeMonth();
+        databaseServices.deposit(searchAdm(), databaseServices.target(searchAdm()).getAmount().add(new BigDecimal(20).multiply(new BigDecimal(nTurn))));
+    }
+    
     public static boolean hasBalance(BigDecimal value){
         
         return current.getAmount().compareTo(value) >= 0;
@@ -87,7 +91,7 @@ public class AccountController {
             attempt.setOwner(owner);
             attempt.setAmount(new BigDecimal(20000));
             attempt.setMax(attempt.getAmount().multiply(BigDecimal.TEN));
-            attempt.setStart(LocalDateTime.now());
+            attempt.setStart(DateControl.now());
 
             return database.create(attempt);
         }

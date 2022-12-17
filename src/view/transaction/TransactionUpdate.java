@@ -4,8 +4,8 @@
  */
 package view.transaction;
 
+import control.DateControl;
 import control.TransactionController;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.Transaction;
@@ -175,7 +175,7 @@ public final class TransactionUpdate extends javax.swing.JFrame {
         transaction.setId(Long.valueOf(idComboBox.getSelectedItem().toString()));
         transaction.setDescription(descriptionField.getText());
 
-        transaction.setModify(LocalDateTime.now());
+        transaction.setModify(DateControl.now());
 
         if(TransactionController.update(transaction)){
             updateButton.setEnabled(false);

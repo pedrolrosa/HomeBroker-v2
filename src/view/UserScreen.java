@@ -5,6 +5,7 @@
 package view;
 
 import control.AccountController;
+import control.DateControl;
 import control.UserController;
 import javax.swing.JOptionPane;
 import model.enums.TypeUser;
@@ -14,13 +15,19 @@ import model.enums.TypeUser;
  * @author pedro
  */
 public class UserScreen extends javax.swing.JFrame {
-    
+
+    private void setDate() {
+        dateField.setText(DateControl.now().toString());
+    }
+
     /**
      * Creates new form Account
      */
     public UserScreen() {
         initComponents();
         
+        setDate();
+
         UserController.refresh();
 
         nameInLabel.setText(UserController.logued.getName());
@@ -29,22 +36,22 @@ public class UserScreen extends javax.swing.JFrame {
         phoneInLabel.setText(UserController.logued.getPhone());
 
         startInLabel.setText(UserController.logued.getStart().toString());
-        if(UserController.logued.getModify() != null){
+        if (UserController.logued.getModify() != null) {
             modifyInLabel.setText(UserController.logued.getModify().toString());
         }
 
         typeInLabel.setText(UserController.logued.getType().name());
-        
-        if(UserController.logued.getType().equals(TypeUser.COMMOM)){
+
+        if (UserController.logued.getType().equals(TypeUser.COMMOM)) {
             admButton.setEnabled(false);
         }
-        
-        if(!(AccountController.acess(UserController.logued.getId()))){
-            if(JOptionPane.showConfirmDialog(this,"User does not have an account, do you want to create one?") ==  JOptionPane.YES_OPTION){
 
-                if(AccountController.create(UserController.logued.getId())){
+        if (!(AccountController.acess(UserController.logued.getId()))) {
+            if (JOptionPane.showConfirmDialog(this, "User does not have an account, do you want to create one?") == JOptionPane.YES_OPTION) {
 
-                    if(AccountController.acess(UserController.logued.getId())){
+                if (AccountController.create(UserController.logued.getId())) {
+
+                    if (AccountController.acess(UserController.logued.getId())) {
                         UserController.coupling(AccountController.current.getId(), UserController.logued.getId());
                         JOptionPane.showMessageDialog(this, "Create Sucess !");
                         acessAccountButton.setEnabled(true);
@@ -82,6 +89,11 @@ public class UserScreen extends javax.swing.JFrame {
         admButton = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        daysField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        passButton = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        dateField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -209,18 +221,18 @@ public class UserScreen extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(163, Short.MAX_VALUE)
+                .addContainerGap(43, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(acessAccountButton, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                     .addComponent(admButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(152, 152, 152))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
+                .addContainerGap(42, Short.MAX_VALUE)
                 .addComponent(admButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(acessAccountButton)
                 .addGap(42, 42, 42))
         );
@@ -234,6 +246,19 @@ public class UserScreen extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/socrates.png"))); // NOI18N
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 200));
+
+        jLabel2.setText("Days:");
+
+        passButton.setText("Pass");
+        passButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Date:");
+
+        dateField.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -249,8 +274,23 @@ public class UserScreen extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(132, 132, 132)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(234, 234, 234)
+                                .addComponent(passButton))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(169, 169, 169)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(daysField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(146, 146, 146)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(infoAccountPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -263,8 +303,18 @@ public class UserScreen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(40, 40, 40)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(dateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(daysField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(passButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -293,6 +343,14 @@ public class UserScreen extends javax.swing.JFrame {
         admScreen.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_admButtonActionPerformed
+
+    private void passButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passButtonActionPerformed
+        Integer days = Integer.valueOf(daysField.getText());
+        
+        DateControl.plusDays(days);
+        
+        setDate();
+    }//GEN-LAST:event_passButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -338,13 +396,18 @@ public class UserScreen extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JTextField cpfInLabel;
     private final javax.swing.JLabel cpfLabel = new javax.swing.JLabel();
+    private javax.swing.JTextField dateField;
+    private javax.swing.JTextField daysField;
     private javax.swing.JPanel infoAccountPanel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField modifyInLabel;
     private final javax.swing.JLabel modifyLabel = new javax.swing.JLabel();
     private javax.swing.JTextField nameInLabel;
     private final javax.swing.JLabel nameLabel = new javax.swing.JLabel();
+    private javax.swing.JButton passButton;
     private javax.swing.JTextField phoneInLabel;
     private final javax.swing.JLabel phoneLabel = new javax.swing.JLabel();
     private javax.swing.JTextField startInLabel;

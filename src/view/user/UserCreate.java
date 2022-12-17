@@ -4,8 +4,8 @@
  */
 package view.user;
 
+import control.DateControl;
 import control.UserController;
-import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import model.entities.User;
 import model.enums.TypeUser;
@@ -198,7 +198,7 @@ public class UserCreate extends javax.swing.JFrame {
         user.setLogin(loginField.getText());
         user.setPassword(passwordField.getText());
         
-        user.setStart(LocalDateTime.now());
+        user.setStart(DateControl.now());
         
         if(UserController.create(user)){
             this.dispose();

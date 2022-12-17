@@ -7,10 +7,10 @@ package view;
 import control.AccountController;
 import control.AssetController;
 import control.AssetNegotiationController;
+import control.DateControl;
 import control.OrderController;
 import control.RelatesController;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.Asset;
@@ -283,7 +283,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             order.setValue(value);
             order.setQuantity(quantity);
             order.setTotalValue(totalValue);
-            order.setStart(LocalDateTime.now());
+            order.setStart(DateControl.now());
 
             if (OrderController.create(order)
                     && AccountController.fee(BigDecimal.TEN)) {
@@ -318,7 +318,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             order.setValue(value);
             order.setQuantity(quantity);
             order.setTotalValue(totalValue);
-            order.setStart(LocalDateTime.now());
+            order.setStart(DateControl.now());
 
             if (OrderController.create(order)
                     && AccountController.fee(BigDecimal.TEN)) {
@@ -364,7 +364,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
                     related.setAsset(asset);
                     related.setQuantity(quantity);
 
-                    related.setStart(LocalDateTime.now());
+                    related.setStart(DateControl.now());
 
                     if (RelatesController.create(related)
                             && AccountController.fee(BigDecimal.TEN)

@@ -5,8 +5,8 @@
 package view.asset;
 
 import control.AssetController;
+import control.DateControl;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import model.entities.Asset;
 
@@ -150,7 +150,7 @@ public class AssetCreate extends javax.swing.JFrame {
         asset.setAmount(Integer.parseInt(amountField.getText()));
         asset.setInitialPrice(new BigDecimal(initialPriceField.getText()));
 
-        asset.setStart(LocalDateTime.now());
+        asset.setStart(DateControl.now());
 
         if(AssetController.create(asset)){
             JOptionPane.showMessageDialog(this, "Create Asset Sucess !");

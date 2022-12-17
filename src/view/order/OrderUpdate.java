@@ -4,9 +4,9 @@
  */
 package view.order;
 
+import control.DateControl;
 import control.OrderController;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.Order;
@@ -179,7 +179,7 @@ public final class OrderUpdate extends javax.swing.JFrame {
         order.setQuantity(Integer.valueOf(quantityField.getText()));
         order.setTotalValue(order.getValue().multiply(new BigDecimal(order.getQuantity())));
 
-        order.setModify(LocalDateTime.now());
+        order.setModify(DateControl.now());
 
         if(OrderController.update(order)){
             updateButton.setEnabled(false);

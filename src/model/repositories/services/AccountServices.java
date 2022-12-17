@@ -86,6 +86,40 @@ public class AccountServices extends BaseImpl implements AccountRepository, Base
     }
     
     @Override
+    public Integer feeMonth(){
+        
+        Integer nTurn = 0;
+        
+        String sql = "select accounts.id from accounts inner join users on accounts.id = users.account where users.type = ?";
+
+        try ( Connection connection = new ConnectionFactory().getConnection();  
+                PreparedStatement stmt = connection.prepareStatement(sql);  
+                ) {
+            
+            stmt.setString(1, "COMMOM");
+            
+            try(ResultSet rs = stmt.executeQuery()){
+                while(rs.next()){
+                    Long id = rs.getLong("id");
+                    
+                    BigDecimal amount = target(id).getAmount().subtract(new BigDecimal(20));
+                    
+                    withdraw(id, amount);
+                    nTurn++;
+                }               
+            } catch(SQLException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+            
+            
+        } catch (SQLException e) {
+            throw new RuntimeException(e.getMessage());
+        }
+        
+        return nTurn;
+    }
+    
+    @Override
     public Account acess(Long owner){
         
         String sql = "select id from accounts where owner = ?";

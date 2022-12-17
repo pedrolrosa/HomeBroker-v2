@@ -5,6 +5,7 @@
 package view.asset;
 
 import control.AssetController;
+import control.DateControl;
 import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -202,7 +203,7 @@ public class AssetUpdate extends javax.swing.JFrame {
         user.setTicker(tickerField.getText());
         user.setAmount(Integer.valueOf(amountField.getText()));
 
-        user.setModify(LocalDateTime.now());
+        user.setModify(DateControl.now());
 
         if(AssetController.update(user)){
             JOptionPane.showMessageDialog(this, "Update Sucess !");

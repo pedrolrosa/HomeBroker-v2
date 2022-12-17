@@ -5,8 +5,8 @@
 package view.account;
 
 import control.AccountController;
+import control.DateControl;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.Account;
@@ -165,7 +165,7 @@ public class AccountUpdate extends javax.swing.JFrame {
         account.setId(Long.valueOf(idComboBox.getSelectedItem().toString()));
         account.setMax(new BigDecimal(maxField.getText()));
 
-        account.setModify(LocalDateTime.now());
+        account.setModify(DateControl.now());
 
         if(AccountController.update(account)){
             JOptionPane.showMessageDialog(this, "Update Sucess !");

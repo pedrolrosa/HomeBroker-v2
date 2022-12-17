@@ -5,9 +5,9 @@
 package view;
 
 import control.AccountController;
+import control.DateControl;
 import control.TransactionController;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import javax.swing.JOptionPane;
 import model.entities.Transaction;
 import model.enums.TypeTransaction;
@@ -293,7 +293,7 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             transaction.setDescription(description);
             transaction.setValue(value);
             
-            transaction.setStart(LocalDateTime.now());
+            transaction.setStart(DateControl.now());
             
             TransactionController.create(transaction);
         } else {
@@ -313,7 +313,7 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             transaction.setDescription(description);
             transaction.setValue(value);
             
-            transaction.setStart(LocalDateTime.now());
+            transaction.setStart(DateControl.now());
             
             if(TransactionController.create(transaction)){
                 JOptionPane.showMessageDialog(this,"Withdraw Sucess !");
@@ -337,7 +337,7 @@ public class AcessAccountScreen extends javax.swing.JFrame {
             transaction.setDescription(description);
             transaction.setValue(value);
             
-            transaction.setStart(LocalDateTime.now());
+            transaction.setStart(DateControl.now());
             
             if(TransactionController.create(transaction)){
                 JOptionPane.showMessageDialog(this,"Transfer Sucess !");

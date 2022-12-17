@@ -4,6 +4,7 @@
  */
 package view.user;
 
+import control.DateControl;
 import control.UserController;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -267,7 +268,7 @@ public class UserUpdate extends javax.swing.JFrame {
         user.setLogin(loginField.getText());
         user.setPassword(passwordField.getText());
         
-        user.setModify(LocalDateTime.now());
+        user.setModify(DateControl.now());
         
         if(UserController.update(user)){
             JOptionPane.showMessageDialog(this, "Update Sucess !");

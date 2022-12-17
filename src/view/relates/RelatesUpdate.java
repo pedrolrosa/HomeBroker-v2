@@ -4,8 +4,8 @@
  */
 package view.relates;
 
+import control.DateControl;
 import control.RelatesController;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.RelatesAccountAsset;
@@ -168,7 +168,7 @@ public final class RelatesUpdate extends javax.swing.JFrame {
         related.setId(Long.valueOf(idComboBox.getSelectedItem().toString()));
         related.setQuantity(Integer.valueOf(quantityField.getText()));
 
-        related.setModify(LocalDateTime.now());
+        related.setModify(DateControl.now());
 
         if(RelatesController.update(related)){
             updateButton.setEnabled(false);
