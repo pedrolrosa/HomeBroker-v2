@@ -6,8 +6,11 @@ package view.acess;
 
 import control.AssetController;
 import control.OrderController;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 import model.entities.Asset;
 import model.entities.Order;
@@ -20,21 +23,47 @@ import model.enums.TypeOrder;
  */
 public final class AcessOrderBook extends javax.swing.JFrame {
 
-    void listOrders(DefaultTableModel model, List<Order> orders) {
+    void listOrders(DefaultTableModel model, List<Order> orders, TypeOrder type) {
         Object columns[] = new Object[model.getColumnCount()];
 
-        for (int i = 0; i < orders.size(); i++) {
+        Map<BigDecimal, Integer> ordersSort = new LinkedHashMap<>();
 
-            Order order = orders.get(i);
+        for (Order order : orders) {
 
-            if (order.getType().equals(TypeOrder.BUY)) {
-                columns[0] = null;
-                columns[1] = order.getQuantity();
-                columns[2] = order.getValue();
-            } else if (order.getType().equals(TypeOrder.SELL)) {
-                columns[0] = order.getValue();
-                columns[1] = order.getQuantity();
-                columns[2] = null;
+            BigDecimal value = order.getValue();
+            Integer quantity = order.getQuantity();
+
+            if (ordersSort.containsKey(value)) {
+                int qtdOrder = ordersSort.get(value);
+                ordersSort.put(value, quantity + qtdOrder);
+            } else {
+                ordersSort.put(value, quantity);
+            }
+        }
+
+        Map<BigDecimal, Integer> nOrders = new LinkedHashMap<>();
+
+        for (Order order : orders) {
+
+            BigDecimal value = order.getValue();
+
+            if (nOrders.containsKey(value)) {
+                nOrders.put(value, nOrders.get(value) + 1);
+            } else {
+                nOrders.put(value, 1);
+            }
+        }
+
+        for (BigDecimal value : nOrders.keySet()) {
+
+            if (type.equals(TypeOrder.BUY)) {
+                columns[0] = nOrders.get(value);
+                columns[1] = ordersSort.get(value);
+                columns[2] = value;
+            } else {
+                columns[0] = value;
+                columns[1] = ordersSort.get(value);
+                columns[2] = nOrders.get(value);
             }
 
             model.addRow(columns);
@@ -244,12 +273,12 @@ public final class AcessOrderBook extends javax.swing.JFrame {
         DefaultTableModel modelBuy = (DefaultTableModel) buyTable.getModel();
         modelBuy.setNumRows(0);
 
-        listOrders(modelBuy, purchasing);
+        listOrders(modelBuy, purchasing, TypeOrder.BUY);
 
         DefaultTableModel modelSell = (DefaultTableModel) sellTable.getModel();
         modelSell.setNumRows(0);
 
-        listOrders(modelSell, sales);
+        listOrders(modelSell, sales, TypeOrder.SELL);
 
     }//GEN-LAST:event_idComboBoxItemStateChanged
 
