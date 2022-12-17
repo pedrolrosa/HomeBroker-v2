@@ -44,6 +44,7 @@ public class AdmScreen extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        vascoToken = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -104,6 +105,9 @@ public class AdmScreen extends javax.swing.JFrame {
 
         jButton2.setText("Orders Execution Menu");
 
+        vascoToken.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        vascoToken.setText("all rigths reserved to vascoToken");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,6 +136,10 @@ public class AdmScreen extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(102, 102, 102))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(vascoToken)
+                .addGap(256, 256, 256))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +169,8 @@ public class AdmScreen extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(relatesMenu)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(vascoToken))
         );
 
         pack();
@@ -251,5 +260,6 @@ public class AdmScreen extends javax.swing.JFrame {
     private javax.swing.JButton relatesMenu;
     private javax.swing.JButton transactionMenu;
     private javax.swing.JButton userMenuButton;
+    private javax.swing.JLabel vascoToken;
     // End of variables declaration//GEN-END:variables
 }
