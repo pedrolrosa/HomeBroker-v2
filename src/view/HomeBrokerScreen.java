@@ -19,6 +19,7 @@ import model.entities.Order;
 import model.entities.RelatesAccountAsset;
 import model.enums.StateOrder;
 import model.enums.TypeOrder;
+import view.acess.AcessMyAssets;
 import view.acess.AcessOrderBook;
 
 /**
@@ -40,7 +41,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         String priceAsset;
         Long idAsset = Long.valueOf(idComboBox.getSelectedItem().toString());
         
-        AssetNegotiation lastNegotiation = AssetNegotiationController.attPriceAsset(idAsset);
+        AssetNegotiation lastNegotiation = AssetNegotiationController.getPriceAsset(idAsset);
         
         if(lastNegotiation != null){
             priceAsset = lastNegotiation.getValue().toString();
@@ -129,6 +130,11 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         });
 
         myAssetsButton.setText("My Assets");
+        myAssetsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                myAssetsButtonActionPerformed(evt);
+            }
+        });
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -351,17 +357,28 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             Long asset = Long.valueOf(idComboBox.getSelectedItem().toString());
 
             Integer quantity = Integer.valueOf(JOptionPane.showInputDialog("Quantity :"));
-            BigDecimal priceAsset = new BigDecimal(priceField.getText()).multiply(new BigDecimal(0.1));
+            BigDecimal priceAsset = new BigDecimal(priceField.getText()).multiply(new BigDecimal(0.9));
             BigDecimal totalValue = priceAsset.multiply(new BigDecimal(quantity));
 
             if (AccountController.hasBalance(totalValue.add(BigDecimal.TEN)) && AssetController.hasAmount(asset, quantity)) {
 
+                AssetNegotiation negotiation = new AssetNegotiation();
+                negotiation.setAsset(asset);
+                negotiation.setBuyer(AccountController.current.getId());
+                negotiation.setSeller(AccountController.current.getId());
+                negotiation.setQuantity(quantity);
+                negotiation.setValue(priceAsset);
+                negotiation.setValueTotal(totalValue);
+
+                negotiation.setStart(DateControl.now());
+                
                 Long idRelates = RelatesController.requestId(AccountController.current.getId(), asset);
 
                 if (idRelates != null) {
                     if (RelatesController.addAmount(idRelates, quantity)
                             && AccountController.withdraw(totalValue)
-                            && AssetController.subAmount(asset, quantity)) {
+                            && AssetController.subAmount(asset, quantity)
+                            && AssetNegotiationController.create(negotiation)) {
                         JOptionPane.showMessageDialog(this, "Add in Related !");
                     }
                 } else {
@@ -375,7 +392,8 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
                     if (RelatesController.create(related)
                             && AccountController.fee(BigDecimal.TEN)
                             && AccountController.withdraw(totalValue)
-                            && AssetController.subAmount(asset, quantity)) {
+                            && AssetController.subAmount(asset, quantity)
+                            && AssetNegotiationController.create(negotiation)) {
 
                         JOptionPane.showMessageDialog(this, "Create Related !");
                     }
@@ -401,6 +419,11 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         AcessOrderBook orderBookScreen = new AcessOrderBook();
         orderBookScreen.setVisible(true);
     }//GEN-LAST:event_orderBookButtonActionPerformed
+
+    private void myAssetsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myAssetsButtonActionPerformed
+        AcessMyAssets myAssetsScreen = new AcessMyAssets();
+        myAssetsScreen.setVisible(true);
+    }//GEN-LAST:event_myAssetsButtonActionPerformed
 
     /**
      * @param args the command line arguments

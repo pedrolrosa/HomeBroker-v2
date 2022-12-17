@@ -4,17 +4,77 @@
  */
 package view.acess;
 
+import control.AccountController;
+import control.AssetController;
+import control.AssetNegotiationController;
+import control.RelatesController;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import model.entities.RelatesAccountAsset;
+
 /**
  *
  * @author pedro
  */
 public class AcessMyAssets extends javax.swing.JFrame {
 
+    private void setPriceTable() {
+
+        Double totalPrice = 0.0;
+        Double totalSpend = 0.0;
+
+        DefaultTableModel model = (DefaultTableModel) myAssetsTable.getModel();
+        model.setNumRows(0);
+
+        Object columns[] = new Object[myAssetsTable.getColumnCount()];
+
+        List<RelatesAccountAsset> assets;
+        assets = RelatesController.readAssets(AccountController.current.getId());
+
+        for (int i = 0; i < assets.size(); i++) {
+
+            RelatesAccountAsset negotiation = assets.get(i);
+
+            Double price = Double.valueOf(AssetNegotiationController.getPriceAsset(negotiation.getAsset()).getValue().toString());
+
+            Double totalSpendRow = AssetNegotiationController.totalSpend(negotiation.getAsset(), negotiation.getAccount());
+
+            Double totalPriceRow = price * negotiation.getQuantity();
+
+            totalPrice += totalPriceRow;
+
+            totalSpend += totalSpendRow;
+
+            columns[0] = AssetController.search(negotiation.getAsset()).getTicker();
+            columns[1] = negotiation.getQuantity();
+            columns[2] = totalSpendRow;
+            columns[3] = price;
+            columns[4] = totalPriceRow;
+            columns[5] = (totalSpendRow - totalPriceRow) / (totalSpendRow / 100) * -1;
+
+            model.addRow(columns);
+        }
+
+        totalTradeField.setText(totalPrice.toString());
+        
+
+        double profitLossTotal;
+        profitLossTotal = ((totalSpend - totalPrice) / (totalSpend / 100) * -1);
+        
+        String result = String.format("%.2f",profitLossTotal);
+        
+        profitLossTotalField.setText(result);
+    }
+
     /**
      * Creates new form AcessMyAssets
      */
     public AcessMyAssets() {
         initComponents();
+
+        setPriceTable();
     }
 
     /**
@@ -27,14 +87,18 @@ public class AcessMyAssets extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        readTable = new javax.swing.JTable();
+        myAssetsTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         vascoToken = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        totalTradeField = new javax.swing.JTextField();
+        profitLossTotalField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        readTable.setModel(new javax.swing.table.DefaultTableModel(
+        myAssetsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -42,11 +106,11 @@ public class AcessMyAssets extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Account", "Asset", "Quantity", "Start", "Modify"
+                "Asset", "Quantity", "Total Spend", "Current Value", "Price", "Profit/Loss"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -60,7 +124,7 @@ public class AcessMyAssets extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(readTable);
+        jScrollPane1.setViewportView(myAssetsTable);
 
         jLabel1.setText("My Assets");
 
@@ -74,6 +138,14 @@ public class AcessMyAssets extends javax.swing.JFrame {
         vascoToken.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         vascoToken.setText("all rigths reserved to vascoToken");
 
+        jLabel2.setText("Total Swing Trade:");
+
+        jLabel3.setText("Profit/Loss Total:");
+
+        totalTradeField.setEditable(false);
+
+        profitLossTotalField.setEditable(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,15 +156,25 @@ public class AcessMyAssets extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 686, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(377, 377, 377)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(341, 341, 341)
-                        .addComponent(vascoToken)))
-                .addContainerGap(98, Short.MAX_VALUE))
+                        .addComponent(vascoToken))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 739, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(45, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(99, 99, 99)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalTradeField, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(profitLossTotalField, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,8 +182,15 @@ public class AcessMyAssets extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(112, 112, 112)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(totalTradeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(profitLossTotalField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25)
                 .addComponent(backButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(vascoToken)
@@ -153,8 +242,12 @@ public class AcessMyAssets extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable readTable;
+    private javax.swing.JTable myAssetsTable;
+    private javax.swing.JTextField profitLossTotalField;
+    private javax.swing.JTextField totalTradeField;
     private javax.swing.JLabel vascoToken;
     // End of variables declaration//GEN-END:variables
 }

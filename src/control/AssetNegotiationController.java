@@ -4,6 +4,7 @@
  */
 package control;
 
+import java.util.List;
 import model.entities.AssetNegotiation;
 import model.repositories.impl.AssetNegotiationImpl;
 import model.repositories.services.AssetNegotiationServices;
@@ -18,16 +19,20 @@ public class AssetNegotiationController {
 
     private static final AssetNegotiationServices databaseServices = new AssetNegotiationServices();
     
-    public static AssetNegotiation attPriceAsset(Long asset){
+    public static AssetNegotiation getPriceAsset(Long asset){
         return databaseServices.search(asset);
+    }
+    
+    public static Double totalSpend(Long asset, Long buyer){
+        return databaseServices.totalSpend(asset, buyer);
     }
 
     public static boolean create(AssetNegotiation attempt) {
         return database.create(attempt);
     }
 
-    public static boolean read() {
-        return false;
+    public static List<AssetNegotiation> read() {
+        return database.read();
     }
 
     public static boolean update() {

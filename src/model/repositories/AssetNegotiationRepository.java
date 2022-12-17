@@ -12,6 +12,8 @@ import model.entities.AssetNegotiation;
  */
 public interface AssetNegotiationRepository {
     
+    Double totalSpend(Long asset, Long buyer);
+    
     AssetNegotiation search(Long asset);
     
 }

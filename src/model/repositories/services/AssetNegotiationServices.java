@@ -89,5 +89,34 @@ public class AssetNegotiationServices extends BaseImpl implements AssetNegotiati
         return null;
         
     }
+    
+    @Override
+    public Double totalSpend(Long asset, Long buyer){
+        
+        Double total = 0.0;
+        
+        String sql = "select id from assetNegotiation where asset = ? and buyer = ?";
+        
+        try (Connection connection = new ConnectionFactory().getConnection(); 
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
+
+            stmt.setLong(1,asset);
+            stmt.setLong(2,buyer);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    total += Double.valueOf(target(rs.getLong("id")).getValueTotal().toString());
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        
+        return total;
+        
+    }
 
 }

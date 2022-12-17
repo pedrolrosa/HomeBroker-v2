@@ -22,7 +22,7 @@ public class DateControl {
 
         int past = 0;
 
-        while (past <= days) {
+        while (past < days) {
             if (date.getDayOfMonth() == 15) {
                 AccountController.feeMonth();
             }
