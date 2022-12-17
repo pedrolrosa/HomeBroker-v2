@@ -39,8 +39,8 @@ public class AssetNegotiationController {
         return false;
     }
 
-    public static boolean delete() {
-        return false;
+    public static boolean delete(Long id) {
+        return database.delete(id);
     }
 
 }

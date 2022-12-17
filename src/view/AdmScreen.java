@@ -6,7 +6,9 @@ package view;
 
 import view.account.AccountMenu;
 import view.asset.AssetMenu;
+import view.assets_negotiation.AssetsNegotiationMenu;
 import view.order.OrderMenu;
+import view.orders_execution.OrderExecutionMenu;
 import view.relates.RelatesMenu;
 import view.transaction.TransactionMenu;
 import view.user.UserMenu;
@@ -42,8 +44,8 @@ public class AdmScreen extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        assetsNegotiationMenu = new javax.swing.JButton();
+        ordersExecutionMenu = new javax.swing.JButton();
         vascoToken = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -101,9 +103,19 @@ public class AdmScreen extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/rincon.png"))); // NOI18N
 
-        jButton1.setText("Assets Negotiation Menu");
+        assetsNegotiationMenu.setText("Assets Negotiation Menu");
+        assetsNegotiationMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                assetsNegotiationMenuActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Orders Execution Menu");
+        ordersExecutionMenu.setText("Orders Execution Menu");
+        ordersExecutionMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ordersExecutionMenuActionPerformed(evt);
+            }
+        });
 
         vascoToken.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         vascoToken.setText("all rigths reserved to vascoToken");
@@ -126,8 +138,8 @@ public class AdmScreen extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(userMenuButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(orderMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(ordersExecutionMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(assetsNegotiationMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(relatesMenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(assetMenuButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(transactionMenu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -164,9 +176,9 @@ public class AdmScreen extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(orderMenu)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1)
+                        .addComponent(assetsNegotiationMenu)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(ordersExecutionMenu)
                         .addGap(18, 18, 18)
                         .addComponent(relatesMenu)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
@@ -213,6 +225,16 @@ public class AdmScreen extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void assetsNegotiationMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assetsNegotiationMenuActionPerformed
+        AssetsNegotiationMenu assetsNegotiationScreen = new AssetsNegotiationMenu();
+        assetsNegotiationScreen.setVisible(true);
+    }//GEN-LAST:event_assetsNegotiationMenuActionPerformed
+
+    private void ordersExecutionMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersExecutionMenuActionPerformed
+        OrderExecutionMenu ordersExecutionScreen = new OrderExecutionMenu();
+        ordersExecutionScreen.setVisible(true);
+    }//GEN-LAST:event_ordersExecutionMenuActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -251,12 +273,12 @@ public class AdmScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton accountMenuButton;
     private javax.swing.JButton assetMenuButton;
+    private javax.swing.JButton assetsNegotiationMenu;
     private javax.swing.JButton backButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton orderMenu;
+    private javax.swing.JButton ordersExecutionMenu;
     private javax.swing.JButton relatesMenu;
     private javax.swing.JButton transactionMenu;
     private javax.swing.JButton userMenuButton;

@@ -38,8 +38,8 @@
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="userMenuButton" max="32767" attributes="0"/>
                                   <Component id="orderMenu" max="32767" attributes="0"/>
-                                  <Component id="jButton2" max="32767" attributes="0"/>
-                                  <Component id="jButton1" max="32767" attributes="0"/>
+                                  <Component id="ordersExecutionMenu" max="32767" attributes="0"/>
+                                  <Component id="assetsNegotiationMenu" max="32767" attributes="0"/>
                                   <Component id="relatesMenu" alignment="0" max="32767" attributes="0"/>
                                   <Component id="assetMenuButton" alignment="0" max="32767" attributes="0"/>
                                   <Component id="transactionMenu" alignment="0" max="32767" attributes="0"/>
@@ -86,9 +86,9 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="orderMenu" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="assetsNegotiationMenu" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="ordersExecutionMenu" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="relatesMenu" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -168,15 +168,21 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="assetsNegotiationMenu">
       <Properties>
         <Property name="text" type="java.lang.String" value="Assets Negotiation Menu"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="assetsNegotiationMenuActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="ordersExecutionMenu">
       <Properties>
         <Property name="text" type="java.lang.String" value="Orders Execution Menu"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ordersExecutionMenuActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="vascoToken">
       <Properties>

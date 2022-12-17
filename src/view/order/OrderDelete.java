@@ -112,15 +112,7 @@ public final class OrderDelete extends javax.swing.JFrame {
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         if(OrderController.delete(Long.valueOf(idComboBox.getSelectedItem().toString()))){
             JOptionPane.showMessageDialog(this,"Deleted Sucess!");
-            List<Order> orders;
-            orders = OrderController.read();
-
-            for(Order order : orders){
-
-                idComboBox.addItem(String.valueOf(order.getId()));
-            }
-
-            idComboBox.removeAllItems();
+            
             listItems();
         } else {
             JOptionPane.showMessageDialog(this,"Failed !");
