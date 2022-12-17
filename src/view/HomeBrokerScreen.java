@@ -6,6 +6,7 @@ package view;
 
 import control.AccountController;
 import control.AssetController;
+import control.AssetNegotiationController;
 import control.OrderController;
 import control.RelatesController;
 import java.math.BigDecimal;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.Asset;
+import model.entities.AssetNegotiation;
 import model.entities.Order;
 import model.entities.RelatesAccountAsset;
 import model.enums.StateOrder;
@@ -32,6 +34,21 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             idComboBox.addItem(String.valueOf(asset.getId()));
         }
     }
+    
+    void setPriceAsset(){
+        String priceAsset;
+        Long idAsset = Long.valueOf(idComboBox.getSelectedItem().toString());
+        
+        AssetNegotiation lastNegotiation = AssetNegotiationController.attPriceAsset(idAsset);
+        
+        if(lastNegotiation != null){
+            priceAsset = lastNegotiation.getValue().toString();
+        } else {
+            priceAsset = AssetController.search(idAsset).getInitialPrice().toString();
+        }
+        
+        priceField.setText(priceAsset);
+    }
 
     /**
      * Creates new form HomeBrokerScreen
@@ -42,6 +59,8 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         amountField.setText("$ " + AccountController.current.getAmount());
 
         listItems();
+        
+        setPriceAsset();
     }
 
     /**
@@ -112,12 +131,6 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Asset");
-
-        idComboBox.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                idComboBoxItemStateChanged(evt);
-            }
-        });
 
         jLabel5.setText("Price Asset");
 
@@ -263,6 +276,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
                 
                 if(OrderController.verifyOrderExecution(order)){
                     JOptionPane.showMessageDialog(this,"Executed Order !");
+                    setPriceAsset();
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Failed !");
@@ -296,6 +310,7 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
                 
                 if(OrderController.verifyOrderExecution(order)){
                     JOptionPane.showMessageDialog(this,"Executed Order !");
+                    setPriceAsset();
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Failed !");
@@ -306,11 +321,6 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buyButtonActionPerformed
 
-    private void idComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_idComboBoxItemStateChanged
-        // need assets
-        priceField.setText(AssetController.search(Long.valueOf(idComboBox.getSelectedItem().toString())).getInitialPrice().toString());
-    }//GEN-LAST:event_idComboBoxItemStateChanged
-
     private void zeroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroButtonActionPerformed
 
         if (AccountController.addOrderZero()) {
@@ -318,7 +328,8 @@ public final class HomeBrokerScreen extends javax.swing.JFrame {
             Long asset = Long.valueOf(idComboBox.getSelectedItem().toString());
 
             Integer quantity = Integer.valueOf(JOptionPane.showInputDialog("Quantity :"));
-            BigDecimal totalValue = new BigDecimal(priceField.getText()).multiply(new BigDecimal(quantity));
+            BigDecimal priceAsset = new BigDecimal(priceField.getText()).multiply(new BigDecimal(0.1));
+            BigDecimal totalValue = priceAsset.multiply(new BigDecimal(quantity));
 
             if (AccountController.hasBalance(totalValue.add(BigDecimal.TEN)) && AssetController.hasAmount(asset, quantity)) {
 

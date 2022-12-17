@@ -4,6 +4,7 @@
  */
 package model.repositories;
 
+import java.util.List;
 import model.entities.Order;
 import model.enums.StateOrder;
 
@@ -17,8 +18,8 @@ public interface OrderRepository {
     
     void updateState(Long id, StateOrder state);
     
-    Order verifyOrderBuy(Order attempt);
+    List<Order> verifyOrderBuy(Order attempt);
     
-    Order verifyOrderSell(Order attempt);
+    List<Order> verifyOrderSell(Order attempt);
     
 }

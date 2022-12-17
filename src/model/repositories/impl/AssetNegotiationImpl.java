@@ -27,8 +27,8 @@ public class AssetNegotiationImpl implements BaseRepository<AssetNegotiation, Lo
     @Override
     public boolean create(AssetNegotiation element) {
         
-        String sql = "insert into assetsNegotiation "
-                + "(asset,buyer,seller,quantity,value,valueTotal,start)" + " values (?,?,?,?,?,?,?)";
+        String sql = "insert into assetNegotiation "
+                + "(asset,buyer,seller,quantity,value,value_total,start)" + " values (?,?,?,?,?,?,?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -52,7 +52,7 @@ public class AssetNegotiationImpl implements BaseRepository<AssetNegotiation, Lo
     @Override
     public List<AssetNegotiation> read() {
         
-        String sql = "select * from assetsNegotiation";
+        String sql = "select * from assetNegotiation";
 
         List<AssetNegotiation> negotiations = new ArrayList<>();
 
@@ -67,7 +67,7 @@ public class AssetNegotiationImpl implements BaseRepository<AssetNegotiation, Lo
                 Long seller = rs.getLong("seller");
                 Integer quantity = rs.getInt("quantity");
                 BigDecimal value = rs.getBigDecimal("value");
-                BigDecimal valueTotal = rs.getBigDecimal("valueTotal");
+                BigDecimal valueTotal = rs.getBigDecimal("value_total");
                 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd' 'HH:mm:ss.S");
                 LocalDateTime start = LocalDateTime.parse(rs.getTimestamp("start").toString(), formatter);
@@ -105,7 +105,7 @@ public class AssetNegotiationImpl implements BaseRepository<AssetNegotiation, Lo
 
     @Override
     public boolean delete(Long id) {
-        String sql = "delete from assetsNegotiation where id = ?";
+        String sql = "delete from assetNegotiation where id = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {

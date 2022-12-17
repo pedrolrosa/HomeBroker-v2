@@ -12,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.database.ConnectionFactory;
@@ -59,8 +61,6 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
                 order.setValue(value);
                 order.setTotalValue(valueTotal);
                 order.setState(state);
-                order.setStart(start);
-                order.setModify(modify);
 
                 order.setStart(start);
                 order.setModify(modify);
@@ -111,7 +111,9 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
     }
     
     @Override
-    public Order verifyOrderBuy(Order attempt) {
+    public List<Order> verifyOrderBuy(Order attempt) {
+        
+        List<Order> orders = new ArrayList<>();
 
         String sql = "select id from orders where type = ? and value <= ? and (state = ? or state = ?)";
 
@@ -124,8 +126,8 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
             stmt.setString(4,"PARCIAL");
             
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return target(rs.getLong("id"));
+                while (rs.next()) {
+                    orders.add(target(rs.getLong("id")));
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -135,12 +137,14 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
             Logger.getLogger(AssetNegotiationServices.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return null;
+        return orders;
 
     }
 
     @Override
-    public Order verifyOrderSell(Order attempt) {
+    public List<Order> verifyOrderSell(Order attempt) {
+        
+        List<Order> orders = new ArrayList<>();
 
         String sql = "select id from orders where type = ? and value >= ? and (state = ? or state = ?)";
 
@@ -153,8 +157,8 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
             stmt.setString(4,"PARCIAL");
             
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return target(rs.getLong("id"));
+                while (rs.next()) {
+                    orders.add(target(rs.getLong("id")));
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -164,7 +168,7 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
             Logger.getLogger(AssetNegotiationServices.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return null;
+        return orders;
 
     }
 

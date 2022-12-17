@@ -32,28 +32,30 @@ public class OrderController {
     }
 
     public static boolean verifyOrderExecution(Order attempt) {
-        if (attempt.getType().equals(TypeOrder.BUY)) {
-            Order satisfy = databaseServices.verifyOrderBuy(attempt);
-            if (satisfy != null) {
 
+        Boolean execute = false;
+
+        if (attempt.getType().equals(TypeOrder.BUY)) {
+            List<Order> orders = databaseServices.verifyOrderBuy(attempt);
+            for (Order satisfy : orders) {
                 BigDecimal value = null;
                 Integer quantity = null;
-
+                
                 OrderExecution executionBuy = new OrderExecution();
                 OrderExecution executionSeller = new OrderExecution();
-
+                
                 executionBuy.setOrder(attempt.getId());
                 executionSeller.setOrder(satisfy.getId());
-
+                
                 executionBuy.setBuyer(attempt.getAccount());
                 executionSeller.setBuyer(attempt.getAccount());
-
+                
                 executionBuy.setSeller(satisfy.getAccount());
                 executionSeller.setSeller(satisfy.getAccount());
-
+                
                 executionBuy.setStart(LocalDateTime.now());
                 executionSeller.setStart(LocalDateTime.now());
-
+                
                 if (Objects.equals(satisfy.getQuantity(), attempt.getQuantity())) {
 
                     value = satisfy.getTotalValue();
@@ -64,7 +66,7 @@ public class OrderController {
 
                     databaseServices.updateState(attempt.getId(), StateOrder.TOTAL);
                     databaseServices.updateState(satisfy.getId(), StateOrder.TOTAL);
-                    
+
                 } else if (satisfy.getQuantity() < attempt.getQuantity()) {
 
                     value = satisfy.getTotalValue();
@@ -75,8 +77,9 @@ public class OrderController {
 
                     databaseServices.updateState(attempt.getId(), StateOrder.PARCIAL);
                     databaseServices.updateState(satisfy.getId(), StateOrder.TOTAL);
-                    
+
                     databaseServices.updateQuantity(attempt.getId(), attempt.getQuantity() - quantity);
+                    attempt.setQuantity(attempt.getQuantity() - quantity);
 
                 } else if (satisfy.getQuantity() > attempt.getQuantity()) {
 
@@ -88,11 +91,12 @@ public class OrderController {
 
                     databaseServices.updateState(attempt.getId(), StateOrder.TOTAL);
                     databaseServices.updateState(satisfy.getId(), StateOrder.PARCIAL);
-                    
+
                     databaseServices.updateQuantity(satisfy.getId(), satisfy.getQuantity() - quantity);
+                    satisfy.setQuantity(satisfy.getQuantity() - quantity);
 
                 }
-
+                
                 AssetNegotiation negotiation = new AssetNegotiation();
                 negotiation.setAsset(satisfy.getAsset());
                 negotiation.setBuyer(attempt.getAccount());
@@ -105,7 +109,7 @@ public class OrderController {
                 
                 Long idRelatesBuyer = RelatesController.requestId(attempt.getAccount(), attempt.getAsset());
                 Long idRelatesSeller = RelatesController.requestId(satisfy.getAccount(), attempt.getAsset());
-
+                
                 if (idRelatesBuyer != null) {
                     if (RelatesController.addAmount(idRelatesBuyer, quantity)
                             && OrderExecutionController.create(executionBuy)
@@ -113,7 +117,7 @@ public class OrderController {
                             && AccountController.transfer(satisfy.getAccount(), value)
                             && RelatesController.subAmount(idRelatesSeller, quantity)
                             && AssetNegotiationController.create(negotiation)) {
-                        return true;
+                        execute = true;
                     }
                 } else {
                     RelatesAccountAsset related = new RelatesAccountAsset();
@@ -129,15 +133,13 @@ public class OrderController {
                             && AccountController.transfer(satisfy.getAccount(), value)
                             && RelatesController.subAmount(idRelatesSeller, quantity)
                             && AssetNegotiationController.create(negotiation)) {
-                        return true;
+                        execute = true;
                     }
                 }
-
             }
-            return false;
         } else if (attempt.getType().equals(TypeOrder.SELL)) {
-            Order satisfy = databaseServices.verifyOrderSell(attempt);
-            if (satisfy != null) {
+            List<Order> orders = databaseServices.verifyOrderSell(attempt);
+            for (Order satisfy : orders) {
 
                 BigDecimal value = null;
                 Integer quantity = null;
@@ -178,8 +180,9 @@ public class OrderController {
 
                     databaseServices.updateState(attempt.getId(), StateOrder.PARCIAL);
                     databaseServices.updateState(satisfy.getId(), StateOrder.TOTAL);
-                    
+
                     databaseServices.updateQuantity(attempt.getId(), attempt.getQuantity() - quantity);
+                    attempt.setQuantity(attempt.getQuantity() - quantity);
 
                 } else if (satisfy.getQuantity() > attempt.getQuantity()) {
 
@@ -191,11 +194,12 @@ public class OrderController {
 
                     databaseServices.updateState(attempt.getId(), StateOrder.TOTAL);
                     databaseServices.updateState(satisfy.getId(), StateOrder.PARCIAL);
-                    
+
                     databaseServices.updateQuantity(satisfy.getId(), satisfy.getQuantity() - quantity);
+                    satisfy.setQuantity(satisfy.getQuantity() - quantity);
 
                 }
-                
+
                 AssetNegotiation negotiation = new AssetNegotiation();
                 negotiation.setAsset(attempt.getAsset());
                 negotiation.setBuyer(satisfy.getAccount());
@@ -203,7 +207,7 @@ public class OrderController {
                 negotiation.setQuantity(quantity);
                 negotiation.setValue(attempt.getValue());
                 negotiation.setValueTotal(value);
-                
+
                 negotiation.setStart(LocalDateTime.now());
 
                 Long idRelatesBuyer = RelatesController.requestId(satisfy.getAccount(), attempt.getAsset());
@@ -216,7 +220,7 @@ public class OrderController {
                             && AccountController.transferToMe(satisfy.getAccount(), value)
                             && RelatesController.subAmount(idRelatesSeller, quantity)
                             && AssetNegotiationController.create(negotiation)) {
-                        return true;
+                        execute = true;
                     }
                 } else {
                     RelatesAccountAsset related = new RelatesAccountAsset();
@@ -232,12 +236,12 @@ public class OrderController {
                             && AccountController.transferToMe(satisfy.getAccount(), value)
                             && RelatesController.subAmount(idRelatesSeller, quantity)
                             && AssetNegotiationController.create(negotiation)) {
-                        return true;
+                        execute = true;
                     }
                 }
             }
         }
-        return false;
+        return execute;
     }
 
     public static boolean create(Order attempt) {

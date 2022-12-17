@@ -4,12 +4,14 @@
  */
 package model.repositories;
 
+import model.entities.AssetNegotiation;
+
 /**
  *
  * @author pedro
  */
 public interface AssetNegotiationRepository {
     
-    
+    AssetNegotiation search(Long asset);
     
 }

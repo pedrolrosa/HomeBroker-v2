@@ -21,8 +21,8 @@ public class AssetNegotiationController {
 
     private static final AssetNegotiationServices databaseServices = new AssetNegotiationServices();
     
-    public static boolean attPriceAsset(Long asset, BigDecimal value){
-        return false;
+    public static AssetNegotiation attPriceAsset(Long asset){
+        return databaseServices.search(asset);
     }
 
     public static boolean create(AssetNegotiation attempt) {

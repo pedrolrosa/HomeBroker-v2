@@ -27,7 +27,7 @@ public class OrderExecutionImpl implements BaseRepository<OrderExecution, Long> 
     @Override
     public boolean create(OrderExecution element) {
         String sql = "insert into ordersExecution "
-                + "(order, buyer, seller, quantity, start)" + " values (?,?,?,?,?)";
+                + "(order_id, buyer, seller, quantity, start)" + " values (?,?,?,?,?)";
 
         try (Connection connection = new ConnectionFactory().getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -40,7 +40,7 @@ public class OrderExecutionImpl implements BaseRepository<OrderExecution, Long> 
             
             stmt.execute();
             
-            return false;
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -58,7 +58,7 @@ public class OrderExecutionImpl implements BaseRepository<OrderExecution, Long> 
 
             while (rs.next()) {
                 Long id = rs.getLong("id");
-                Long order = rs.getLong("order");
+                Long order = rs.getLong("order_id");
                 Long buyer = rs.getLong("buyer");
                 Long seller = rs.getLong("seller");
                 Integer quantity = rs.getInt("quantity");
