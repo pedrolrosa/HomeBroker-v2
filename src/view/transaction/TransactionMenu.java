@@ -7,6 +7,8 @@ package view.transaction;
 import com.itextpdf.text.DocumentException;
 import control.TransactionController;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -37,7 +39,7 @@ public class TransactionMenu extends javax.swing.JFrame {
         backButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         vascoToken = new javax.swing.JLabel();
-        reportButton = new javax.swing.JButton();
+        pdfButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,10 +78,10 @@ public class TransactionMenu extends javax.swing.JFrame {
         vascoToken.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         vascoToken.setText("all rigths reserved to vascoToken");
 
-        reportButton.setText("Report");
-        reportButton.addActionListener(new java.awt.event.ActionListener() {
+        pdfButton.setText("PDF");
+        pdfButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reportButtonActionPerformed(evt);
+                pdfButtonActionPerformed(evt);
             }
         });
 
@@ -94,22 +96,25 @@ public class TransactionMenu extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(87, 87, 87)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(94, 94, 94)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(reportButton)
-                                    .addComponent(backButton))))
-                        .addContainerGap(81, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(readButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(deleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(updateButton, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(87, 87, 87)
+                                .addComponent(jLabel1)
+                                .addGap(0, 75, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pdfButton)))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(backButton)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -125,15 +130,15 @@ public class TransactionMenu extends javax.swing.JFrame {
                         .addComponent(updateButton)
                         .addGap(18, 18, 18)
                         .addComponent(deleteButton)
-                        .addGap(27, 27, 27)
-                        .addComponent(reportButton)
-                        .addGap(31, 31, 31)
+                        .addGap(50, 50, 50)
                         .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)))
-                .addGap(32, 32, 32)
-                .addComponent(vascoToken)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(vascoToken)
+                    .addComponent(pdfButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -159,16 +164,13 @@ public class TransactionMenu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_backButtonActionPerformed
 
-    private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
+    private void pdfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfButtonActionPerformed
         try {
-
             TransactionController.generatePDF();
-        } catch (DocumentException de) {
-            System.out.println("Erro ao gerar pdf");
-        } catch (IOException IE) {
-            System.out.println("Erro ao gerar pdf");
+        } catch (DocumentException | IOException ex) {
+            Logger.getLogger(TransactionMenu.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_reportButtonActionPerformed
+    }//GEN-LAST:event_pdfButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,8 +212,8 @@ public class TransactionMenu extends javax.swing.JFrame {
     private javax.swing.JButton deleteButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton pdfButton;
     private javax.swing.JButton readButton;
-    private javax.swing.JButton reportButton;
     private javax.swing.JButton updateButton;
     private javax.swing.JLabel vascoToken;
     // End of variables declaration//GEN-END:variables

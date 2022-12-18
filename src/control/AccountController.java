@@ -54,6 +54,8 @@ public class AccountController {
                 transaction.setType(TypeTransaction.TRANSFER);
                 transaction.setValue(value);
                 transaction.setStart(DateControl.now());
+                
+                TransactionController.create(transaction);
 
                 transfer(id, value);
                 pay = true;

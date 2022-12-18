@@ -13,7 +13,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
-import model.entities.Asset;
 import model.entities.Transaction;
 import model.repositories.impl.TransactionImpl;
 import model.repositories.services.TransactionServices;
