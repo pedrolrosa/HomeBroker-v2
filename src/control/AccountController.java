@@ -101,6 +101,8 @@ public class AccountController {
             transaction.setStart(DateControl.now());
             
             TransactionController.create(transaction);
+            
+            return true;
         }
 
         return false;

@@ -39,7 +39,6 @@ public class AccountMenu extends javax.swing.JFrame {
         readUserButton = new javax.swing.JButton();
         vascoToken = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         pdfButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -79,13 +78,6 @@ public class AccountMenu extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/romero.png"))); // NOI18N
 
-        jButton1.setText("Report");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         pdfButton.setText("PDF");
         pdfButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,9 +109,7 @@ public class AccountMenu extends javax.swing.JFrame {
                                         .addComponent(jLabel1))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(87, 87, 87)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(exitButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(exitButton)))
                         .addContainerGap(47, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -139,9 +129,7 @@ public class AccountMenu extends javax.swing.JFrame {
                         .addComponent(updateUserButton)
                         .addGap(29, 29, 29)
                         .addComponent(deleteUserButton)
-                        .addGap(30, 30, 30)
-                        .addComponent(jButton1)
-                        .addGap(43, 43, 43)
+                        .addGap(96, 96, 96)
                         .addComponent(exitButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
@@ -182,16 +170,6 @@ public class AccountMenu extends javax.swing.JFrame {
         assetRead.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_readUserButtonActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            AccountController.generatePDF();
-        } catch (DocumentException de) {
-            System.out.println("Error generating file");
-        } catch (IOException IE) {
-            System.out.println("Error generating file");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void pdfButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pdfButtonActionPerformed
         try {
@@ -239,7 +217,6 @@ public class AccountMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteUserButton;
     private javax.swing.JButton exitButton;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton pdfButton;
