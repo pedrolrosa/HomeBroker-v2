@@ -42,6 +42,11 @@ public class RelatesController {
     }
     
     public static boolean subAmount(Long id, Integer quantity){
+        
+        if(searchPerId(id).getQuantity() - quantity <= 0){
+            return database.delete(id);
+        }
+        
         return databaseServices.updateAmount(id, searchPerId(id).getQuantity() - quantity);
     }
     
