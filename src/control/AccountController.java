@@ -4,6 +4,14 @@
  */
 package control;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -160,5 +168,59 @@ public class AccountController {
             return databaseServices.transfer(origin, current.getId(), accountOrigin.subAmount(value), current.addAmount(value));
         }
         return false;
+    }
+    
+    public static void generatePDF() throws DocumentException, IOException {
+
+        List<Account> accounts =database.read();
+
+        // step 1
+        Document document = new Document();
+
+        // step 2
+        
+        PdfWriter.getInstance(document, new FileOutputStream("C:\\Reports/relatorioDeContas.pdf"));
+        
+        
+        // step 3 
+        document.open();
+
+        // step 3 header
+        Paragraph p = new Paragraph("Relatório de Contas");
+        p.setAlignment(1);
+        document.add(p);
+
+        Paragraph p1 = new Paragraph(" ");
+        document.add(p1);
+
+        //step 4
+        PdfPTable table = new PdfPTable(4);
+        PdfPCell cell1 = new PdfPCell(new Paragraph("id")); 
+        PdfPCell cell2 = new PdfPCell(new Paragraph("Owner"));
+        PdfPCell cell3 = new PdfPCell(new Paragraph("Amount"));
+        PdfPCell cell4 = new PdfPCell(new Paragraph("Max"));
+
+        table.addCell(cell1);
+        table.addCell(cell2);
+        table.addCell(cell3);
+        table.addCell(cell4);
+
+        //step 5 
+        for(Account account: accounts){
+        cell1 = new PdfPCell(new Paragraph(String.valueOf(account.getId()))); 
+        cell2 = new PdfPCell(new Paragraph(String.valueOf(account.getOwner())));
+        cell3 = new PdfPCell(new Paragraph(account.getAmount().toString()));
+        cell4 = new PdfPCell(new Paragraph(account.getMax().toString()));
+        table.addCell(cell1);
+        table.addCell(cell2);
+        table.addCell(cell3);
+        table.addCell(cell4);
+         }
+
+        document.add(table);
+
+
+        // step 6
+        document.close();
     }
 }

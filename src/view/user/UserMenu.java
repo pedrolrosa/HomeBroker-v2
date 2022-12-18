@@ -4,7 +4,9 @@
  */
 package view.user;
 
+import com.itextpdf.text.DocumentException;
 import control.UserController;
+import java.io.IOException;
 
 /**
  *
@@ -35,6 +37,7 @@ public class UserMenu extends javax.swing.JFrame {
         deleteUserButton = new javax.swing.JButton();
         exitButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        reportButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +80,13 @@ public class UserMenu extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/img/edilson.png"))); // NOI18N
 
+        reportButton.setText("Report");
+        reportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,9 +97,6 @@ public class UserMenu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(exitButton)
-                        .addGap(93, 93, 93))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(99, 99, 99))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -98,7 +105,12 @@ public class UserMenu extends javax.swing.JFrame {
                             .addComponent(deleteUserButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(updateUserButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(readUserButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(55, 55, 55))))
+                        .addGap(55, 55, 55))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(reportButton)
+                            .addComponent(exitButton))
+                        .addGap(90, 90, 90))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +127,9 @@ public class UserMenu extends javax.swing.JFrame {
                         .addComponent(updateUserButton)
                         .addGap(18, 18, 18)
                         .addComponent(deleteUserButton)
-                        .addGap(105, 105, 105)
+                        .addGap(33, 33, 33)
+                        .addComponent(reportButton)
+                        .addGap(49, 49, 49)
                         .addComponent(exitButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
@@ -154,6 +168,16 @@ public class UserMenu extends javax.swing.JFrame {
         
         this.dispose();
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
+        try{
+        UserController.generatePDF();
+       }catch(DocumentException de){
+            System.out.println("Erro ao gerar pdf");
+       }catch(IOException E){
+        System.out.println("Erro ao gerar pdf");
+       }
+    }//GEN-LAST:event_reportButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,6 +221,7 @@ public class UserMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton readUserButton;
+    private javax.swing.JButton reportButton;
     private javax.swing.JButton updateUserButton;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,6 +4,10 @@
  */
 package view.asset;
 
+import com.itextpdf.text.DocumentException;
+import control.AssetController;
+import java.io.IOException;
+
 /**
  *
  * @author pedro
@@ -34,6 +38,7 @@ public class AssetMenu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         vascoToken = new javax.swing.JLabel();
+        reportButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +84,13 @@ public class AssetMenu extends javax.swing.JFrame {
         vascoToken.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         vascoToken.setText("all rigths reserved to vascoToken");
 
+        reportButton.setText("Report");
+        reportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reportButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,17 +102,18 @@ public class AssetMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addComponent(exitButton))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(67, 67, 67)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(createUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(readUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(updateUserButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(deleteUserButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(readUserButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(updateUserButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(deleteUserButton, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(88, 88, 88)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(reportButton)
+                                    .addComponent(exitButton))))
                         .addGap(0, 78, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(97, 97, 97)
@@ -120,13 +133,15 @@ public class AssetMenu extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
                         .addComponent(createUserButton)
-                        .addGap(34, 34, 34)
+                        .addGap(27, 27, 27)
                         .addComponent(readUserButton)
-                        .addGap(37, 37, 37)
+                        .addGap(27, 27, 27)
                         .addComponent(updateUserButton)
-                        .addGap(36, 36, 36)
+                        .addGap(30, 30, 30)
                         .addComponent(deleteUserButton)
-                        .addGap(42, 42, 42)
+                        .addGap(18, 18, 18)
+                        .addComponent(reportButton)
+                        .addGap(24, 24, 24)
                         .addComponent(exitButton))
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
@@ -165,6 +180,17 @@ public class AssetMenu extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_exitButtonActionPerformed
+
+    private void reportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportButtonActionPerformed
+        try {
+
+            AssetController.generatePDF();
+        } catch (DocumentException de) {
+            System.out.println("Erro ao gerar pdf");
+        } catch (IOException IE) {
+            System.out.println("Erro ao gerar pdf");
+        }
+    }//GEN-LAST:event_reportButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,6 +234,7 @@ public class AssetMenu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton readUserButton;
+    private javax.swing.JButton reportButton;
     private javax.swing.JButton updateUserButton;
     private javax.swing.JLabel vascoToken;
     // End of variables declaration//GEN-END:variables
