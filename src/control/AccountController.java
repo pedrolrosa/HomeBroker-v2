@@ -17,6 +17,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import model.entities.Account;
 import model.entities.RelatesAccountAsset;
+import model.entities.Transaction;
+import model.enums.TypeTransaction;
 import model.repositories.impl.AccountImpl;
 import model.repositories.services.AccountServices;
 
@@ -34,16 +36,25 @@ public class AccountController {
     private static final AccountServices databaseServices = new AccountServices();
 
     public static boolean dividend(Long asset, LocalDateTime base, BigDecimal value) {
-        
+
         boolean pay = false;
-        
+
         List<Long> idsAccounts = databaseServices.accountsDividend(asset);
 
-        for(Long id : idsAccounts){
-            
+        for (Long id : idsAccounts) {
+
             RelatesAccountAsset related = RelatesController.search(id);
-            
-            if(related.getStart().isBefore(base) && related.getModify().isAfter(base)){
+
+            if (related.getStart().isBefore(base) && related.getModify().isAfter(base)) {
+
+                Transaction transaction = new Transaction();
+                transaction.setDescription("dividend");
+                transaction.setDestiny(id);
+                transaction.setOwner(current.getId());
+                transaction.setType(TypeTransaction.TRANSFER);
+                transaction.setValue(value);
+                transaction.setStart(DateControl.now());
+
                 transfer(id, value);
                 pay = true;
             }
@@ -78,7 +89,19 @@ public class AccountController {
     }
 
     public static boolean fee(BigDecimal value) {
-        return transfer(searchAdm(), value);
+        if (transfer(searchAdm(), value)) {
+            Transaction transaction = new Transaction();
+            transaction.setDescription("fee order");
+            transaction.setDestiny(searchAdm());
+            transaction.setOwner(current.getId());
+            transaction.setType(TypeTransaction.TRANSFER);
+            transaction.setValue(value);
+            transaction.setStart(DateControl.now());
+            
+            TransactionController.create(transaction);
+        }
+
+        return false;
     }
 
     public static void feeMonth() {
@@ -169,19 +192,17 @@ public class AccountController {
         }
         return false;
     }
-    
+
     public static void generatePDF() throws DocumentException, IOException {
 
-        List<Account> accounts =database.read();
+        List<Account> accounts = database.read();
 
         // step 1
         Document document = new Document();
 
         // step 2
-        
         PdfWriter.getInstance(document, new FileOutputStream("C:\\Reports/relatorioDeContas.pdf"));
-        
-        
+
         // step 3 
         document.open();
 
@@ -195,7 +216,7 @@ public class AccountController {
 
         //step 4
         PdfPTable table = new PdfPTable(4);
-        PdfPCell cell1 = new PdfPCell(new Paragraph("id")); 
+        PdfPCell cell1 = new PdfPCell(new Paragraph("id"));
         PdfPCell cell2 = new PdfPCell(new Paragraph("Owner"));
         PdfPCell cell3 = new PdfPCell(new Paragraph("Amount"));
         PdfPCell cell4 = new PdfPCell(new Paragraph("Max"));
@@ -206,19 +227,18 @@ public class AccountController {
         table.addCell(cell4);
 
         //step 5 
-        for(Account account: accounts){
-        cell1 = new PdfPCell(new Paragraph(String.valueOf(account.getId()))); 
-        cell2 = new PdfPCell(new Paragraph(String.valueOf(account.getOwner())));
-        cell3 = new PdfPCell(new Paragraph(account.getAmount().toString()));
-        cell4 = new PdfPCell(new Paragraph(account.getMax().toString()));
-        table.addCell(cell1);
-        table.addCell(cell2);
-        table.addCell(cell3);
-        table.addCell(cell4);
-         }
+        for (Account account : accounts) {
+            cell1 = new PdfPCell(new Paragraph(String.valueOf(account.getId())));
+            cell2 = new PdfPCell(new Paragraph(String.valueOf(account.getOwner())));
+            cell3 = new PdfPCell(new Paragraph(account.getAmount().toString()));
+            cell4 = new PdfPCell(new Paragraph(account.getMax().toString()));
+            table.addCell(cell1);
+            table.addCell(cell2);
+            table.addCell(cell3);
+            table.addCell(cell4);
+        }
 
         document.add(table);
-
 
         // step 6
         document.close();

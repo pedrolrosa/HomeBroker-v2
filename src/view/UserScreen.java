@@ -316,7 +316,7 @@ public class UserScreen extends javax.swing.JFrame {
 
         jLabel6.setText("Base:");
 
-        jLabel7.setText("End:");
+        jLabel7.setText("Payment:");
 
         baseDateField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
 
@@ -349,7 +349,7 @@ public class UserScreen extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dividendPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(dividendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107))
+                .addGap(115, 115, 115))
         );
         dividendPanelLayout.setVerticalGroup(
             dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

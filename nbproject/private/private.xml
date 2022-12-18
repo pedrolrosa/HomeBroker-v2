@@ -6,10 +6,12 @@
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/orders_execution/OrderExecutionRead.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/AssetNegotiationController.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/services/OrderServices.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/OrderController.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/services/TransactionServices.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/enums/TypeTransaction.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/BaseImpl.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/OrderExecutionController.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserRead.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/Order.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/TransactionRepository.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/BaseRepository.java</file>
@@ -20,6 +22,7 @@
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/orders_execution/OrderExecutionMenu.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/assets_negotiation/AssetNegotiationDelete.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/RelatesController.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/Dividend.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/AccountController.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/Entity.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/HomeBrokerScreen.java</file>
@@ -31,6 +34,7 @@
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/asset/AssetCreate.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/User.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/TransactionImpl.java</file>
+            <file>file:/C:/projetos/homebroker-integrated-with-db/src/view/user/UserDelete.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/entities/Transaction.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/model/repositories/impl/RelatesAccountAssetImpl.java</file>
             <file>file:/C:/projetos/homebroker-integrated-with-db/src/control/TransactionController.java</file>
