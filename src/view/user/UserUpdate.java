@@ -6,7 +6,6 @@ package view.user;
 
 import control.DateControl;
 import control.UserController;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.User;

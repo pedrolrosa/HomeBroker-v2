@@ -9,9 +9,13 @@ import control.AssetController;
 import control.DateControl;
 import control.UserController;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.entities.Asset;
+import model.entities.Dividend;
 import model.enums.TypeUser;
 
 /**
@@ -63,6 +67,8 @@ public class UserScreen extends javax.swing.JFrame {
             idAssetComboBox.setEnabled(false);
             valueAssetField.setEnabled(false);
             dividendButton.setEnabled(false);
+            baseDateField.setEnabled(false);
+            endDateField.setEnabled(false);
         }
 
         if (!(AccountController.acess(UserController.logued.getId()))) {
@@ -120,6 +126,10 @@ public class UserScreen extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         valueAssetField = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        baseDateField = new javax.swing.JFormattedTextField();
+        endDateField = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -220,7 +230,7 @@ public class UserScreen extends javax.swing.JFrame {
                         .addGroup(infoAccountPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(phoneLabel)
                             .addComponent(phoneInLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(49, 49, 49))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         vascoToken.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
@@ -304,38 +314,64 @@ public class UserScreen extends javax.swing.JFrame {
 
         jLabel5.setText("Value:");
 
+        jLabel6.setText("Base:");
+
+        jLabel7.setText("End:");
+
+        baseDateField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+
+        endDateField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+
         javax.swing.GroupLayout dividendPanelLayout = new javax.swing.GroupLayout(dividendPanel);
         dividendPanel.setLayout(dividendPanelLayout);
         dividendPanelLayout.setHorizontalGroup(
             dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dividendPanelLayout.createSequentialGroup()
+            .addGroup(dividendPanelLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
-                .addComponent(jLabel4)
+                .addGroup(dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(idAssetComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jLabel5)
+                .addGroup(dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(dividendPanelLayout.createSequentialGroup()
+                        .addComponent(baseDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addComponent(jLabel7))
+                    .addGroup(dividendPanelLayout.createSequentialGroup()
+                        .addComponent(idAssetComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel5)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(valueAssetField, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGroup(dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(valueAssetField, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dividendPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(dividendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64))
+                .addGap(107, 107, 107))
         );
         dividendPanelLayout.setVerticalGroup(
             dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dividendPanelLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(idAssetComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
+                .addGap(15, 15, 15)
+                .addGroup(dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel5)
-                        .addComponent(valueAssetField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(valueAssetField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(idAssetComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addGroup(dividendPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(baseDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(dividendButton)
-                .addGap(21, 21, 21))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -387,13 +423,13 @@ public class UserScreen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(infoAccountPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(18, 18, 18)
                         .addComponent(dividendPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -457,7 +493,21 @@ public class UserScreen extends javax.swing.JFrame {
         
         BigDecimal value = new BigDecimal(valueAssetField.getText());
         
-        if(AccountController.dividend(asset, value)){
+        DateTimeFormatter parser = DateTimeFormatter.ofPattern("dd/MM/y");
+        
+        String baseText = baseDateField.getText();
+        LocalDateTime base = LocalDate.parse(baseText, parser).atStartOfDay();
+        
+        String paymentText = endDateField.getText();
+        LocalDateTime payment = LocalDate.parse(paymentText, parser).atStartOfDay();
+        
+        Dividend dividend = new Dividend();
+        dividend.setAsset(asset);
+        dividend.setBase(base);
+        dividend.setPayment(payment);
+        dividend.setValue(value);
+        
+        if(DateControl.addDividend(dividend)){
             JOptionPane.showMessageDialog(this,"Sucess !");
         } else {
             JOptionPane.showMessageDialog(this,"Failed !");
@@ -506,6 +556,7 @@ public class UserScreen extends javax.swing.JFrame {
     private final javax.swing.JLabel addressLabel = new javax.swing.JLabel();
     private javax.swing.JButton admButton;
     private javax.swing.JButton backButton;
+    private javax.swing.JFormattedTextField baseDateField;
     private javax.swing.JTextField cpfInLabel;
     private final javax.swing.JLabel cpfLabel = new javax.swing.JLabel();
     private javax.swing.JButton creditsButton;
@@ -513,6 +564,7 @@ public class UserScreen extends javax.swing.JFrame {
     private javax.swing.JTextField daysField;
     private javax.swing.JButton dividendButton;
     private javax.swing.JPanel dividendPanel;
+    private javax.swing.JFormattedTextField endDateField;
     private javax.swing.JComboBox<String> idAssetComboBox;
     private javax.swing.JPanel infoAccountPanel;
     private javax.swing.JLabel jLabel1;
@@ -520,6 +572,8 @@ public class UserScreen extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField modifyInLabel;
     private final javax.swing.JLabel modifyLabel = new javax.swing.JLabel();

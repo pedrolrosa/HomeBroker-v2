@@ -5,8 +5,10 @@
 package control;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import model.entities.Account;
+import model.entities.RelatesAccountAsset;
 import model.repositories.impl.AccountImpl;
 import model.repositories.services.AccountServices;
 
@@ -23,18 +25,22 @@ public class AccountController {
     private static final AccountImpl database = new AccountImpl();
     private static final AccountServices databaseServices = new AccountServices();
 
-    public static boolean dividend(Long asset, BigDecimal value) {
+    public static boolean dividend(Long asset, LocalDateTime base, BigDecimal value) {
+        
+        boolean pay = false;
+        
+        List<Long> idsAccounts = databaseServices.accountsDividend(asset);
 
-        List<Long> ids = databaseServices.accountsDividend(asset);
-
-        if (ids != null) {
-            for (Long id : ids) {
+        for(Long id : idsAccounts){
+            
+            RelatesAccountAsset related = RelatesController.search(id);
+            
+            if(related.getStart().isBefore(base) && related.getModify().isAfter(base)){
                 transfer(id, value);
+                pay = true;
             }
-
-            return true;
         }
-        return false;
+        return pay;
     }
 
     public static String getNameLabel() {
