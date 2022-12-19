@@ -39,7 +39,7 @@ public class AccountController {
 
         boolean pay = false;
 
-        List<Long> idsAccounts = databaseServices.accountsDividend(asset);
+        List<Long> idsAccounts = databaseServices.accountsDividend(asset, searchAdm());
 
         for (Long id : idsAccounts) {
 

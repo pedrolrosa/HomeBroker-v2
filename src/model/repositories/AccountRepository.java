@@ -13,7 +13,7 @@ import model.entities.Account;
  */
 public interface AccountRepository{
     
-    List<Long> accountsDividend(Long asset);
+    List<Long> accountsDividend(Long asset, Long adm);
     
     Long searchPerType(String type);
     

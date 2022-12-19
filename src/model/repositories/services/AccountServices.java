@@ -209,15 +209,16 @@ public class AccountServices extends BaseImpl implements AccountRepository, Base
     }
 
     @Override
-    public List<Long> accountsDividend(Long asset) {
+    public List<Long> accountsDividend(Long asset, Long adm) {
         List<Long> accounts = new ArrayList<>();
 
-        String sql = "select id from relatesaccountassets where asset = ? and account != 1";
+        String sql = "select id from relatesaccountassets where asset = ? and account != ?";
 
         try (Connection connection = new ConnectionFactory().getConnection(); 
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setLong(1, asset);
+            stmt.setLong(2, adm);
 
             stmt.execute();
 
