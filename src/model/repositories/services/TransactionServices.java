@@ -67,7 +67,7 @@ public class TransactionServices extends BaseImpl implements TransactionReposito
     
     @Override
     public List<Transaction> search(Long owner){
-        String sql = "select * from transactions where owner = ? or destiny = ?";
+        String sql = "select * from transactions where owner = ? or destiny = ? order by id desc";
 
         List<Transaction> transactions = new ArrayList<>();
 

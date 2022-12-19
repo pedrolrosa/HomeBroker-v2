@@ -4,7 +4,6 @@
  */
 package control;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ public class DateControl {
         while (past < days) {
             
             for(Dividend dividend : dividends){
-                if(dividend.getPayment().isEqual(date)){
+                if(dividend.getPayment().toLocalDate().isEqual(date.toLocalDate())){
                     AccountController.dividend(dividend.getAsset(), dividend.getBase(), dividend.getValue());
                 }
             }

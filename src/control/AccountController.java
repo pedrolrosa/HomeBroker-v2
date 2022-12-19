@@ -45,7 +45,7 @@ public class AccountController {
 
             RelatesAccountAsset related = RelatesController.search(id);
 
-            if (related.getStart().isBefore(base) && related.getModify().isAfter(base)) {
+            if (related.getStart().toLocalDate().isAfter(base.toLocalDate())) {
 
                 Transaction transaction = new Transaction();
                 transaction.setDescription("dividend");

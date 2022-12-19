@@ -62,16 +62,17 @@ public class RelatesAccountAssetServices extends BaseImpl implements RelatesAcco
     }
 
     @Override
-    public Long requestId(Long account) {
+    public Long requestId(Long id) {
         String sql = "select id from relatesAccountAssets where account = ?";
 
         try (Connection connection = new ConnectionFactory().getConnection(); 
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setLong(1, account);
+            stmt.setLong(1, id);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
+                    
                     return rs.getLong("id");
                 }
             } catch (SQLException e) {

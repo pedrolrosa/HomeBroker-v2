@@ -26,8 +26,8 @@ public class RelatesController {
         return databaseServices.requestId(account, asset);
     }
     
-    public static RelatesAccountAsset search(Long account){
-        return databaseServices.target(requestId(account));
+    public static RelatesAccountAsset search(Long id){
+        return databaseServices.target(id);
     }
     
     public static RelatesAccountAsset searchPerId(Long id){

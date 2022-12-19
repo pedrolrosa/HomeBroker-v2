@@ -5,7 +5,6 @@
 package model.repositories.services;
 
 import control.AccountController;
-import static control.AccountController.current;
 import control.DateControl;
 import control.TransactionController;
 import java.math.BigDecimal;
@@ -213,9 +212,10 @@ public class AccountServices extends BaseImpl implements AccountRepository, Base
     public List<Long> accountsDividend(Long asset) {
         List<Long> accounts = new ArrayList<>();
 
-        String sql = "select id from relatesaccountassets where asset = ?";
+        String sql = "select id from relatesaccountassets where asset = ? and account != 1";
 
-        try (Connection connection = new ConnectionFactory().getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection connection = new ConnectionFactory().getConnection(); 
+                PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setLong(1, asset);
 
