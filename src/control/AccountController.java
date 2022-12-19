@@ -13,6 +13,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import model.entities.Account;
@@ -52,12 +53,12 @@ public class AccountController {
                 transaction.setDestiny(id);
                 transaction.setOwner(current.getId());
                 transaction.setType(TypeTransaction.TRANSFER);
-                transaction.setValue(value);
+                transaction.setValue(value.multiply(new BigDecimal(related.getQuantity())));
                 transaction.setStart(DateControl.now());
                 
                 TransactionController.create(transaction);
 
-                transfer(id, value);
+                transfer(id, value.multiply(new BigDecimal(related.getQuantity())));
                 pay = true;
             }
         }
