@@ -128,7 +128,7 @@ public class OrderImpl implements BaseRepository<Order, Long> {
     }
 
     public List<Order> read(Long asset) {
-        String sql = "select * from orders where asset = ?";
+        String sql = "select * from orders where asset = ? order by value";
 
         List<Order> orders = new ArrayList<>();
 

@@ -115,7 +115,7 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
         
         List<Order> orders = new ArrayList<>();
 
-        String sql = "select id from orders where type = ? and value <= ? and (state = ? or state = ?)";
+        String sql = "select id from orders where type = ? and value <= ? and (state = ? or state = ?) order by value";
 
         try (Connection connection = new ConnectionFactory().getConnection(); 
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -146,7 +146,7 @@ public class OrderServices extends BaseImpl implements OrderRepository, BaseRepo
         
         List<Order> orders = new ArrayList<>();
 
-        String sql = "select id from orders where type = ? and value >= ? and (state = ? or state = ?)";
+        String sql = "select id from orders where type = ? and value >= ? and (state = ? or state = ?) order by value";
 
         try (Connection connection = new ConnectionFactory().getConnection(); 
                 PreparedStatement stmt = connection.prepareStatement(sql)) {
